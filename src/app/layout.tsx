@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GoogleAdSense from "@/components/GoogleAdSense";
+import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -56,6 +57,27 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-screen flex-col bg-white text-neutral-900">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Organization",
+                "@id": `${SITE.url}/#organization`,
+                name: SITE.name,
+                url: SITE.url,
+                email: "contact@markdownpdf.app",
+              },
+              {
+                "@type": "WebSite",
+                "@id": `${SITE.url}/#website`,
+                name: SITE.name,
+                url: SITE.url,
+                publisher: { "@id": `${SITE.url}/#organization` },
+              },
+            ],
+          }}
+        />
         <GoogleAdSense />
         <Header />
         <main className="flex-1">{children}</main>

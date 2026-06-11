@@ -90,16 +90,26 @@ export default function PdfToMarkdownPage() {
         }}
       />
 
-      <div className="mx-auto max-w-4xl px-4 py-10">
-        <h1 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-          PDF to Markdown Converter
-        </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-center text-neutral-600">
-          Free online tool to convert PDF documents into clean Markdown. Automatic OCR for scanned
-          files. 100% private — your PDF never leaves your browser.
-        </p>
-        <div className="mt-8">
-          <PdfToMarkdownTool />
+      <div className="relative overflow-hidden">
+        <div className="bg-grid absolute inset-0" aria-hidden />
+        <div
+          className="absolute left-1/2 top-0 -z-10 h-96 w-[50rem] -translate-x-1/2 rounded-full bg-gradient-to-tr from-indigo-200/50 via-violet-200/30 to-transparent blur-3xl"
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-4xl px-4 pb-14 pt-12">
+          <h1 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
+            PDF to Markdown{" "}
+            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+              Converter
+            </span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
+            Free online tool to convert PDF documents into clean Markdown. Automatic OCR for
+            scanned files. 100% private — your PDF never leaves your browser.
+          </p>
+          <div className="mt-10">
+            <PdfToMarkdownTool />
+          </div>
         </div>
       </div>
 
@@ -110,7 +120,7 @@ export default function PdfToMarkdownPage() {
         <ol className="mt-6 space-y-6">
           {steps.map((s, i) => (
             <li key={s.name} className="flex gap-4">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">
                 {i + 1}
               </span>
               <div>
@@ -171,7 +181,7 @@ export default function PdfToMarkdownPage() {
         <h2 className="text-xl font-bold text-neutral-900">Need the other direction?</h2>
         <p className="mt-2 text-neutral-600">
           Turn your Markdown files into polished PDF documents with our{" "}
-          <Link href="/markdown-to-pdf" className="font-medium text-blue-600 hover:underline">
+          <Link href="/markdown-to-pdf" className="font-medium text-indigo-600 hover:underline">
             Markdown to PDF converter
           </Link>
           .

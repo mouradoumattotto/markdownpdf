@@ -17,7 +17,7 @@ export default function ContactPage() {
         </p>
         <p>
           Email us at{" "}
-          <a href="mailto:contact@markdownpdf.app" className="text-blue-600">
+          <a href="mailto:contact@markdownpdf.app" className="text-indigo-600">
             contact@markdownpdf.app
           </a>{" "}
           and we&apos;ll get back to you as soon as we can — usually within a couple of business

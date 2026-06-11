@@ -21,10 +21,10 @@ export default function BlogIndexPage() {
         {posts.map((post) => (
           <article
             key={post.slug}
-            className="rounded-xl border border-neutral-200 p-6 transition hover:border-blue-300 hover:shadow-sm"
+            className="rounded-xl border border-neutral-200 p-6 transition hover:border-indigo-300 hover:shadow-sm"
           >
             <h2 className="text-xl font-semibold text-neutral-900">
-              <Link href={`/blog/${post.slug}`} className="hover:text-blue-600">
+              <Link href={`/blog/${post.slug}`} className="hover:text-indigo-600">
                 {post.title}
               </Link>
             </h2>

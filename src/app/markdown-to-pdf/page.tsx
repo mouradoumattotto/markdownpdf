@@ -62,16 +62,26 @@ export default function MarkdownToPdfPage() {
         }}
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-10">
-        <h1 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-          Markdown to PDF Converter
-        </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-center text-neutral-600">
-          Write or paste Markdown, preview it live, and download a clean A4 PDF with real
-          selectable text. Free, no watermark, and fully private.
-        </p>
-        <div className="mt-8">
-          <MarkdownToPdfTool />
+      <div className="relative overflow-hidden">
+        <div className="bg-grid absolute inset-0" aria-hidden />
+        <div
+          className="absolute left-1/2 top-0 -z-10 h-96 w-[50rem] -translate-x-1/2 rounded-full bg-gradient-to-tr from-indigo-200/50 via-violet-200/30 to-transparent blur-3xl"
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-12">
+          <h1 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
+            Markdown to PDF{" "}
+            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+              Converter
+            </span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
+            Write or paste Markdown, preview it live, and download a clean A4 PDF with real
+            selectable text. Free, no watermark, and fully private.
+          </p>
+          <div className="mt-10">
+            <MarkdownToPdfTool />
+          </div>
         </div>
       </div>
 
@@ -125,7 +135,7 @@ export default function MarkdownToPdfPage() {
         <h2 className="text-xl font-bold text-neutral-900">Need the other direction?</h2>
         <p className="mt-2 text-neutral-600">
           Extract clean Markdown from any PDF with our{" "}
-          <Link href="/pdf-to-markdown" className="font-medium text-blue-600 hover:underline">
+          <Link href="/pdf-to-markdown" className="font-medium text-indigo-600 hover:underline">
             PDF to Markdown converter
           </Link>
           .

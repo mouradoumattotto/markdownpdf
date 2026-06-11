@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight text-neutral-900">About MarkdownPDF</h1>
-      <div className="prose prose-neutral mt-6 max-w-none prose-a:text-blue-600">
+      <div className="prose prose-neutral mt-6 max-w-none prose-a:text-indigo-600">
         <p>
           MarkdownPDF is a free online tool for converting documents between PDF and Markdown. We
           built it around one simple idea: <strong>file conversion should not require uploading

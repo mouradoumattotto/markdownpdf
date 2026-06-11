@@ -47,6 +47,17 @@ export default async function BlogPostPage({
       <JsonLd
         data={{
           "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+            { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE.url}/blog` },
+            { "@type": "ListItem", position: 3, name: post.title },
+          ],
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
           "@type": "BlogPosting",
           headline: post.title,
           description: post.description,
@@ -76,18 +87,18 @@ export default async function BlogPostPage({
         · {post.readingMinutes} min read
       </p>
       <div
-        className="prose prose-neutral mt-8 max-w-none prose-a:text-blue-600"
+        className="prose prose-neutral mt-8 max-w-none prose-a:text-indigo-600"
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
-      <aside className="mt-12 rounded-xl border border-blue-100 bg-blue-50 p-6">
+      <aside className="mt-12 rounded-xl border border-indigo-100 bg-indigo-50 p-6">
         <p className="font-semibold text-neutral-900">Try it yourself</p>
         <p className="mt-1 text-neutral-600">
           Convert files free and privately in your browser:{" "}
-          <Link href="/pdf-to-markdown" className="font-medium text-blue-600 hover:underline">
+          <Link href="/pdf-to-markdown" className="font-medium text-indigo-600 hover:underline">
             PDF to Markdown
           </Link>{" "}
           ·{" "}
-          <Link href="/markdown-to-pdf" className="font-medium text-blue-600 hover:underline">
+          <Link href="/markdown-to-pdf" className="font-medium text-indigo-600 hover:underline">
             Markdown to PDF
           </Link>
         </p>
