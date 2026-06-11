@@ -38,9 +38,16 @@ export default function PrivacyPolicyPage() {
 
         <h2>3. Analytics</h2>
         <p>
-          We may use privacy-respecting analytics to understand aggregate site usage (page views,
-          referrers, approximate location at country level). This data is aggregated and is not
-          used to identify individual visitors.
+          We use Google Analytics 4 to understand aggregate site usage (page views, referrers,
+          approximate location, device type). Google Analytics may set cookies to distinguish
+          visitors. In the European Economic Area, the United Kingdom, and Switzerland, analytics
+          cookies are disabled by default until you give consent (Google Consent Mode); in that
+          case only anonymous, cookieless measurement signals are sent. Google Analytics 4 does
+          not log or store IP addresses. You can also opt out globally with the{" "}
+          <a href="https://tools.google.com/dlpage/gaoptout" rel="nofollow noopener">
+            Google Analytics opt-out browser add-on
+          </a>
+          .
         </p>
 
         <h2>4. Advertising and cookies</h2>
