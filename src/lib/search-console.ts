@@ -1,7 +1,4 @@
-import { JWT } from "google-auth-library";
 import { SITE } from "@/lib/site";
-
-const SCOPE = "https://www.googleapis.com/auth/webmasters";
 
 /**
  * The Search Console property identifier.
@@ -28,25 +25,48 @@ export interface SubmitResult {
 }
 
 /**
- * Submits the sitemap to Google Search Console using a service-account JWT.
- * Requires GSC_CLIENT_EMAIL and GSC_PRIVATE_KEY env vars; the service account
- * must be a (delegated) owner of the Search Console property.
+ * Exchanges the long-lived OAuth refresh token for a short-lived access token.
+ * Uses the Google account's own credentials (owner of the GSC property), so it
+ * works for every property that account can access — no per-property setup.
  */
-export async function submitSitemap(): Promise<SubmitResult> {
-  const clientEmail = process.env.GSC_CLIENT_EMAIL;
-  // Vercel stores multiline secrets with literal "\n"; restore real newlines.
-  const privateKey = process.env.GSC_PRIVATE_KEY?.replace(/\\n/g, "\n");
+async function getAccessToken(): Promise<string> {
+  const clientId = process.env.GSC_CLIENT_ID;
+  const clientSecret = process.env.GSC_CLIENT_SECRET;
+  const refreshToken = process.env.GSC_REFRESH_TOKEN;
 
-  if (!clientEmail || !privateKey) {
-    throw new Error("Missing GSC_CLIENT_EMAIL or GSC_PRIVATE_KEY env vars");
+  if (!clientId || !clientSecret || !refreshToken) {
+    throw new Error(
+      "Missing GSC_CLIENT_ID, GSC_CLIENT_SECRET or GSC_REFRESH_TOKEN env vars",
+    );
   }
 
+  const res = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+      client_id: clientId,
+      client_secret: clientSecret,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`OAuth token refresh failed (${res.status}): ${await res.text()}`);
+  }
+  const { access_token } = (await res.json()) as { access_token?: string };
+  if (!access_token) throw new Error("No access_token returned from Google");
+  return access_token;
+}
+
+/**
+ * Submits the sitemap to Google Search Console. Requires the OAuth env vars
+ * above; the authenticated account must be an owner of the GSC property.
+ */
+export async function submitSitemap(): Promise<SubmitResult> {
   const site = siteUrl();
   const sitemap = sitemapUrl();
-
-  const auth = new JWT({ email: clientEmail, key: privateKey, scopes: [SCOPE] });
-  const { token } = await auth.getAccessToken();
-  if (!token) throw new Error("Failed to obtain Google access token");
+  const token = await getAccessToken();
 
   const endpoint = `https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(
     site,
