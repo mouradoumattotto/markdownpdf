@@ -53,7 +53,7 @@ Faded ink, gray backgrounds, coffee stains, and shadows from photographing a cur
 
 ### Mind the layout
 
-Multi-column layouts, tables, handwriting, and decorative fonts are the hardest cases for any OCR engine. Printed body text in a single column is the easy case. Expect to do more manual cleanup on complex layouts — and treat handwriting recognition as a bonus when it works, not a guarantee.
+Multi-column layouts, tables, handwriting, and decorative fonts are the hardest cases for any OCR engine. Printed body text in a single column is the easy case. Tables in particular often need a dedicated approach — see how to [extract tables from a PDF to Markdown](/blog/extract-tables-from-pdf-to-markdown) cleanly. Expect to do more manual cleanup on complex layouts — and treat handwriting recognition as a bonus when it works, not a guarantee.
 
 ## Step 4: Clean up common OCR errors
 
@@ -74,7 +74,7 @@ The text-extraction landscape sorts into three tiers:
 - **Paid desktop suites** such as Adobe Acrobat Pro or ABBYY FineReader add batch processing of thousands of pages, advanced layout reconstruction, and the ability to write a searchable text layer back into the original PDF. Worth it if OCR is part of your daily job.
 - **Cloud OCR APIs** from Google, Amazon, and Microsoft are aimed at developers processing documents programmatically at scale, priced per page.
 
-The honest advice: start free. If you hit a real wall — enormous volume, very degraded sources, strict layout-reconstruction needs — you will know exactly which paid feature you are buying.
+If you want to weigh specific tools against each other, our roundup of the [best PDF to Markdown converters](/blog/best-pdf-to-markdown-converters) compares the free and paid options side by side. The honest advice: start free. If you hit a real wall — enormous volume, very degraded sources, strict layout-reconstruction needs — you will know exactly which paid feature you are buying.
 
 ## Wrapping up
 

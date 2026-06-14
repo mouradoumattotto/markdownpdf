@@ -14,7 +14,7 @@ This guide compares all three honestly, then gives concrete recommendations by s
 
 **Word** (`.docx`) is built for *writing and revising rich documents*. It pairs editable text with heavyweight formatting machinery: styles, tracked changes, comments, tables of contents, mail merge. The `.docx` format is XML inside a ZIP archive and is also an ISO standard, though in practice fidelity depends on opening it in compatible software — the same file can reflow differently across word processors and versions.
 
-**Markdown** is *structured plain text*. You mark headings with `#`, emphasis with `*`, lists with `-`, and the file stays readable in any text editor on any machine. It separates content from presentation entirely: the Markdown holds the structure, and styling is applied later when the file is rendered to HTML, PDF, or anything else. If the format is new to you, our [complete guide to Markdown](/blog/what-is-markdown-complete-guide) covers the syntax in full.
+**Markdown** is *structured plain text*. You mark headings with `#`, emphasis with `*`, lists with `-`, and the file stays readable in any text editor on any machine. It separates content from presentation entirely: the Markdown holds the structure, and styling is applied later when the file is rendered to HTML, PDF, or anything else. That clean structure is also why [LLMs work better with Markdown than PDF](/blog/why-llms-prefer-markdown). If the format is new to you, our [complete guide to Markdown](/blog/what-is-markdown-complete-guide) covers the syntax in full.
 
 ## Head-to-head comparison
 
@@ -66,7 +66,7 @@ The general rule: **author in an editable format, export to PDF last.** Going "d
 
 **Documents under heavy review by non-technical collaborators → Word** (or Google Docs). A manuscript with three editors, a report circulating for tracked-changes feedback, an HR policy with comments from five departments — this is the workflow Word was built for.
 
-**Notes, drafts, and personal knowledge → Markdown.** It is fast to write, searchable as plain text, syncs trivially, and will never be locked inside an app. This is why Obsidian, Notion-style tools, and most modern note apps speak Markdown — more on that in [Markdown for note-taking](/blog/markdown-for-note-taking).
+**Notes, drafts, and personal knowledge → Markdown.** It is fast to write, searchable as plain text, syncs trivially, and will never be locked inside an app. This is why Obsidian, Notion-style tools, and most modern note apps speak Markdown — more on that in [Markdown for note-taking](/blog/markdown-for-note-taking). The same plain-text advantages make Markdown a great choice for [writing a resume you export to PDF](/blog/markdown-resume-to-pdf).
 
 **Technical documentation and anything in version control → Markdown.** READMEs, wikis, API docs, runbooks. Diffable, reviewable, and renderable into websites or PDFs on demand.
 

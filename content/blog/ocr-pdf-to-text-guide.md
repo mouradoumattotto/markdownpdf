@@ -39,7 +39,7 @@ The result is text — which can then be structured into something useful like M
 | PDF where some pages select and others do not | Partially — mixed documents exist |
 | "Flattened" PDF saved as images for security | Yes |
 
-Typical real-world cases: digitizing old paper records, extracting data from received invoices, making a scanned book searchable, quoting from archived reports, and converting legacy documentation into an editable format. If you want the end result as clean Markdown rather than raw text, a tool like our [PDF to Markdown converter](/pdf-to-markdown) runs OCR and structural formatting in one step — and because MarkdownPDF processes everything locally in your browser, scanned contracts and medical records never leave your machine.
+Typical real-world cases: digitizing old paper records, extracting data from received invoices, making a scanned book searchable, quoting from archived reports, and converting legacy documentation into an editable format. For a hands-on walkthrough of the whole routine, see our guide to [extracting text from a scanned PDF](/blog/extract-text-from-scanned-pdf). If you want the end result as clean Markdown rather than raw text, a tool like our [PDF to Markdown converter](/pdf-to-markdown) runs OCR and structural formatting in one step — and because MarkdownPDF processes everything locally in your browser, scanned contracts and medical records never leave your machine.
 
 ## What determines OCR accuracy
 
@@ -95,4 +95,4 @@ Because the PDF contains images of pages, not text. Search works on character da
 
 ### Does OCR work on tables?
 
-OCR reads the characters in a table reliably, but reconstructing the table *structure* — which text belongs to which cell — is harder and depends on the tool. Simple grids usually survive; complex tables with merged cells often need manual cleanup afterward.
+OCR reads the characters in a table reliably, but reconstructing the table *structure* — which text belongs to which cell — is harder and depends on the tool. Simple grids usually survive; complex tables with merged cells often need manual cleanup afterward. Our guide to [extracting tables from a PDF to Markdown](/blog/extract-tables-from-pdf-to-markdown) digs into the table-specific tactics.

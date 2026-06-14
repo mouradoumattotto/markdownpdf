@@ -18,7 +18,7 @@ Agencies and contractors often have to hand over documentation as part of a deli
 
 ### Offline reading and archiving
 
-PDFs are self-contained and render identically everywhere, which makes them ideal for offline reading and long-term archiving. A README on GitHub depends on GitHub being reachable and the repo continuing to exist; a PDF in your records does not. The strengths of each format are covered in more depth in [Markdown vs PDF](/blog/markdown-vs-pdf).
+PDFs are self-contained and render identically everywhere, which makes them ideal for offline reading and long-term archiving. A README on GitHub depends on GitHub being reachable and the repo continuing to exist; a PDF in your records does not. The strengths of each format are covered in more depth in [Markdown vs PDF](/blog/markdown-vs-pdf), and if your documents also pass through office tools, [PDF vs Word vs Markdown](/blog/pdf-vs-word-vs-markdown) compares all three.
 
 ## Step-by-step: README to PDF in the browser
 
@@ -52,7 +52,7 @@ READMEs are written in GitHub Flavored Markdown (GFM), and the core of it conver
 
 - **Headings and structure.** The `#`/`##`/`###` hierarchy maps directly to a visual hierarchy in the PDF.
 - **Fenced code blocks.** Installation commands and code samples come through as monospaced blocks — usually the most important part of a README.
-- **GFM tables.** Option matrices, configuration references, and compatibility tables render as proper tables. If your tables are complex, the [Markdown tables guide](/blog/markdown-tables-guide) covers what is and is not possible in the syntax.
+- **GFM tables.** Option matrices, configuration references, and compatibility tables render as proper tables. If your tables are complex, our guide on [extracting tables from PDF to Markdown](/blog/extract-tables-from-pdf-to-markdown) covers what is and is not possible in the syntax.
 - **Lists, links, and inline formatting.** Bold, italics, inline code, and nested lists all behave. Links remain clickable in most PDF readers.
 
 ### Caveats
@@ -84,7 +84,7 @@ If you live in VS Code, extensions such as "Markdown PDF" add an export-to-PDF c
 
 You can open the README on GitHub and use the browser's Print → Save as PDF. It works in a pinch, but you get GitHub's page furniture and whatever the print stylesheet decides, with little control over the result.
 
-For one-off conversions with no installs and no upload, the [browser-based converter](/markdown-to-pdf) remains the shortest path; the general workflow is covered in [how to convert Markdown to PDF](/blog/convert-markdown-to-pdf).
+For one-off conversions with no installs and no upload, the [browser-based converter](/markdown-to-pdf) remains the shortest path; the general workflow is covered in [how to convert Markdown to PDF](/blog/convert-markdown-to-pdf). The same export-from-Markdown approach also works well for other documents — for example, [writing a resume in Markdown and exporting it to PDF](/blog/markdown-resume-to-pdf).
 
 ## Going the other direction
 

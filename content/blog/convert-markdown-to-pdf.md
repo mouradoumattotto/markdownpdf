@@ -12,11 +12,11 @@ A few situations come up constantly:
 
 - **Deliverables.** Reports, proposals, and specs written in Markdown need to reach clients as polished documents.
 - **Printing.** Markdown has no concept of pages; PDF exists for exactly this.
-- **Résumés and formal documents.** Writing a CV in Markdown is pleasant; submitting one is only possible as PDF.
+- **Résumés and formal documents.** Writing a CV in Markdown is pleasant; submitting one is only possible as PDF — see our guide to [writing a resume in Markdown and exporting it to PDF](/blog/markdown-resume-to-pdf).
 - **Archiving.** Freezing a finished document in its final visual form.
 - **Sharing outside the dev bubble.** Most of the world does not have a Markdown previewer and never will.
 
-The good news: Markdown to PDF is the *easy* direction. Markdown's explicit structure — headings, lists, emphasis, tables — maps cleanly onto a formatted page, so conversions are nearly lossless. (The reverse trip, [PDF to Markdown](/pdf-to-markdown), is where things get harder.)
+The good news: Markdown to PDF is the *easy* direction. Markdown's explicit structure — headings, lists, emphasis, tables — maps cleanly onto a formatted page, so conversions are nearly lossless. (The reverse trip, [PDF to Markdown](/pdf-to-markdown), is where things get harder — we cover it in [how to convert PDF to Markdown](/blog/how-to-convert-pdf-to-markdown).)
 
 ## Method 1: Online converter (no install, instant)
 
@@ -55,7 +55,7 @@ Choose Pandoc when you convert documents regularly, need precise control, or wan
 
 ## Method 3: VS Code extensions (for people already living there)
 
-If VS Code is where you write Markdown, an extension closes the loop without leaving the editor. The most popular option is **Markdown PDF** (by yzane), which renders your Markdown through a headless Chromium engine. Install it, open your file, run *Markdown PDF: Export (pdf)* from the command palette, and the PDF appears next to your source file.
+If VS Code is where you write Markdown, an extension closes the loop without leaving the editor. (A common variant of this task is turning a project's documentation into a shareable file — see [converting a GitHub README to PDF](/blog/convert-github-readme-to-pdf).) The most popular option is **Markdown PDF** (by yzane), which renders your Markdown through a headless Chromium engine. Install it, open your file, run *Markdown PDF: Export (pdf)* from the command palette, and the PDF appears next to your source file.
 
 You can customize output with CSS, add headers and footers, and configure page size in the extension settings. Quality is "rendered web page printed to PDF" — clean and perfectly serviceable, though not LaTeX-grade typography.
 

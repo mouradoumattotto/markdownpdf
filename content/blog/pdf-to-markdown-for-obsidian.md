@@ -47,7 +47,7 @@ This is also the moment to be ruthless: if you only care about one section of a 
 
 ### Step 4: Add properties and tags
 
-Top the note with YAML properties so it slots into your vault's structure:
+Top the note with YAML properties (a [frontmatter block](/blog/markdown-cheat-sheet)) so it slots into your vault's structure:
 
 ```yaml
 ---
@@ -88,7 +88,7 @@ No. Convert documents you will actually think with — papers you cite, reports 
 
 ### Does Obsidian have a built-in PDF importer?
 
-Obsidian can embed and display PDFs, and its importer plugin handles formats like Evernote and Notion exports, but it does not convert PDF content into Markdown notes. You need a conversion step first, which is exactly what a [browser-based converter](/pdf-to-markdown) provides.
+Obsidian can embed and display PDFs, and its importer plugin handles formats like Evernote and [Notion exports](/blog/pdf-to-markdown-for-notion), but it does not convert PDF content into Markdown notes. You need a conversion step first, which is exactly what a [browser-based converter](/pdf-to-markdown) provides.
 
 ### What about the formatting Markdown cannot express?
 

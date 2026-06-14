@@ -22,7 +22,7 @@ A point that is easy to gloss over: "browser-based" can mean two very different 
 
 Pandoc is the venerable open-source document converter, and it deserves its reputation — for almost every format pair *except this one*. The crucial fact most listicles get wrong: **pandoc cannot read PDF as input.** PDF is an output-only format for pandoc. Run `pandoc file.pdf -o file.md` and you get an error, not Markdown.
 
-What you *can* do is build a pipeline: extract text first with a tool like `pdftotext` (from the Poppler utilities), then feed the plain text to pandoc — or simply use the extracted text directly, since at that point pandoc adds little. Either way the intermediate text has already lost headings, emphasis, and table structure, so the resulting "Markdown" is mostly undifferentiated paragraphs. We cover the workable pipelines in detail in our [pandoc PDF guide](/blog/pandoc-pdf-to-markdown-guide).
+What you *can* do is build a pipeline: extract text first with a tool like `pdftotext` (from the Poppler utilities), then feed the plain text to pandoc — or simply use the extracted text directly, since at that point pandoc adds little. Either way the intermediate text has already lost headings, emphasis, and table structure, so the resulting "Markdown" is mostly undifferentiated paragraphs. We cover the workable pipelines in detail in our [step-by-step guide to converting PDF to Markdown](/blog/how-to-convert-pdf-to-markdown).
 
 **Strengths:** scriptable, free, superb at the *reverse* direction ([Markdown to PDF](/blog/convert-markdown-to-pdf)).
 
@@ -32,7 +32,7 @@ What you *can* do is build a pipeline: extract text first with a tool like `pdft
 
 A newer category uses machine-learning models to analyze page layout: detecting headings by visual role rather than font size alone, reconstructing tables, handling equations. Marker and Docling are the best-known open-source examples, and on difficult documents — academic papers, complex reports — they can produce noticeably better structure than rule-based extraction.
 
-The cost is setup and horsepower. These are Python projects: you install them with their model weights, ideally have a GPU for reasonable speed, and run them from the command line or scripts. For a developer converting thousands of papers, that investment pays off. For converting one report before a meeting, it is wildly out of proportion.
+The cost is setup and horsepower. These are Python projects: you install them with their model weights, ideally have a GPU for reasonable speed, and run them from the command line or scripts — our [PDF to Markdown in Python guide](/blog/pdf-to-markdown-python) walks through both with working code. For a developer converting thousands of papers, that investment pays off. For converting one report before a meeting, it is wildly out of proportion.
 
 **Strengths:** best-in-class structure recovery on hard layouts; scriptable; free and open source; runs locally.
 
@@ -59,7 +59,7 @@ Copy the text out of your PDF reader, paste it into an editor, and add the Markd
 
 - **You convert PDFs occasionally and want it done now** → a client-side [browser converter](/pdf-to-markdown). No setup, private, handles scans.
 - **Your PDFs are scanned documents** → a tool with built-in OCR, or a separate OCR pass first. Our [OCR guide](/blog/ocr-pdf-to-text-guide) explains the options.
-- **You are processing hundreds of papers programmatically** → invest the setup time in marker or docling; the structure quality on complex layouts is worth it.
+- **You are processing hundreds of papers programmatically** → invest the setup time in marker or docling; the structure quality on complex layouts is worth it. If the output is headed into an LLM, [why LLMs work better with Markdown than PDF](/blog/why-llms-prefer-markdown) explains why the extra effort pays off.
 - **You already live in the terminal and only need the text** → `pdftotext` gets you 90% of what a pandoc pipeline would, with one command.
 - **The document is two pages** → just retype it. Honestly.
 - **You need the opposite direction** → that is pandoc's home turf; see [converting Markdown to PDF](/blog/convert-markdown-to-pdf).

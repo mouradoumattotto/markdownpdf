@@ -70,7 +70,7 @@ The conversion step earns its keep on the documents you'll lean on for weeks: te
 
 ### Does NotebookLM support Markdown files?
 
-Yes. NotebookLM accepts `.md` files as sources alongside PDFs, `.txt`, Word documents, Google Docs, web URLs, YouTube links, and audio. Markdown formatting is interpreted, so heading levels and lists inform how the source is structured rather than arriving as flat text.
+Yes. NotebookLM accepts `.md` files as sources alongside PDFs, `.txt`, Word documents, Google Docs, web URLs, YouTube links, and audio. Markdown formatting is interpreted, so heading levels and lists inform how the source is structured rather than arriving as flat text. The same converted file works just as well if you also [feed it to ChatGPT](/blog/convert-pdf-to-markdown-for-chatgpt).
 
 ### Can NotebookLM read scanned PDFs?
 

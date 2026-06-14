@@ -50,13 +50,13 @@ for row in rows:
 print(md)
 ```
 
-pdfplumber is noticeably slower than PyMuPDF and still does not produce Markdown by itself — you assemble it. But for invoices, financial statements, and data-heavy reports, its table extraction is often the difference between usable output and soup.
+pdfplumber is noticeably slower than PyMuPDF and still does not produce Markdown by itself — you assemble it. But for invoices, financial statements, and data-heavy reports, its table extraction is often the difference between usable output and soup. If tables are your main concern, our guide to [extracting tables from PDF to Markdown](/blog/extract-tables-from-pdf-to-markdown) covers the breakages to expect and how to clean them up.
 
 **Trade-off:** best-in-class table handling, slower, assembly required.
 
 ## pymupdf4llm — Markdown output in one call
 
-[pymupdf4llm](https://pypi.org/project/pymupdf4llm/) is a layer on top of PyMuPDF built for exactly this job: it outputs GitHub-flavored Markdown directly, with headings inferred from font sizes, plus lists, code blocks, and basic tables. It was designed for preparing PDF content for LLM pipelines, where Markdown is the preferred input format.
+[pymupdf4llm](https://pypi.org/project/pymupdf4llm/) is a layer on top of PyMuPDF built for exactly this job: it outputs GitHub-flavored Markdown directly, with headings inferred from font sizes, plus lists, code blocks, and basic tables. It was designed for preparing PDF content for LLM pipelines, where Markdown is the preferred input format — see [PDF to Markdown for RAG pipelines](/blog/pdf-to-markdown-for-rag-pipelines) for how this fits into a retrieval workflow.
 
 ```python
 import pymupdf4llm

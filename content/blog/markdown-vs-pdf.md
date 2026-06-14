@@ -4,7 +4,7 @@ description: Markdown vs PDF compared in depth - history, strengths, weaknesses,
 date: 2026-05-22
 ---
 
-Markdown and PDF sit at opposite ends of the document spectrum. One is plain text you write; the other is a fixed page you publish. Treating them as rivals misses the point — they solve different problems — but you still have to choose one for any given job. This guide compares the two formats honestly so you can pick the right one, and shows how to move between them when you need both.
+Markdown and PDF sit at opposite ends of the document spectrum. One is plain text you write; the other is a fixed page you publish. Treating them as rivals misses the point — they solve different problems — but you still have to choose one for any given job. This guide compares the two formats honestly so you can pick the right one, and shows how to move between them when you need both. (If a word processor is also in the running, see our three-way breakdown of [PDF vs Word vs Markdown](/blog/pdf-vs-word-vs-markdown).)
 
 ## A tale of two formats
 
@@ -14,7 +14,7 @@ The Portable Document Format was created by Adobe in the early 1990s, born from 
 
 ### Markdown: writing without the noise
 
-Markdown arrived in 2004, created by John Gruber with input from Aaron Swartz. Its goal was almost the opposite of PDF's: a plain-text format that is **readable as-is**, without rendering, while converting cleanly to HTML. Instead of clicking a bold button, you type `**bold**`. Instead of a heading style, you type `# Heading`. The syntax borrows conventions people were already using in plain-text email, which is why it feels natural within minutes. Markdown now powers GitHub READMEs, static site generators, documentation platforms, and note-taking apps like Obsidian.
+Markdown arrived in 2004, created by John Gruber with input from Aaron Swartz. Its goal was almost the opposite of PDF's: a plain-text format that is **readable as-is**, without rendering, while converting cleanly to HTML. Instead of clicking a bold button, you type `**bold**`. Instead of a heading style, you type `# Heading`. The syntax borrows conventions people were already using in plain-text email, which is why it feels natural within minutes. Markdown now powers GitHub READMEs, static site generators, documentation platforms, and [note-taking apps like Obsidian](/blog/markdown-for-note-taking).
 
 ## Head-to-head comparison
 
@@ -39,7 +39,7 @@ Markdown arrived in 2004, created by John Gruber with input from Aaron Swartz. I
 - **Convertibility.** One Markdown source can become a web page, a slide deck, an ebook, or — via a [Markdown to PDF converter](/markdown-to-pdf) — a polished PDF.
 - **Tooling ecosystem.** Static site generators (Hugo, Jekyll, Astro), documentation systems, wikis, and nearly every developer tool speak Markdown natively.
 
-Markdown's weaknesses are the flip side of its simplicity: you cannot control exact layout, complex tables get unwieldy, and the same file can render slightly differently in different apps (the various Markdown "flavors" do not agree on every detail).
+Markdown's weaknesses are the flip side of its simplicity: you cannot control exact layout, complex tables get unwieldy, and the same file can render slightly differently in different apps (the various Markdown ["flavors"](/blog/what-is-markdown-complete-guide) do not agree on every detail).
 
 ## Where PDF wins
 

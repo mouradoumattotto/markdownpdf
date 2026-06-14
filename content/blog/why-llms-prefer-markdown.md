@@ -40,9 +40,9 @@ PDF is a print format: it records where glyphs are drawn on a page, optimized fo
 - **Line breaks become hard breaks.** Each printed line ends with a newline, fragmenting every sentence. Hyphenated words split across lines stay split.
 - **Headers, footers, page numbers leak in.** They repeat on every page, scattered through the content stream.
 - **Tables collapse.** Cell boundaries are visual; extraction yields the cell contents as a stream of words with no row or column information.
-- **Scanned pages yield nothing.** If the PDF is a scan, there is no text layer at all — you need [OCR](/ocr-pdf-to-text-guide) before any of this even applies.
+- **Scanned pages yield nothing.** If the PDF is a scan, there is no text layer at all — you need [OCR](/blog/ocr-pdf-to-text-guide) before any of this even applies.
 
-For a fuller side-by-side of the two formats, see [Markdown vs PDF](/markdown-vs-pdf).
+For a fuller side-by-side of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
 
 ## A before/after example
 
@@ -85,10 +85,10 @@ The case for Markdown goes beyond any single chat session. Look around the AI to
 
 - Chat models *output* Markdown by default.
 - System prompts and agent instructions are conventionally written in Markdown.
-- RAG and document-ingestion frameworks use Markdown as their standard intermediate format — if you are building retrieval systems, see [preparing PDFs for RAG pipelines](/pdf-to-markdown-for-rag-pipelines).
-- Note tools like Obsidian, code editors with AI assistants, and dataset preparation pipelines all speak Markdown natively.
+- RAG and document-ingestion frameworks use Markdown as their standard intermediate format — if you are building retrieval systems, see [preparing PDFs for RAG pipelines](/blog/pdf-to-markdown-for-rag-pipelines).
+- Note tools like [Obsidian](/blog/pdf-to-markdown-for-obsidian), code editors with AI assistants, and dataset preparation pipelines all speak Markdown natively.
 
-Convert a document once and it becomes portable across this entire ecosystem: paste it into ChatGPT today, index it for retrieval tomorrow, drop it into your notes vault next week. PDF, by contrast, requires fresh (and lossy) extraction at every one of those steps. New to the format? The [complete guide to Markdown](/what-is-markdown-complete-guide) covers the syntax in detail.
+Convert a document once and it becomes portable across this entire ecosystem: [paste it into ChatGPT](/blog/convert-pdf-to-markdown-for-chatgpt) today, index it for retrieval tomorrow, drop it into your notes vault next week. PDF, by contrast, requires fresh (and lossy) extraction at every one of those steps. New to the format? The [complete guide to Markdown](/blog/what-is-markdown-complete-guide) covers the syntax in detail.
 
 ## The practical takeaway
 

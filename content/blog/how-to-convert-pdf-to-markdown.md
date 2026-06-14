@@ -46,7 +46,7 @@ pdftotext -layout document.pdf document.txt
 pandoc document.txt -f markdown -t gfm -o document.md
 ```
 
-The honest truth: Pandoc shines going *into* PDF (from Markdown, via LaTeX), but going *out of* PDF it inherits all the limitations of text extraction. Headings, lists, and tables usually need manual reconstruction. It is still worth it for batch jobs, because you can write one cleanup script and apply it to hundreds of files.
+The honest truth: Pandoc shines going *into* PDF (from Markdown, via LaTeX), but going *out of* PDF it inherits all the limitations of text extraction. Headings, lists, and tables usually need manual reconstruction. It is still worth it for batch jobs, because you can write one cleanup script and apply it to hundreds of files. If you are scripting in Python rather than shell, our guide to [converting PDF to Markdown in Python](/blog/pdf-to-markdown-python) covers libraries like PyMuPDF, marker, and docling that do a better job of reconstructing structure.
 
 ## Method 3: Manual conversion (small documents)
 
@@ -75,7 +75,7 @@ PDF text is positioned, not ordered. A two-column academic paper can come out in
 
 ### Tables
 
-Tables in PDFs are usually just text plus drawn lines, with no underlying table structure. Converters have to guess cell boundaries from positioning. Simple grids convert well; merged cells, nested headers, and tables that span pages frequently break. Expect to rebuild complex tables by hand using Markdown's pipe syntax.
+Tables in PDFs are usually just text plus drawn lines, with no underlying table structure. Converters have to guess cell boundaries from positioning. Simple grids convert well; merged cells, nested headers, and tables that span pages frequently break. Expect to rebuild complex tables by hand using Markdown's pipe syntax — our dedicated walkthrough on [extracting tables from PDF to Markdown](/blog/extract-tables-from-pdf-to-markdown) goes deeper on the tricky cases.
 
 ### Scanned PDFs
 

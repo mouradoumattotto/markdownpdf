@@ -20,7 +20,7 @@ Plain text diffs cleanly. Keep your resume in a Git repository and every edit is
 
 ### Content over formatting
 
-Markdown gives you headings, bold text, and bullet lists — and very little else. That constraint is a feature for resumes. You cannot burn an evening nudging margins, because there are no margins to nudge while you write. The formatting questions get answered once, at export time, and the writing stays about your experience.
+Markdown gives you headings, bold text, and bullet lists — and very little else, as a quick glance at any [Markdown cheat sheet](/blog/markdown-cheat-sheet) confirms. That constraint is a feature for resumes. You cannot burn an evening nudging margins, because there are no margins to nudge while you write. The formatting questions get answered once, at export time, and the writing stays about your experience.
 
 ### No lock-in
 

@@ -21,7 +21,7 @@ Converting to Markdown first removes all of these limitations, because the conte
 
 ## Why Markdown is the right bridge
 
-You could copy and paste text straight from a PDF viewer into Notion, but anyone who has tried knows the result: hard line breaks in the middle of sentences, headings flattened into plain paragraphs, tables collapsed into word soup, and stray page numbers everywhere.
+You could copy and paste text straight from a PDF viewer into Notion, but anyone who has tried knows the result: hard line breaks in the middle of sentences, headings flattened into plain paragraphs, [tables collapsed into word soup](/blog/extract-tables-from-pdf-to-markdown), and stray page numbers everywhere.
 
 Markdown solves the structure problem. When a converter outputs `## Section title`, a `-` bullet list, or a pipe table, Notion's importer maps each element to the matching block type:
 
@@ -76,7 +76,7 @@ Once the document is real blocks, the payoff starts:
 - **Turn sections into toggles** to collapse reference material you rarely need.
 - **Add it to a database.** Drag the page into a "Reading notes" or "Research" database and tag it with properties like source, topic, and status.
 - **Link blocks elsewhere.** Reference a specific definition or table from your project pages with block links or synced blocks.
-- **Use Notion AI on it.** Q&A and summarization work far better on native blocks than on embedded file attachments.
+- **Use Notion AI on it.** Q&A and summarization work far better on native blocks than on embedded file attachments — the same reason [LLMs work better with Markdown than PDF](/blog/why-llms-prefer-markdown).
 
 If you keep both, a common pattern is to import the Markdown as the working copy and attach the original PDF at the bottom of the same page as the archival reference.
 

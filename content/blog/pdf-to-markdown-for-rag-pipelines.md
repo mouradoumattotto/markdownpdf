@@ -15,7 +15,7 @@ RAG works by splitting documents into chunks, embedding each chunk as a vector, 
 1. **Each chunk must be coherent.** An embedding represents the meaning of the whole chunk. If a chunk contains half a sentence, a page number, and the start of an unrelated section, its embedding is a muddy average of all three — and it will match queries poorly.
 2. **Retrieved chunks must be readable by the LLM.** Even when retrieval finds the right chunk, the model still has to extract an answer from it. A table flattened into a word stream may contain the right numbers, but the model cannot reliably tell which number belongs to which row.
 
-Naive PDF text extraction undermines both. Markdown conversion addresses both, because it preserves the document's logical structure — and structure is exactly what good chunking and good comprehension depend on. For a deeper comparison of the two formats, see [Markdown vs PDF](/markdown-vs-pdf).
+Naive PDF text extraction undermines both. Markdown conversion addresses both, because it preserves the document's logical structure — and structure is exactly what good chunking and good comprehension depend on. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
 
 ## Why Markdown specifically?
 
@@ -27,7 +27,7 @@ Plain text extraction is better than nothing, but Markdown carries information p
 - **Code blocks** stay fenced, so technical content is not mangled.
 - **Emphasis and links** survive where they matter.
 
-Just as important, Markdown is line-oriented plain text. Every chunking library, regex, and diff tool works on it naturally. There is a reason most document-ingestion frameworks in the LLM ecosystem either accept or produce Markdown as an intermediate format: it has become the de facto interchange format between documents and language models. If you are new to the syntax itself, the [complete guide to Markdown](/what-is-markdown-complete-guide) covers it end to end.
+Just as important, Markdown is line-oriented plain text. Every chunking library, regex, and diff tool works on it naturally. There is a reason most document-ingestion frameworks in the LLM ecosystem either accept or produce Markdown as an intermediate format: it has become the de facto interchange format between documents and language models. If you are new to the syntax itself, the [complete guide to Markdown](/blog/what-is-markdown-complete-guide) covers it end to end.
 
 ## Chunking strategies for Markdown documents
 
@@ -73,15 +73,15 @@ These are the failure modes to check for before anything reaches your vector sto
 - **Repeated headers and footers.** A title and page number repeated on all 60 pages injects the same noise into 60 chunks and skews similarity scores toward the document title rather than its content. Strip them during conversion.
 - **Multi-column layouts.** Naive extractors read straight across the page, interleaving two columns line by line into nonsense. A layout-aware converter reads each column in order.
 - **Hyphenation and hard line breaks.** Words split across printed lines ("infor- mation") break both tokenization and embeddings if not rejoined.
-- **Tables.** The highest-value content in many business documents and the most fragile in extraction. Verify your converter emits pipe tables, and spot-check the wide ones.
-- **Scanned pages.** A scanned PDF has no text layer at all — extraction silently returns nothing. These pages need OCR; the [OCR guide](/ocr-pdf-to-text-guide) explains how recognition works and what affects its accuracy.
+- **Tables.** The highest-value content in many business documents and the most fragile in extraction. Verify your converter [emits pipe tables](/blog/extract-tables-from-pdf-to-markdown), and spot-check the wide ones.
+- **Scanned pages.** A scanned PDF has no text layer at all — extraction silently returns nothing. These pages need OCR; the [OCR guide](/blog/ocr-pdf-to-text-guide) explains how recognition works and what affects its accuracy.
 - **Reading-order surprises.** Sidebars, callout boxes, and figure captions can appear mid-paragraph in the extracted stream. Skim the output around figures.
 
 A ten-minute manual review of one converted document catches most of these before they multiply across your whole corpus.
 
 ## Where a browser-based converter fits
 
-For large automated pipelines you will eventually script extraction. But a browser-based converter has a real place in RAG work:
+For large automated pipelines you will eventually [script extraction in Python](/blog/pdf-to-markdown-python). But a browser-based converter has a real place in RAG work:
 
 - **Prototyping.** Before writing ingestion code, convert a handful of representative PDFs with the [PDF to Markdown tool](/pdf-to-markdown) and inspect the output. You will learn in minutes which pitfalls your corpus actually has — multi-column? scanned pages? gnarly tables? — and design the pipeline accordingly.
 - **Small and medium corpora.** Plenty of useful RAG systems index dozens of documents, not millions. Converting them by hand in the browser, with a quick visual review of each, is often faster than building and debugging an automated pipeline — and the per-document review produces higher-quality chunks.

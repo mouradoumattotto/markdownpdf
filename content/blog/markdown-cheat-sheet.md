@@ -145,7 +145,7 @@ GitHub Flavored Markdown is the de facto standard dialect, supported by GitHub, 
 - [x] Completed task
 ```
 
-Renders as checkboxes — interactive on GitHub and in apps like Obsidian.
+Renders as checkboxes — interactive on GitHub and in apps like Obsidian, which is a favorite for [Markdown note-taking](/blog/markdown-for-note-taking).
 
 ### Strikethrough
 
@@ -194,4 +194,4 @@ GFM turns bare URLs into clickable links automatically. In strict standard Markd
 
 A reference is most useful when it is in front of you. Copy this page's Markdown into our free [Markdown to PDF converter](/markdown-to-pdf) and you get a clean, printable PDF in seconds — converted entirely in your browser, nothing uploaded anywhere. The same tool turns any of your own Markdown — notes, READMEs, documentation — into shareable PDFs; see our [Markdown to PDF guide](/blog/convert-markdown-to-pdf) for styling tips.
 
-And if you need the reverse trip — extracting Markdown *out of* a PDF — our [PDF to Markdown converter](/pdf-to-markdown) handles that too, OCR included.
+And if you need the reverse trip — extracting Markdown *out of* a PDF — our [PDF to Markdown converter](/pdf-to-markdown) handles that too, [OCR](/blog/ocr-pdf-to-text-guide) included.

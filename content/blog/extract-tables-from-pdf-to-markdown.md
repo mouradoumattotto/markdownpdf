@@ -32,7 +32,7 @@ Before extracting, it's worth knowing the shape of the target. A Markdown pipe t
 | Q2      | $4.6M   | +9%    |
 ```
 
-Pipe tables support column alignment (the `:` in the divider row), inline formatting like bold and code, and links inside cells. They do **not** support:
+Pipe tables support column alignment (the `:` in the divider row), inline formatting like bold and code, and links inside cells — the [Markdown cheat sheet](/blog/markdown-cheat-sheet) has the full table syntax on one page. They do **not** support:
 
 - **Merged cells** — no `colspan` or `rowspan` equivalent exists.
 - **Multi-paragraph cells** — each cell is a single line of text (`<br>` is the common workaround).
@@ -47,7 +47,7 @@ The fastest route is the free [PDF to Markdown converter](/pdf-to-markdown): ope
 Two practical tips for better results:
 
 1. **Convert the whole document, then cut.** Extraction quality doesn't improve by isolating pages, and converting everything means you keep the surrounding context (the table's caption and the paragraph that explains it).
-2. **Scanned PDFs work too.** If the table is in a scanned document — a photographed page, an old report — OCR runs automatically. Expect more cleanup on scans, though: OCR adds its own error layer on top of the geometry problem (see the OCR section below).
+2. **Scanned PDFs work too.** If the table is in a scanned document — a photographed page, an old report — OCR runs automatically. Expect more cleanup on scans, though: OCR adds its own error layer on top of the geometry problem (see the OCR section below, and our guide to [extracting text from a scanned PDF](/blog/extract-text-from-scanned-pdf) for the full workflow).
 
 ## Step 2: Clean up the usual breakages
 

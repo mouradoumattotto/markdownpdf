@@ -106,7 +106,7 @@ Because Gruber's original spec left details ambiguous, several standardized dial
 | **GitHub Flavored Markdown (GFM)** | Tables, task lists, strikethrough, autolinks, fenced code blocks | GitHub, GitLab, much of the dev world |
 | **MultiMarkdown / Pandoc Markdown** | Footnotes, citations, metadata, math | Academic and publishing workflows |
 
-**CommonMark**, launched in 2014, finally gave Markdown a formal specification with a comprehensive test suite. **GFM** is formally an extension of CommonMark and is probably the dialect most people actually write today, thanks to GitHub's ubiquity. For everyday writing the flavors agree on all the basics; you only notice differences with tables, footnotes, and other extensions.
+**CommonMark**, launched in 2014, finally gave Markdown a formal specification with a comprehensive test suite. **GFM** is formally an extension of CommonMark and is probably the dialect most people actually write today, thanks to GitHub's ubiquity. For everyday writing the flavors agree on all the basics; you only notice differences with tables, footnotes, and other extensions. A handy companion is our [Markdown cheat sheet](/blog/markdown-cheat-sheet), which lists every syntax element plus the GFM extras on one page.
 
 ## Why developers and writers love it
 
@@ -128,7 +128,7 @@ You can write Markdown in literally any text editor, but some tools make it nice
 
 ## Markdown and PDF: a natural pairing
 
-Markdown is ideal for writing; PDF is ideal for delivering. The two formats complement each other so well that converting between them is one of the most common Markdown workflows. When a draft is ready to share with someone who expects a "real" document, convert it with the [Markdown to PDF tool](/markdown-to-pdf). When someone hands you a PDF whose content you need to edit or reuse, the [PDF to Markdown converter](/pdf-to-markdown) — with OCR for scanned files — brings it back into plain text. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
+Markdown is ideal for writing; PDF is ideal for delivering. The two formats complement each other so well that converting between them is one of the most common Markdown workflows. When a draft is ready to share with someone who expects a "real" document, convert it with the [Markdown to PDF tool](/markdown-to-pdf). When someone hands you a PDF whose content you need to edit or reuse, the [PDF to Markdown converter](/pdf-to-markdown) — with [OCR](/blog/ocr-pdf-to-text-guide) for scanned files — brings it back into plain text. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
 
 ## FAQ
 
