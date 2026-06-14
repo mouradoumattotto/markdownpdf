@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -26,14 +26,6 @@ export const metadata: Metadata = {
     template: "%s | MarkdownPDF",
   },
   description: SITE.description,
-  keywords: [
-    "pdf to markdown",
-    "markdown to pdf",
-    "convert pdf to markdown",
-    "markdown converter",
-    "free pdf converter",
-    "ocr pdf",
-  ],
   openGraph: {
     type: "website",
     siteName: SITE.name,
@@ -46,6 +38,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#4f46e5",
 };
 
 export default function RootLayout({
@@ -69,12 +65,22 @@ export default function RootLayout({
                 name: SITE.name,
                 url: SITE.url,
                 email: "contact@markdownpdf.app",
+                description: SITE.description,
+                logo: {
+                  "@type": "ImageObject",
+                  "@id": `${SITE.url}/#logo`,
+                  url: `${SITE.url}/icon.svg`,
+                  contentUrl: `${SITE.url}/icon.svg`,
+                },
+                sameAs: [`https://x.com/${SITE.twitter.replace(/^@/, "")}`],
               },
               {
                 "@type": "WebSite",
                 "@id": `${SITE.url}/#website`,
                 name: SITE.name,
                 url: SITE.url,
+                description: SITE.description,
+                inLanguage: "en",
                 publisher: { "@id": `${SITE.url}/#organization` },
               },
             ],

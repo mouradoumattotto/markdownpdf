@@ -79,6 +79,21 @@ export default function PdfToMarkdownPage() {
       <JsonLd
         data={{
           "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "PDF to Markdown",
+              item: `${SITE.url}/pdf-to-markdown`,
+            },
+          ],
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
           "@type": "HowTo",
           name: "How to convert a PDF to Markdown",
           step: steps.map((s, i) => ({

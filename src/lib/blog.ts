@@ -47,3 +47,36 @@ export function getAllPosts(): BlogPost[] {
 export function getPost(slug: string): BlogPost | undefined {
   return getAllPosts().find((p) => p.slug === slug);
 }
+
+const STOP_WORDS = new Set([
+  "the", "a", "an", "to", "of", "for", "and", "or", "in", "on", "with", "your",
+  "you", "is", "are", "how", "what", "why", "vs", "into", "from", "guide",
+  "step", "by", "free", "online", "complete", "every", "best", "easy",
+]);
+
+function keywords(post: BlogPost): Set<string> {
+  return new Set(
+    `${post.title} ${post.description} ${post.slug.replace(/-/g, " ")}`
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length > 2 && !STOP_WORDS.has(w)),
+  );
+}
+
+export function getRelatedPosts(slug: string, limit = 3): BlogPost[] {
+  const all = getAllPosts();
+  const current = all.find((p) => p.slug === slug);
+  if (!current) return [];
+  const currentWords = keywords(current);
+  return all
+    .filter((p) => p.slug !== slug)
+    .map((p) => {
+      const words = keywords(p);
+      let score = 0;
+      for (const w of words) if (currentWords.has(w)) score += 1;
+      return { post: p, score };
+    })
+    .sort((a, b) => b.score - a.score || b.post.date.localeCompare(a.post.date))
+    .slice(0, limit)
+    .map((x) => x.post);
+}

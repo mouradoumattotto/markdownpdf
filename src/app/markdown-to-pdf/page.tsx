@@ -51,6 +51,21 @@ export default function MarkdownToPdfPage() {
       <JsonLd
         data={{
           "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Markdown to PDF",
+              item: `${SITE.url}/markdown-to-pdf`,
+            },
+          ],
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
           "@type": "WebApplication",
           name: "Markdown to PDF Converter",
           url: `${SITE.url}/markdown-to-pdf`,
