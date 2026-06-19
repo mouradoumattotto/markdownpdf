@@ -2,6 +2,7 @@
 title: PDF to Markdown in Python — Libraries Compared
 description: Convert PDF to Markdown in Python with PyMuPDF, pdfplumber, pymupdf4llm, marker, or docling. Real code examples, trade-offs, and when to skip the code.
 date: 2026-06-09
+author: Mourad Oumita
 ---
 
 If you search for "convert PDF to Markdown in Python," you will find a dozen libraries that all claim to do it. The honest picture is more nuanced: a few libraries extract text fast but leave structure to you, a few produce real Markdown out of the box, and a few use machine learning models that produce the best output at a real cost in setup and compute. This guide compares the main options with working code, so you can pick the right tool — or decide you do not need code at all.

@@ -2,6 +2,7 @@
 title: PDF to Markdown for NotebookLM - Better Sources
 description: Get better NotebookLM answers by converting PDFs to Markdown first - cleaner sources, headings that survive, OCR for scans, and a free local workflow.
 date: 2026-06-11
+author: Mourad Oumita
 ---
 
 NotebookLM answers questions using only the sources you give it, which means the quality of every summary, study guide, and Audio Overview is capped by the quality of those sources. You can upload a PDF directly — NotebookLM accepts them — but what the model actually *sees* after extraction is often messier than what you see on the page. Converting the PDF to Markdown first gives you a source you can inspect, clean, and structure before it ever reaches your notebook.

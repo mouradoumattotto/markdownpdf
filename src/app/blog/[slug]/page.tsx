@@ -29,7 +29,7 @@ export async function generateMetadata({
       description: post.description,
       url: `/blog/${post.slug}`,
       publishedTime: post.date,
-      modifiedTime: post.date,
+      modifiedTime: post.updated,
     },
   };
 }
@@ -66,10 +66,12 @@ export default async function BlogPostPage({
           headline: post.title,
           description: post.description,
           datePublished: post.date,
-          dateModified: post.date,
+          dateModified: post.updated,
           image: [`${postUrl}/opengraph-image`],
           inLanguage: "en",
-          author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+          author: post.author
+            ? { "@type": "Person", name: post.author, url: `${SITE.url}/about` }
+            : { "@type": "Organization", name: SITE.name, url: SITE.url },
           publisher: { "@id": `${SITE.url}/#organization` },
           mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
         }}
@@ -83,8 +85,14 @@ export default async function BlogPostPage({
         {post.title}
       </h1>
       <p className="mt-3 text-sm text-neutral-500">
-        <time dateTime={post.date}>
-          {new Date(post.date + "T00:00:00Z").toLocaleDateString("en-US", {
+        {post.author && (
+          <>
+            By <span className="font-medium text-neutral-700">{post.author}</span> ·{" "}
+          </>
+        )}
+        <time dateTime={post.updated}>
+          {post.updated !== post.date ? "Updated " : ""}
+          {new Date(post.updated + "T00:00:00Z").toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",

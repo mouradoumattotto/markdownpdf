@@ -2,6 +2,7 @@
 title: Extract Text From a Scanned PDF - Step-by-Step Guide
 description: Learn how to extract text from a scanned PDF for free with browser-based OCR - identify scans, run recognition, improve accuracy, and fix common errors.
 date: 2026-06-13
+author: Mourad Oumita
 ---
 
 Someone hands you a scanned contract, an old report, or a photographed receipt as a PDF — and you need the text out of it. You try to copy a paragraph and nothing happens. The cursor will not even select a single word.

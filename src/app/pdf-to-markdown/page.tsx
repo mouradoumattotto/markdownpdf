@@ -3,6 +3,8 @@ import Link from "next/link";
 import PdfToMarkdownTool from "@/components/PdfToMarkdownTool";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
+import BlogCluster from "@/components/BlogCluster";
+import { getPostsByTopic } from "@/lib/blog";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -62,6 +64,8 @@ const steps = [
 ];
 
 export default function PdfToMarkdownPage() {
+  const clusterPosts = getPostsByTopic("pdf to markdown convert ocr scanned tables");
+
   return (
     <>
       <JsonLd
@@ -202,6 +206,8 @@ export default function PdfToMarkdownPage() {
           .
         </p>
       </section>
+
+      <BlogCluster posts={clusterPosts} heading="Learn more about PDF & Markdown" />
     </>
   );
 }

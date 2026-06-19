@@ -2,6 +2,7 @@
 title: Best PDF to Markdown Converters in 2026 (Honest Guide)
 description: An honest comparison of PDF to Markdown conversion methods in 2026 - browser-based tools, pandoc pipelines, ML tools like marker, and manual conversion.
 date: 2026-06-05
+author: Mourad Oumita
 ---
 
 Search for "PDF to Markdown converter" and you will find dozens of tools that all promise perfect results. The truth is messier: PDF stores how a page *looks*, not how a document is *structured*, so every converter is reconstructing headings, lists, and tables from visual clues. Different approaches make different trade-offs, and the right one depends on what you are converting and how often. This guide compares the four real options honestly — including their weaknesses.

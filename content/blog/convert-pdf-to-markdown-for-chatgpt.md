@@ -2,6 +2,7 @@
 title: Convert PDF to Markdown for ChatGPT (Step-by-Step)
 description: Learn how to convert a PDF to Markdown for ChatGPT. Get cleaner answers, save tokens, and handle long documents with heading-based chunking.
 date: 2026-05-20
+author: Mourad Oumita
 ---
 
 If you have ever pasted text straight out of a PDF into ChatGPT, you know the result: broken line breaks in the middle of sentences, page numbers floating in random places, headers repeated every few paragraphs, and tables collapsed into word soup. ChatGPT does its best, but it is working with damaged input — and damaged input leads to weaker answers.

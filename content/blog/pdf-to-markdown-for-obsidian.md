@@ -2,6 +2,7 @@
 title: PDF to Markdown for Obsidian - Import PDFs the Right Way
 description: Turn PDFs into Markdown notes for your Obsidian vault. Why Markdown beats PDF attachments for linking and search, plus a full import workflow with OCR.
 date: 2026-06-03
+author: Mourad Oumita
 ---
 
 Drag a PDF into Obsidian and it dutifully lands in your vault as an attachment. You can open it, read it, even annotate it — and yet it never quite becomes part of your notes. You cannot link to a paragraph inside it, its text does not show up in the graph, and most of what makes Obsidian powerful simply passes it by. The fix is to stop storing PDFs as PDFs and start importing them as Markdown. This guide explains why that matters and walks through a workflow for doing it well.

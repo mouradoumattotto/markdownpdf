@@ -2,6 +2,7 @@
 title: Markdown Cheat Sheet - Every Syntax Element on One Page
 description: A complete Markdown cheat sheet covering every syntax element - headings, lists, links, tables, code - plus GFM extras. Printable - export it to PDF free.
 date: 2026-05-16
+author: Mourad Oumita
 ---
 
 Markdown's whole promise is that you can learn it in an afternoon — but until the syntax is muscle memory, everyone needs a reference. This cheat sheet covers every element of standard Markdown plus the GitHub Flavored Markdown (GFM) extras you will meet in the wild, each with the exact syntax and what it renders as. Keep it open in a tab, or [export it to PDF](/markdown-to-pdf) and pin it next to your desk. New to Markdown entirely? Start with our [complete beginner's guide](/blog/what-is-markdown-complete-guide) first.

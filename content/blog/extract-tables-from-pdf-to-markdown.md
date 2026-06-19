@@ -2,6 +2,7 @@
 title: Extract Tables From PDF to Markdown (Free Guide)
 description: How to extract tables from a PDF and convert them to clean Markdown - why PDF tables are hard, a free browser workflow, cleanup tips, and Markdown's limits.
 date: 2026-06-12
+author: Mourad Oumita
 ---
 
 Tables are the single hardest thing to get out of a PDF. Paragraphs and headings usually survive conversion with minor scrapes; tables come out as word soup, misaligned columns, or one long run-on line. If you've ever copied a table from a PDF report and pasted it somewhere else, you've seen the mess firsthand.

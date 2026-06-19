@@ -2,6 +2,7 @@
 title: PDF to Markdown for RAG Pipelines (Practical Guide)
 description: Why clean Markdown improves RAG retrieval quality. Covers chunking strategies, metadata, common PDF extraction pitfalls, and where browser tools fit.
 date: 2026-05-25
+author: Mourad Oumita
 ---
 
 Every RAG (retrieval-augmented generation) pipeline lives or dies by the quality of its ingested documents. You can tune your embedding model, rerank results, and engineer elaborate prompts — but if the chunks in your vector store are full of broken sentences, orphaned table fragments, and repeated page headers, retrieval quality will suffer and no amount of downstream cleverness will fully recover it.

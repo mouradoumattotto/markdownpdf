@@ -2,6 +2,7 @@
 title: Why LLMs Work Better With Markdown Than PDF
 description: Why LLMs prefer Markdown over PDF text. How tokenization works, which structure signals survive, what PDF extraction loses, and before/after examples.
 date: 2026-05-30
+author: Mourad Oumita
 ---
 
 Ask anyone who regularly feeds documents to ChatGPT, Claude, or a local model, and you will hear the same advice: convert it to Markdown first. It sounds like a community superstition, but there are concrete technical reasons behind it. This article explains what actually happens when a language model reads your document — and why Markdown consistently produces better results than raw PDF text.

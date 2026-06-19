@@ -2,6 +2,7 @@
 title: Markdown Frontmatter Explained (YAML Guide)
 description: What Markdown frontmatter is, how YAML metadata works, the fields Obsidian, Hugo, and Jekyll expect, common syntax errors, and how to avoid breaking your build.
 date: 2026-06-16
+author: Mourad Oumita
 ---
 
 If you have ever opened a Markdown file from a blog, a static site, or an Obsidian vault and found a block of `key: value` lines fenced between two rows of three dashes at the very top, you have met **frontmatter**. It looks like part of the document but never appears in the rendered output. Instead, it carries *metadata* — the title, date, tags, and settings that tools read to organize, sort, and publish your content. This guide explains exactly what frontmatter is, how the YAML syntax works, which fields the popular tools expect, and the small mistakes that quietly break builds.

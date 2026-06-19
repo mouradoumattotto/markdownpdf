@@ -2,6 +2,7 @@
 title: PDF vs Word vs Markdown - Which Format to Use When
 description: Compare PDF, Word, and Markdown on fidelity, editability, longevity, and collaboration - with a comparison table and clear recommendations by scenario.
 date: 2026-06-14
+author: Mourad Oumita
 ---
 
 Every document you create forces a quiet decision: what format does it live in? Most people default to whatever their software produces — Word because that is what opens, PDF because that is what gets emailed. But the three dominant text formats — PDF, Word, and Markdown — were designed for fundamentally different jobs, and using the wrong one for the job is why documents get mangled, lost, or impossible to edit years later.

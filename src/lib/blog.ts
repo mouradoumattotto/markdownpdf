@@ -6,7 +6,9 @@ export interface BlogPost {
   slug: string;
   title: string;
   description: string;
-  date: string; // ISO date
+  date: string; // ISO date — first published
+  updated: string; // ISO date — last meaningful edit (falls back to `date`)
+  author?: string; // bylined author name; omitted → Organization is used
   readingMinutes: number;
   html: string;
 }
@@ -32,11 +34,14 @@ export function getAllPosts(): BlogPost[] {
       const raw = fs.readFileSync(path.join(BLOG_DIR, file), "utf8");
       const { meta, body } = parseFrontmatter(raw);
       const words = body.split(/\s+/).length;
+      const date = meta.date ?? "2026-01-01";
       return {
         slug: file.replace(/\.md$/, ""),
         title: meta.title ?? file,
         description: meta.description ?? "",
-        date: meta.date ?? "2026-01-01",
+        date,
+        updated: meta.updated ?? date,
+        author: meta.author || undefined,
         readingMinutes: Math.max(1, Math.round(words / 220)),
         html: marked.parse(body, { async: false }),
       };
@@ -61,6 +66,30 @@ function keywords(post: BlogPost): Set<string> {
       .split(/[^a-z0-9]+/)
       .filter((w) => w.length > 2 && !STOP_WORDS.has(w)),
   );
+}
+
+/**
+ * Pick the posts most relevant to a free-text topic (e.g. a tool page's subject),
+ * scored by keyword overlap. Used to build topic-cluster links from money pages
+ * back into the blog.
+ */
+export function getPostsByTopic(query: string, limit = 4): BlogPost[] {
+  const queryWords = new Set(
+    query
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length > 2 && !STOP_WORDS.has(w)),
+  );
+  return getAllPosts()
+    .map((p) => {
+      const words = keywords(p);
+      let score = 0;
+      for (const w of words) if (queryWords.has(w)) score += 1;
+      return { post: p, score };
+    })
+    .sort((a, b) => b.score - a.score || b.post.date.localeCompare(a.post.date))
+    .slice(0, limit)
+    .map((x) => x.post);
 }
 
 export function getRelatedPosts(slug: string, limit = 3): BlogPost[] {

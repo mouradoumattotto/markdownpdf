@@ -2,6 +2,7 @@
 title: OCR for PDFs Explained - Turn Scans Into Text
 description: How OCR converts scanned PDFs into editable text - how the technology works, when you need it, accuracy factors, engines like Tesseract, and practical tips.
 date: 2026-05-27
+author: Mourad Oumita
 ---
 
 You open a PDF, try to copy a paragraph, and nothing selects. The document looks like text, but as far as your computer is concerned it is just a photograph. This is the defining problem of scanned PDFs, and the technology that solves it is **OCR — optical character recognition**. This guide explains how OCR works, when you actually need it, what determines whether the results are excellent or garbage, and how to get the best possible output from your scans.

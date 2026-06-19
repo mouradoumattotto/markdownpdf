@@ -2,6 +2,7 @@
 title: PDF to Notion - Import PDFs as Editable Markdown
 description: Import a PDF into Notion as real, editable content - not a dead attachment. Convert PDF to Markdown first, then use Notion's native import. Free guide.
 date: 2026-06-11
+author: Mourad Oumita
 ---
 
 Drag a PDF into Notion and you get an embedded file viewer: you can read the document, but you can't edit a word of it, link to a section, or find its contents with Notion's search filters the way you can with real blocks. If you actually want to *work* with the document — annotate it, restructure it, connect it to a database — you need the PDF's content as native Notion blocks.

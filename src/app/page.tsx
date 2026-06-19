@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
+import BlogCluster from "@/components/BlogCluster";
+import { getPostsByTopic } from "@/lib/blog";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -131,6 +133,8 @@ function CrossIcon() {
 }
 
 export default function HomePage() {
+  const clusterPosts = getPostsByTopic("pdf markdown convert ocr guide notion obsidian");
+
   return (
     <>
       <JsonLd
@@ -315,6 +319,11 @@ export default function HomePage() {
       {/* FAQ */}
       <section className="mx-auto max-w-6xl px-4 py-20">
         <Faq items={faqItems} />
+      </section>
+
+      {/* From the blog */}
+      <section className="border-t border-neutral-100 bg-neutral-50/60">
+        <BlogCluster posts={clusterPosts} heading="Guides from the blog" />
       </section>
 
       {/* Final CTA */}

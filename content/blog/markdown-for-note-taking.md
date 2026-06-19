@@ -2,6 +2,7 @@
 title: Markdown for Note-Taking - Why Plain Text Wins
 description: Why Markdown is the best format for notes and documentation - portability, longevity, version control - plus app picks like Obsidian and PDF export tips.
 date: 2026-06-08
+author: Mourad Oumita
 ---
 
 Every few years, a beloved note-taking app shuts down, changes its pricing, or redesigns itself into something its users no longer recognize — and thousands of people discover their notes are trapped in a proprietary format. The people who never have this problem are the ones whose notes are plain Markdown files. This guide makes the case for Markdown as a note-taking foundation, compares the major apps, and shares workflow tips that hold up over years of use.

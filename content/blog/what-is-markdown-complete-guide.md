@@ -2,6 +2,7 @@
 title: What Is Markdown? A Complete Beginner's Guide
 description: What is Markdown? Learn the history, core syntax with examples, flavors like CommonMark and GFM, the best tools, and why writers and developers rely on it.
 date: 2026-05-15
+author: Mourad Oumita
 ---
 
 If you have ever written a README on GitHub, formatted a message in Discord, or taken notes in Obsidian, you have already used Markdown — possibly without knowing its name. Markdown is a lightweight way to format plain text, and over the past two decades it has quietly become the default writing format of the internet. This guide covers what it is, where it came from, how the syntax works, and why so many people refuse to write in anything else.

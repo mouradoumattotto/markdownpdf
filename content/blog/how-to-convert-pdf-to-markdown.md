@@ -2,6 +2,7 @@
 title: How to Convert PDF to Markdown (Step-by-Step Guide)
 description: Learn how to convert PDF to Markdown with online tools, Pandoc, or by hand. Covers tables, scanned PDFs, OCR, and tips for getting clean, usable output.
 date: 2026-05-18
+author: Mourad Oumita
 ---
 
 PDFs are everywhere — reports, papers, manuals, contracts — but they are a frustrating format to work with when you actually need the text. Markdown, on the other hand, is plain text you can edit anywhere, version with Git, and feed into static site generators, note apps, or AI tools. Converting PDF to Markdown bridges that gap, and this guide walks through every practical way to do it.

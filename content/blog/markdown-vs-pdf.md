@@ -2,6 +2,7 @@
 title: Markdown vs PDF - Which Format Should You Use?
 description: Markdown vs PDF compared in depth - history, strengths, weaknesses, and real-world use cases, plus how to convert between the two formats when you need both.
 date: 2026-05-22
+author: Mourad Oumita
 ---
 
 Markdown and PDF sit at opposite ends of the document spectrum. One is plain text you write; the other is a fixed page you publish. Treating them as rivals misses the point — they solve different problems — but you still have to choose one for any given job. This guide compares the two formats honestly so you can pick the right one, and shows how to move between them when you need both. (If a word processor is also in the running, see our three-way breakdown of [PDF vs Word vs Markdown](/blog/pdf-vs-word-vs-markdown).)
