@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import DownloadPostPdf from "@/components/DownloadPostPdf";
 import JsonLd from "@/components/JsonLd";
 import { getAllPosts, getPost, getRelatedPosts } from "@/lib/blog";
 import { SITE } from "@/lib/site";
@@ -105,6 +106,9 @@ export default async function BlogPostPage({
         className="prose prose-neutral mt-8 max-w-none prose-a:text-indigo-600"
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
+      {post.downloadPdf && (
+        <DownloadPostPdf markdown={post.body} title={post.title} filename={post.slug} />
+      )}
       <aside className="mt-12 rounded-xl border border-indigo-100 bg-indigo-50 p-6">
         <p className="font-semibold text-neutral-900">Try it yourself</p>
         <p className="mt-1 text-neutral-600">

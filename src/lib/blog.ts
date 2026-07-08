@@ -11,6 +11,8 @@ export interface BlogPost {
   author?: string; // bylined author name; omitted → Organization is used
   readingMinutes: number;
   html: string;
+  body: string; // raw markdown, frontmatter stripped — fed to the PDF converter
+  downloadPdf: boolean; // frontmatter `downloadPdf: true` → offer a PDF download of the post
 }
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
@@ -44,6 +46,8 @@ export function getAllPosts(): BlogPost[] {
         author: meta.author || undefined,
         readingMinutes: Math.max(1, Math.round(words / 220)),
         html: marked.parse(body, { async: false }),
+        body,
+        downloadPdf: meta.downloadPdf === "true",
       };
     })
     .sort((a, b) => b.date.localeCompare(a.date));
