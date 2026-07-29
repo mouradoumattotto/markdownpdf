@@ -1,7 +1,8 @@
 ---
-title: PDF to Markdown for NotebookLM - Better Sources
-description: Get better NotebookLM answers by converting PDFs to Markdown first - cleaner sources, headings that survive, OCR for scans, and a free local workflow.
+title: PDF to Markdown for NotebookLM - Free & Private
+description: Better NotebookLM answers start with better sources. Convert PDFs to Markdown free in your browser - headings preserved, OCR for scans, nothing uploaded.
 date: 2026-06-11
+updated: 2026-07-29
 author: Mourad Oumita
 ---
 

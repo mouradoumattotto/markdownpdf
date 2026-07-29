@@ -1,7 +1,8 @@
 ---
 title: Why LLMs Work Better With Markdown Than PDF
-description: Why LLMs prefer Markdown over PDF text. How tokenization works, which structure signals survive, what PDF extraction loses, and before/after examples.
+description: LLMs give better answers on Markdown than on PDF, and the reasons are concrete. How tokenization, structure signals, and extraction loss change what the model sees.
 date: 2026-05-30
+updated: 2026-07-29
 author: Mourad Oumita
 ---
 

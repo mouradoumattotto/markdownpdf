@@ -63,6 +63,9 @@ export default function RootLayout({
                 "@type": "Organization",
                 "@id": `${SITE.url}/#organization`,
                 name: SITE.name,
+                // The brand is written as one word but searched several ways;
+                // spell the variants out so Google ties them to this entity.
+                alternateName: ["Markdown PDF", "markdownpdf.app"],
                 url: SITE.url,
                 email: "contact@markdownpdf.app",
                 description: SITE.description,
@@ -72,12 +75,15 @@ export default function RootLayout({
                   url: `${SITE.url}/icon.svg`,
                   contentUrl: `${SITE.url}/icon.svg`,
                 },
-                sameAs: [`https://x.com/${SITE.twitter.replace(/^@/, "")}`],
+                // No `sameAs`: it must only list profiles that actually exist.
+                // x.com/markdownpdf is unregistered — claiming it is a broken
+                // entity signal. Add the array back once a real profile exists.
               },
               {
                 "@type": "WebSite",
                 "@id": `${SITE.url}/#website`,
                 name: SITE.name,
+                alternateName: ["Markdown PDF", "markdownpdf.app"],
                 url: SITE.url,
                 description: SITE.description,
                 inLanguage: "en",

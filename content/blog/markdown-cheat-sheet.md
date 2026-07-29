@@ -1,7 +1,8 @@
 ---
-title: Markdown Cheat Sheet - Every Syntax Element on One Page
-description: A complete Markdown cheat sheet covering every syntax element - headings, lists, links, tables, code - plus GFM extras. Printable - export it to PDF free.
+title: Markdown Cheat Sheet PDF (Free Download)
+description: Free Markdown cheat sheet with every syntax element - headings, lists, links, tables, code - plus GFM extras. Download it as a printable PDF in one click.
 date: 2026-05-16
+updated: 2026-07-29
 author: Mourad Oumita
 downloadPdf: true
 ---
