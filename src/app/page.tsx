@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PdfToMarkdownTool from "@/components/PdfToMarkdownTool";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
 import BlogCluster from "@/components/BlogCluster";
@@ -7,9 +8,9 @@ import { getPostsByTopic } from "@/lib/blog";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "MarkdownPDF — Free PDF to Markdown & Markdown to PDF Converter",
+  title: "Convert PDF to Markdown & Markdown to PDF — Free, No Upload",
   description:
-    "Convert PDF to Markdown (with OCR for scanned files) or Markdown to PDF — free, instant, and 100% private. Files are processed in your browser, never uploaded.",
+    "Convert PDF to Markdown right here on this page — free, instant, with automatic OCR for scanned files. Or turn Markdown into a polished PDF. Nothing is uploaded.",
   alternates: { canonical: "/" },
 };
 
@@ -165,22 +166,29 @@ export default function HomePage() {
             Your files never leave your browser
           </p>
           <h1 className="animate-fade-up mx-auto mt-6 max-w-3xl text-4xl font-bold tracking-tight text-neutral-900 sm:text-6xl">
-            Convert between{" "}
+            Convert{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              PDF
-            </span>{" "}
-            and{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              Markdown
+              PDF to Markdown
             </span>{" "}
             in seconds
           </h1>
           <p className="animate-fade-up-delay-1 mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600">
-            Free, instant, and completely private — with automatic OCR for scanned documents. No
-            sign-up, no watermark, no file size limits.
+            Drop a PDF below and get clean Markdown instantly — with automatic OCR for scanned
+            documents. Free, no sign-up, and 100% private: your file never leaves your browser.
           </p>
 
-          <div className="animate-fade-up-delay-2 mt-12 grid gap-5 text-left sm:grid-cols-2">
+          {/* The converter lives on the homepage on purpose. Measured 2026-08-21, `/` was one of
+              only 12 crawled URLs on the site while `/pdf-to-markdown` had never been fetched at
+              all, so the tool has to be reachable from the one page Google actually visits. */}
+          <div className="animate-fade-up-delay-2 mx-auto mt-10 max-w-4xl text-left">
+            <PdfToMarkdownTool />
+          </div>
+
+          <p className="mt-14 text-sm font-semibold uppercase tracking-wide text-neutral-500">
+            Or open a dedicated converter
+          </p>
+
+          <div className="mt-5 grid gap-5 text-left sm:grid-cols-2">
             <Link
               href="/pdf-to-markdown"
               className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white/90 p-8 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10"
@@ -194,11 +202,11 @@ export default function HomePage() {
                 PDF <span className="text-indigo-600">→</span> Markdown
               </p>
               <p className="mt-2 leading-relaxed text-neutral-600">
-                Extract clean Markdown from any PDF — headings, lists, and emphasis included. OCR
-                kicks in for scanned pages.
+                The full converter page: how OCR handles scanned pages, what survives from tables
+                and images, and answers to the questions people actually ask.
               </p>
               <p className="mt-5 inline-flex items-center gap-1 font-semibold text-indigo-600">
-                Convert PDF to Markdown
+                Open the PDF to Markdown converter
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </p>
             </Link>

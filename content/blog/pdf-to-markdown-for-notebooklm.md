@@ -1,8 +1,8 @@
 ---
-title: PDF to Markdown for NotebookLM - Free & Private
-description: Better NotebookLM answers start with better sources. Convert PDFs to Markdown free in your browser - headings preserved, OCR for scans, nothing uploaded.
+title: PDF to Markdown for NotebookLM — Free, No Upload, With OCR
+description: Stop feeding NotebookLM messy PDFs. Convert them to clean Markdown in your browser in seconds — headings preserved, OCR for scans, nothing ever uploaded.
 date: 2026-06-11
-updated: 2026-07-29
+updated: 2026-08-21
 author: Mourad Oumita
 ---
 

@@ -7,13 +7,15 @@ import { SITE } from "@/lib/site";
 // the blog's freshest post — re-stamping every URL on each publish teaches Google
 // that our lastmod carries no information, and it stops trusting the field.
 const PAGE_MODIFIED: Record<string, string> = {
-  "/pdf-to-markdown": "2026-06-19",
+  "/pdf-to-markdown": "2026-08-21",
   "/markdown-to-pdf": "2026-06-19",
-  "/about": "2026-06-11",
-  "/contact": "2026-06-11",
-  "/privacy-policy": "2026-06-11",
-  "/terms": "2026-06-11",
 };
+
+// /about, /contact, /privacy-policy and /terms are deliberately absent.
+// Measured 2026-08-21: only 12 of 35 sitemap URLs had ever been crawled, yet
+// Googlebot spent August re-crawling /terms and /privacy-policy. They are linked
+// from the footer, so they stay indexable and discoverable — we just refuse to
+// spend a starved crawl budget advertising them.
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const allPosts = getAllPosts();
@@ -26,10 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/pdf-to-markdown`, lastModified: PAGE_MODIFIED["/pdf-to-markdown"], changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/markdown-to-pdf`, lastModified: PAGE_MODIFIED["/markdown-to-pdf"], changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/blog`, lastModified: latest, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${SITE.url}/about`, lastModified: PAGE_MODIFIED["/about"], changeFrequency: "yearly", priority: 0.4 },
-    { url: `${SITE.url}/contact`, lastModified: PAGE_MODIFIED["/contact"], changeFrequency: "yearly", priority: 0.3 },
-    { url: `${SITE.url}/privacy-policy`, lastModified: PAGE_MODIFIED["/privacy-policy"], changeFrequency: "yearly", priority: 0.2 },
-    { url: `${SITE.url}/terms`, lastModified: PAGE_MODIFIED["/terms"], changeFrequency: "yearly", priority: 0.2 },
   ];
 
   const posts: MetadataRoute.Sitemap = allPosts.map((post) => ({

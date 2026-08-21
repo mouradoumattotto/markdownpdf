@@ -1,8 +1,8 @@
 ---
-title: Why LLMs Work Better With Markdown Than PDF
-description: LLMs give better answers on Markdown than on PDF, and the reasons are concrete. How tokenization, structure signals, and extraction loss change what the model sees.
+title: Why LLMs Read Markdown Better Than PDF (ChatGPT & Claude)
+description: PDF extraction throws away the structure your model needs. See exactly what breaks, why Markdown gets better answers out of ChatGPT and Claude, and how to convert free.
 date: 2026-05-30
-updated: 2026-07-29
+updated: 2026-08-21
 author: Mourad Oumita
 ---
 
