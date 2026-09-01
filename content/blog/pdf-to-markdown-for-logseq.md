@@ -1,6 +1,7 @@
 ---
 title: PDF to Markdown for Logseq - Import PDFs as Blocks
 description: Import PDFs into Logseq as real Markdown blocks, not dead attachments. Why the outliner needs plain text, a full conversion workflow, OCR, and cleanup tips.
+author: Mourad Oumita
 date: 2026-06-19
 ---
 
@@ -35,7 +36,7 @@ The big one is structure. A converted PDF is *flat* Markdown — a stack of head
 
 ### Step 1: Convert the PDF to Markdown
 
-Open our free [PDF to Markdown converter](/pdf-to-markdown) in your browser and drop the file in. The conversion runs entirely on your own machine — the file is never uploaded to a server — which matters when the PDF is a contract, a research draft, or anything else you would not paste into a random website. You get back Markdown with headings, paragraphs, and lists reconstructed from the PDF's layout. Download the `.md` file or copy the output.
+Open our free [PDF to Markdown converter](/) in your browser and drop the file in. The conversion runs entirely on your own machine — the file is never uploaded to a server — which matters when the PDF is a contract, a research draft, or anything else you would not paste into a random website. You get back Markdown with headings, paragraphs, and lists reconstructed from the PDF's layout. Download the `.md` file or copy the output.
 
 ### Step 2: Bring it into the graph
 
@@ -79,7 +80,7 @@ This is the step that justifies the whole exercise. Reference key sentences into
 
 Plenty of PDFs — older papers, scanned book chapters, anything printed and re-digitized — contain no text at all, only images of pages. A normal converter has nothing to extract.
 
-Our [PDF to Markdown tool](/pdf-to-markdown) includes OCR (optical character recognition), which reads the page images and reconstructs the text, again entirely in your browser. Expect OCR output to need more cleanup than a digital-native PDF: recognition is strong on clean scans but degrades with skewed pages, low resolution, or unusual fonts. Skim the result against the original before relying on it. For more on getting good results, see our [OCR PDF to text guide](/blog/ocr-pdf-to-text-guide).
+Our [PDF to Markdown tool](/) includes OCR (optical character recognition), which reads the page images and reconstructs the text, again entirely in your browser. Expect OCR output to need more cleanup than a digital-native PDF: recognition is strong on clean scans but degrades with skewed pages, low resolution, or unusual fonts. Skim the result against the original before relying on it. For more on getting good results, see our [OCR PDF to text guide](/blog/ocr-pdf-to-text-guide).
 
 ## FAQ
 
@@ -101,4 +102,4 @@ Yes — keep it when figures, exact layout, or signatures matter, and link to it
 
 ## The bottom line
 
-In Logseq, a PDF attachment is storage and a set of blocks is knowledge you can reference, tag, and query. Converting takes a couple of minutes with a [free browser-based converter](/pdf-to-markdown) — including scanned documents, thanks to OCR — and turns an inert file into working parts of your graph. Import the documents that matter, outline them, add properties, link them in, and let the references do the rest.
+In Logseq, a PDF attachment is storage and a set of blocks is knowledge you can reference, tag, and query. Converting takes a couple of minutes with a [free browser-based converter](/) — including scanned documents, thanks to OCR — and turns an inert file into working parts of your graph. Import the documents that matter, outline them, add properties, link them in, and let the references do the rest.

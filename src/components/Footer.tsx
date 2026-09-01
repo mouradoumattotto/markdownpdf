@@ -4,7 +4,7 @@ const columns = [
   {
     title: "Tools",
     links: [
-      { href: "/pdf-to-markdown", label: "PDF to Markdown" },
+      { href: "/", label: "PDF to Markdown" },
       { href: "/markdown-to-pdf", label: "Markdown to PDF" },
     ],
   },

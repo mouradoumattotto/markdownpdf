@@ -71,7 +71,7 @@ export default async function BlogPostPage({
           image: [`${postUrl}/opengraph-image`],
           inLanguage: "en",
           author: post.author
-            ? { "@type": "Person", name: post.author, url: `${SITE.url}/about` }
+            ? { "@type": "Person", "@id": `${SITE.url}/about#author`, name: post.author, url: `${SITE.url}/about` }
             : { "@type": "Organization", name: SITE.name, url: SITE.url },
           publisher: { "@id": `${SITE.url}/#organization` },
           mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
@@ -113,7 +113,7 @@ export default async function BlogPostPage({
         <p className="font-semibold text-neutral-900">Try it yourself</p>
         <p className="mt-1 text-neutral-600">
           Convert files free and privately in your browser:{" "}
-          <Link href="/pdf-to-markdown" className="font-medium text-indigo-600 hover:underline">
+          <Link href="/" className="font-medium text-indigo-600 hover:underline">
             PDF to Markdown
           </Link>{" "}
           ·{" "}

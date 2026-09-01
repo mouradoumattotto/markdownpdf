@@ -84,7 +84,7 @@ A ten-minute manual review of one converted document catches most of these befor
 
 For large automated pipelines you will eventually [script extraction in Python](/blog/pdf-to-markdown-python). But a browser-based converter has a real place in RAG work:
 
-- **Prototyping.** Before writing ingestion code, convert a handful of representative PDFs with the [PDF to Markdown tool](/pdf-to-markdown) and inspect the output. You will learn in minutes which pitfalls your corpus actually has — multi-column? scanned pages? gnarly tables? — and design the pipeline accordingly.
+- **Prototyping.** Before writing ingestion code, convert a handful of representative PDFs with the [PDF to Markdown tool](/) and inspect the output. You will learn in minutes which pitfalls your corpus actually has — multi-column? scanned pages? gnarly tables? — and design the pipeline accordingly.
 - **Small and medium corpora.** Plenty of useful RAG systems index dozens of documents, not millions. Converting them by hand in the browser, with a quick visual review of each, is often faster than building and debugging an automated pipeline — and the per-document review produces higher-quality chunks.
 - **Sensitive documents.** Browser-based conversion runs locally; files never leave your machine. For contracts, medical documents, or internal financials, that removes a whole category of data-handling questions that cloud extraction APIs raise.
 - **The long tail of problem files.** Every corpus has a few PDFs that break the automated pipeline. Converting those interactively, with OCR available for the scanned ones, is the practical escape hatch.
@@ -92,7 +92,7 @@ For large automated pipelines you will eventually [script extraction in Python](
 ## A sensible starting workflow
 
 1. Collect representative PDFs from your corpus.
-2. Convert each with the [PDF to Markdown converter](/pdf-to-markdown), using OCR where pages are scanned.
+2. Convert each with the [PDF to Markdown converter](/), using OCR where pages are scanned.
 3. Review and clean: strip residual headers/footers, fix heading levels, verify tables.
 4. Chunk by headings with size limits; keep tables whole; prepend heading paths.
 5. Attach metadata and embed.

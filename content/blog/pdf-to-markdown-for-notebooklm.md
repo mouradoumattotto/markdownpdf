@@ -39,7 +39,7 @@ If the PDF is a scan — old course readers, photographed book chapters, archive
 
 ## The workflow, step by step
 
-1. **Convert the PDF.** Open the [PDF to Markdown converter](/pdf-to-markdown) and drop your file in. Conversion happens locally in your browser — the file is never uploaded to a server, which matters if you're prepping confidential reports or unpublished research. Scanned pages are OCR'd automatically.
+1. **Convert the PDF.** Open the [PDF to Markdown converter](/) and drop your file in. Conversion happens locally in your browser — the file is never uploaded to a server, which matters if you're prepping confidential reports or unpublished research. Scanned pages are OCR'd automatically.
 2. **Read the output.** Skim the whole result. Check that headings became `##` lines, lists became bullets, and nothing important vanished. Pay extra attention to tables and anything that was multi-column in the original.
 3. **Clean it up.** Delete boilerplate, fix any broken paragraphs, and make sure every section has a real heading. Five minutes here pays off in every future answer.
 4. **Split or merge if needed.** One file per chapter is a good default for long documents; one combined file works well for stacks of short memos on the same topic.
@@ -76,7 +76,7 @@ Yes. NotebookLM accepts `.md` files as sources alongside PDFs, `.txt`, Word docu
 
 ### Can NotebookLM read scanned PDFs?
 
-Sometimes, but unreliably — a scan with no text layer gives any tool very little to work with, and you can't see what was recovered. Running OCR yourself during a [PDF to Markdown conversion](/pdf-to-markdown) produces text you can verify before it becomes a source, which is the safer path for course readers and archived documents.
+Sometimes, but unreliably — a scan with no text layer gives any tool very little to work with, and you can't see what was recovered. Running OCR yourself during a [PDF to Markdown conversion](/) produces text you can verify before it becomes a source, which is the safer path for course readers and archived documents.
 
 ### What are NotebookLM's source limits?
 

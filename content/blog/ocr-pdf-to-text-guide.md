@@ -40,7 +40,7 @@ The result is text — which can then be structured into something useful like M
 | PDF where some pages select and others do not | Partially — mixed documents exist |
 | "Flattened" PDF saved as images for security | Yes |
 
-Typical real-world cases: digitizing old paper records, extracting data from received invoices, making a scanned book searchable, quoting from archived reports, and converting legacy documentation into an editable format. For a hands-on walkthrough of the whole routine, see our guide to [extracting text from a scanned PDF](/blog/extract-text-from-scanned-pdf). If you want the end result as clean Markdown rather than raw text, a tool like our [PDF to Markdown converter](/pdf-to-markdown) runs OCR and structural formatting in one step — and because MarkdownPDF processes everything locally in your browser, scanned contracts and medical records never leave your machine.
+Typical real-world cases: digitizing old paper records, extracting data from received invoices, making a scanned book searchable, quoting from archived reports, and converting legacy documentation into an editable format. For a hands-on walkthrough of the whole routine, see our guide to [extracting text from a scanned PDF](/blog/extract-text-from-scanned-pdf). If you want the end result as clean Markdown rather than raw text, a tool like our [PDF to Markdown converter](/) runs OCR and structural formatting in one step — and because MarkdownPDF processes everything locally in your browser, scanned contracts and medical records never leave your machine.
 
 ## What determines OCR accuracy
 
@@ -88,7 +88,7 @@ Mostly no. Standard OCR engines like Tesseract are built for printed text and pe
 
 ### Is browser-based OCR private?
 
-It can be — if the tool truly runs locally. Thanks to WebAssembly ports like Tesseract.js, OCR can execute entirely on your own device. MarkdownPDF's [PDF to Markdown converter](/pdf-to-markdown) works this way: your scanned document is processed in your browser and never uploaded, unlike cloud OCR services that necessarily receive a copy of your file.
+It can be — if the tool truly runs locally. Thanks to WebAssembly ports like Tesseract.js, OCR can execute entirely on your own device. MarkdownPDF's [PDF to Markdown converter](/) works this way: your scanned document is processed in your browser and never uploaded, unlike cloud OCR services that necessarily receive a copy of your file.
 
 ### Why does my scanned PDF search find nothing?
 

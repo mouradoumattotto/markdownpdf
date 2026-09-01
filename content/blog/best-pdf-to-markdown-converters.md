@@ -11,7 +11,7 @@ Search for "PDF to Markdown converter" and you will find dozens of tools that al
 
 ### 1. Browser-based converters
 
-Tools like our [PDF to Markdown converter](/pdf-to-markdown) run entirely in your web browser. You open a page, drop a PDF in, and get Markdown back in seconds — no account, no install, no command line.
+Tools like our [PDF to Markdown converter](/) run entirely in your web browser. You open a page, drop a PDF in, and get Markdown back in seconds — no account, no install, no command line.
 
 A point that is easy to gloss over: "browser-based" can mean two very different things. Many online converters are actually *server-based* — your file is uploaded, processed on someone else's machine, and (you hope) deleted afterwards. A genuinely client-side tool does the conversion locally in the browser, so the file never leaves your computer. For contracts, medical documents, unpublished research, or anything under NDA, that distinction is the whole ballgame. Our tool is fully client-side, and it includes OCR for scanned PDFs — also running locally.
 
@@ -58,7 +58,7 @@ Copy the text out of your PDF reader, paste it into an editor, and add the Markd
 
 ## Which should you choose?
 
-- **You convert PDFs occasionally and want it done now** → a client-side [browser converter](/pdf-to-markdown). No setup, private, handles scans.
+- **You convert PDFs occasionally and want it done now** → a client-side [browser converter](/). No setup, private, handles scans.
 - **Your PDFs are scanned documents** → a tool with built-in OCR, or a separate OCR pass first. Our [OCR guide](/blog/ocr-pdf-to-text-guide) explains the options.
 - **You are processing hundreds of papers programmatically** → invest the setup time in marker or docling; the structure quality on complex layouts is worth it. If the output is headed into an LLM, [why LLMs work better with Markdown than PDF](/blog/why-llms-prefer-markdown) explains why the extra effort pays off.
 - **You already live in the terminal and only need the text** → `pdftotext` gets you 90% of what a pandoc pipeline would, with one command.
@@ -71,4 +71,4 @@ Whatever you pick, calibrate your expectations. PDF simply does not record "this
 
 ## The bottom line
 
-There is no single "best" PDF to Markdown converter — there is a best converter *for your situation*. For most people, most of the time, a free client-side browser tool is the right call: instant, private, OCR included. Reach for ML tools when volume and layout complexity justify the setup, reach for pandoc when going the other direction, and reach for your keyboard when the document is short. Try the fast path first: drop a file into our [PDF to Markdown converter](/pdf-to-markdown) and see how far it gets you.
+There is no single "best" PDF to Markdown converter — there is a best converter *for your situation*. For most people, most of the time, a free client-side browser tool is the right call: instant, private, OCR included. Reach for ML tools when volume and layout complexity justify the setup, reach for pandoc when going the other direction, and reach for your keyboard when the document is short. Try the fast path first: drop a file into our [PDF to Markdown converter](/) and see how far it gets you.

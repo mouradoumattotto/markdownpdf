@@ -7,25 +7,42 @@ import BlogCluster from "@/components/BlogCluster";
 import { getPostsByTopic } from "@/lib/blog";
 import { SITE } from "@/lib/site";
 
+// `/` IS the PDF to Markdown page. Measured 2026-09-01: after 3 months and two
+// audits, /pdf-to-markdown was still "URL is unknown to Google" while `/` was one
+// of only 8 indexed URLs — and Google was routing "pdf to markdown" queries to a
+// blog post instead. Keeping two converter pages when only one gets crawled split
+// the signal for nothing, so /pdf-to-markdown now 308s here and its content lives
+// on this page. /markdown-to-pdf stays separate: it is a different search intent.
+//
+// The brand is spelled out in the title on purpose: the layout's title.template
+// does not apply to app/page.tsx (same segment), and dropping "MarkdownPDF" from
+// this title on 2026-08-21 coincided with `/` falling from pos 5.6 to 29.7 on the
+// brand query.
 export const metadata: Metadata = {
-  title: "Convert PDF to Markdown & Markdown to PDF — Free, No Upload",
+  title: { absolute: "PDF to Markdown Converter — Free, Private, with OCR | MarkdownPDF" },
   description:
-    "Convert PDF to Markdown right here on this page — free, instant, with automatic OCR for scanned files. Or turn Markdown into a polished PDF. Nothing is uploaded.",
+    "Convert PDF to Markdown online for free, right on this page. Headings, lists, and emphasis preserved, automatic OCR for scanned PDFs, and nothing is uploaded — your file never leaves your browser.",
   alternates: { canonical: "/" },
+  openGraph: {
+    title: "PDF to Markdown Converter — Free, Private, with OCR",
+    description:
+      "Convert PDF to Markdown online for free, with automatic OCR for scanned documents. Your files never leave your browser.",
+    url: "/",
+  },
 };
 
 const steps = [
   {
-    title: "Drop your file",
-    text: "Drag a PDF or Markdown file into the converter — or just paste your text.",
+    name: "Drop your PDF",
+    text: "Drag and drop your PDF into the converter above, or click to browse your device. Nothing is uploaded — the file is read locally.",
   },
   {
-    title: "Converted instantly",
-    text: "Everything runs in your browser. No upload bar, no queue, no waiting for a server.",
+    name: "Automatic conversion",
+    text: "The tool extracts the text layer and rebuilds headings, lists, and emphasis as Markdown. Scanned pages with no text layer are recognized with OCR automatically.",
   },
   {
-    title: "Download the result",
-    text: "Grab clean Markdown or a polished, selectable-text PDF. No watermark, no sign-up.",
+    name: "Copy or download",
+    text: "Review the Markdown output, edit it if needed, then copy it to your clipboard or download it as a .md file.",
   },
 ];
 
@@ -58,9 +75,9 @@ const features = [
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
     ),
-    title: "Real, selectable PDF text",
+    title: "Ready for LLMs and notes",
     description:
-      "Markdown becomes a true vector PDF — searchable, selectable, screen-reader friendly, and small. Not a blurry screenshot.",
+      "Clean Markdown is what ChatGPT, Claude, NotebookLM, Obsidian, and Notion actually want. Structure survives, tokens drop, answers improve.",
   },
   {
     icon: (
@@ -91,6 +108,11 @@ const comparison = [
 
 const faqItems = [
   {
+    question: "How do I convert a PDF to Markdown?",
+    answer:
+      "Drop your PDF into the converter at the top of this page (or click to browse). The tool extracts the text, rebuilds headings, lists, and emphasis as Markdown, and lets you copy the result or download it as a .md file. It takes a few seconds for a typical document.",
+  },
+  {
     question: "Is MarkdownPDF really free?",
     answer:
       "Yes. Both the PDF to Markdown and Markdown to PDF converters are completely free, with no account, watermark, or hidden limits.",
@@ -98,17 +120,22 @@ const faqItems = [
   {
     question: "Are my files uploaded to a server?",
     answer:
-      "No. All conversion runs locally in your browser using JavaScript. Your documents never leave your device, which makes MarkdownPDF safe for confidential files.",
+      "No. All conversion runs locally in your browser using JavaScript (pdf.js for text extraction, Tesseract for OCR). Your PDF is never uploaded, stored, or seen by any server, which makes MarkdownPDF safe for confidential documents.",
   },
   {
-    question: "Can it convert scanned PDFs?",
+    question: "Does it work with scanned PDFs?",
     answer:
-      "Yes. When a page has no embedded text layer, the converter automatically runs OCR (optical character recognition) to extract the text from the page image.",
+      "Yes. If a page has no embedded text layer, the converter automatically runs OCR (optical character recognition) on the page image to recognize the text. OCR is slower than normal extraction, so scanned documents take a bit longer.",
   },
   {
-    question: "What Markdown syntax is supported for PDF export?",
+    question: "Is there a file size limit?",
     answer:
-      "Headings, paragraphs, bold and italic text, ordered and unordered lists, links, inline code, fenced code blocks, blockquotes, tables, and horizontal rules.",
+      "There is no server-imposed limit because the conversion runs on your own device. Very large PDFs (hundreds of pages) will simply take longer, depending on your computer.",
+  },
+  {
+    question: "Will tables and images be converted?",
+    answer:
+      "Text content, headings, lists, and emphasis are converted. Complex multi-column tables and embedded images are not reliably recoverable from PDF text data, so you may need to adjust those manually.",
   },
   {
     question: "Does it work on mobile?",
@@ -134,7 +161,7 @@ function CrossIcon() {
 }
 
 export default function HomePage() {
-  const clusterPosts = getPostsByTopic("pdf markdown convert ocr guide notion obsidian");
+  const clusterPosts = getPostsByTopic("pdf to markdown convert ocr scanned tables chatgpt claude notebooklm obsidian");
 
   return (
     <>
@@ -142,12 +169,39 @@ export default function HomePage() {
         data={{
           "@context": "https://schema.org",
           "@type": "WebApplication",
-          name: SITE.name,
+          "@id": `${SITE.url}/#app`,
+          name: "MarkdownPDF — PDF to Markdown Converter",
           url: SITE.url,
           applicationCategory: "UtilitiesApplication",
           operatingSystem: "Any",
+          browserRequirements: "Requires a modern browser with JavaScript enabled",
+          isAccessibleForFree: true,
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-          description: SITE.description,
+          description:
+            "Free, browser-based PDF to Markdown converter. Extracts text, rebuilds headings, lists, and emphasis as Markdown, and runs OCR on scanned pages. Files are processed locally and never uploaded.",
+          featureList: [
+            "PDF text extraction with structure detection (headings, lists, emphasis)",
+            "Automatic OCR for scanned PDFs",
+            "100% client-side processing — no upload",
+            "No file size limit, no sign-up, no watermark",
+            "Markdown to PDF conversion with real selectable text",
+          ],
+          publisher: { "@id": `${SITE.url}/#organization` },
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "How to convert a PDF to Markdown",
+          totalTime: "PT1M",
+          tool: { "@type": "HowToTool", name: "MarkdownPDF (free browser converter)" },
+          step: steps.map((s, i) => ({
+            "@type": "HowToStep",
+            position: i + 1,
+            name: s.name,
+            text: s.text,
+          })),
         }}
       />
 
@@ -173,74 +227,33 @@ export default function HomePage() {
             in seconds
           </h1>
           <p className="animate-fade-up-delay-1 mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600">
-            Drop a PDF below and get clean Markdown instantly — with automatic OCR for scanned
-            documents. Free, no sign-up, and 100% private: your file never leaves your browser.
+            Free online PDF to Markdown converter with automatic OCR for scanned documents. No
+            sign-up, no upload, no limits — drop a PDF below and get clean Markdown instantly.
           </p>
 
-          {/* The converter lives on the homepage on purpose. Measured 2026-08-21, `/` was one of
-              only 12 crawled URLs on the site while `/pdf-to-markdown` had never been fetched at
-              all, so the tool has to be reachable from the one page Google actually visits. */}
-          <div className="animate-fade-up-delay-2 mx-auto mt-10 max-w-4xl text-left">
+          <div id="converter" className="animate-fade-up-delay-2 mx-auto mt-10 max-w-4xl scroll-mt-24 text-left">
             <PdfToMarkdownTool />
           </div>
 
-          <p className="mt-14 text-sm font-semibold uppercase tracking-wide text-neutral-500">
-            Or open a dedicated converter
-          </p>
-
-          <div className="mt-5 grid gap-5 text-left sm:grid-cols-2">
-            <Link
-              href="/pdf-to-markdown"
-              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white/90 p-8 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10"
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-orange-500 text-white shadow-md">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-6 w-6" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12H9m6.75 3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                </svg>
-              </span>
-              <p className="mt-5 text-2xl font-bold text-neutral-900">
-                PDF <span className="text-indigo-600">→</span> Markdown
-              </p>
-              <p className="mt-2 leading-relaxed text-neutral-600">
-                The full converter page: how OCR handles scanned pages, what survives from tables
-                and images, and answers to the questions people actually ask.
-              </p>
-              <p className="mt-5 inline-flex items-center gap-1 font-semibold text-indigo-600">
-                Open the PDF to Markdown converter
-                <span className="transition-transform group-hover:translate-x-1">→</span>
-              </p>
-            </Link>
-            <Link
-              href="/markdown-to-pdf"
-              className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white/90 p-8 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10"
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-md">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-6 w-6" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                </svg>
-              </span>
-              <p className="mt-5 text-2xl font-bold text-neutral-900">
-                Markdown <span className="text-indigo-600">→</span> PDF
-              </p>
-              <p className="mt-2 leading-relaxed text-neutral-600">
-                Turn notes, READMEs, and docs into a polished, shareable PDF with real selectable
-                text — in one click.
-              </p>
-              <p className="mt-5 inline-flex items-center gap-1 font-semibold text-indigo-600">
-                Convert Markdown to PDF
-                <span className="transition-transform group-hover:translate-x-1">→</span>
-              </p>
-            </Link>
-          </div>
-
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-neutral-500">
-            {["No sign-up", "No watermark", "No file limits", "Works on mobile"].map((t) => (
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-neutral-500">
+            {["No sign-up", "No watermark", "No file limits", "OCR included", "Works on mobile"].map((t) => (
               <span key={t} className="inline-flex items-center gap-1.5">
                 <CheckIcon className="h-4 w-4 text-indigo-500" />
                 {t}
               </span>
             ))}
           </div>
+
+          {/* Plain-language entity statement. Written to be quotable as-is by search
+              and answer engines: what the tool is, how it works, what it does not do. */}
+          <p className="mx-auto mt-12 max-w-3xl rounded-2xl border border-neutral-200 bg-white/80 px-6 py-5 text-left leading-relaxed text-neutral-700 backdrop-blur">
+            <strong className="text-neutral-900">MarkdownPDF</strong> is a free PDF to Markdown
+            converter that runs entirely in your browser. It reads the PDF locally with pdf.js,
+            rebuilds headings, lists, and emphasis from the font metrics, and falls back to
+            Tesseract OCR for scanned pages that have no text layer. The file is never uploaded,
+            there is no account and no page limit, and the output is plain Markdown you can paste
+            into ChatGPT, Claude, NotebookLM, Obsidian, or a Git repository.
+          </p>
         </div>
       </section>
 
@@ -248,79 +261,158 @@ export default function HomePage() {
       <section className="border-t border-neutral-100 bg-neutral-50/60">
         <div className="mx-auto max-w-6xl px-4 py-20">
           <h2 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-            Three steps. About five seconds.
+            How to convert PDF to Markdown
           </h2>
-          <div className="mt-12 grid gap-8 sm:grid-cols-3">
+          <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
+            Three steps. About five seconds for a text PDF, a little longer for scans.
+          </p>
+          <ol className="mt-12 grid gap-8 sm:grid-cols-3">
             {steps.map((s, i) => (
-              <div key={s.title} className="relative rounded-2xl bg-white p-7 shadow-sm ring-1 ring-neutral-100">
+              <li key={s.name} className="relative rounded-2xl bg-white p-7 shadow-sm ring-1 ring-neutral-100">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 font-bold text-white shadow-md shadow-indigo-500/25">
                   {i + 1}
                 </span>
-                <h3 className="mt-4 text-lg font-semibold text-neutral-900">{s.title}</h3>
+                <h3 className="mt-4 text-lg font-semibold text-neutral-900">{s.name}</h3>
                 <p className="mt-2 leading-relaxed text-neutral-600">{s.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Why */}
+      <section className="mx-auto max-w-3xl px-4 py-20">
+        <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+          Why convert PDF to Markdown?
+        </h2>
+        <div className="prose prose-neutral mt-6 max-w-none prose-a:text-indigo-600">
+          <p>
+            PDF is great for sharing a fixed layout, but it is painful to edit, version, or reuse.
+            Markdown is the opposite: a lightweight plain-text format that works everywhere — in
+            GitHub READMEs, note-taking apps like Obsidian, static site generators, documentation
+            platforms, and the context window of a language model. Converting a PDF to Markdown
+            lets you:
+          </p>
+          <ul>
+            <li>
+              <strong>Feed documents to AI tools cleanly.</strong> ChatGPT, Claude, and NotebookLM
+              read Markdown structure far better than raw PDF text — see{" "}
+              <Link href="/blog/why-llms-prefer-markdown">why LLMs prefer Markdown</Link>.
+            </li>
+            <li>
+              <strong>Edit the content freely</strong> in any text editor, without PDF software.
+            </li>
+            <li>
+              <strong>Track changes with Git</strong>, since Markdown is plain text that diffs
+              cleanly.
+            </li>
+            <li>
+              <strong>Reuse content</strong> in wikis, blogs, knowledge bases, and RAG pipelines
+              that expect text input.
+            </li>
+            <li>
+              <strong>Future-proof your documents</strong> — plain text will still open in 30
+              years.
+            </li>
+          </ul>
+          <p>
+            Unlike most online converters, this tool runs entirely in your browser. That means no
+            upload wait, no privacy risk, and no server-side file size limits. To learn more, read
+            our guide on <Link href="/blog/markdown-vs-pdf">Markdown vs PDF</Link>, or see{" "}
+            <Link href="/blog/how-to-convert-pdf-to-markdown">
+              every way to convert PDF to Markdown
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="border-t border-neutral-100 bg-neutral-50/60">
+        <div className="mx-auto max-w-6xl px-4 py-20">
+          <h2 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+            Built different from other converters
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
+            Most online converters upload your files to a server. We rebuilt conversion to run
+            entirely on your device instead.
+          </p>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="group rounded-2xl border border-neutral-200 bg-white p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-500/5"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-colors group-hover:bg-indigo-600 group-hover:text-white">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-6 w-6" aria-hidden>
+                    {f.icon}
+                  </svg>
+                </span>
+                <h3 className="mt-4 font-semibold text-neutral-900">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600">{f.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="mx-auto max-w-6xl px-4 py-20">
+      {/* Comparison */}
+      <section className="mx-auto max-w-4xl px-4 py-20">
         <h2 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-          Built different from other converters
+          MarkdownPDF vs. typical online converters
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
-          Most online converters upload your files to a server. We rebuilt conversion to run
-          entirely on your device instead.
-        </p>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="group rounded-2xl border border-neutral-200 bg-white p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-500/5"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-colors group-hover:bg-indigo-600 group-hover:text-white">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-6 w-6" aria-hidden>
-                  {f.icon}
-                </svg>
-              </span>
-              <h3 className="mt-4 font-semibold text-neutral-900">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-neutral-600">{f.description}</p>
-            </div>
-          ))}
+        <div className="mt-12 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-neutral-200 bg-neutral-50">
+                <th scope="col" className="px-5 py-4 font-semibold text-neutral-900"></th>
+                <th scope="col" className="px-5 py-4 font-semibold text-indigo-600">MarkdownPDF</th>
+                <th scope="col" className="px-5 py-4 font-semibold text-neutral-500">Typical converters</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-neutral-100">
+              {comparison.map((row) => (
+                <tr key={row.feature}>
+                  <th scope="row" className="px-5 py-4 font-medium text-neutral-700">{row.feature}</th>
+                  <td className="px-5 py-4">
+                    <CheckIcon />
+                  </td>
+                  <td className="px-5 py-4 text-neutral-500">
+                    {row.them === false ? <CrossIcon /> : row.them}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
-      {/* Comparison */}
+      {/* Other direction */}
       <section className="border-t border-neutral-100 bg-neutral-50/60">
-        <div className="mx-auto max-w-4xl px-4 py-20">
-          <h2 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-            MarkdownPDF vs. typical online converters
-          </h2>
-          <div className="mt-12 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-neutral-200 bg-neutral-50">
-                  <th scope="col" className="px-5 py-4 font-semibold text-neutral-900"></th>
-                  <th scope="col" className="px-5 py-4 font-semibold text-indigo-600">MarkdownPDF</th>
-                  <th scope="col" className="px-5 py-4 font-semibold text-neutral-500">Typical converters</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-100">
-                {comparison.map((row) => (
-                  <tr key={row.feature}>
-                    <th scope="row" className="px-5 py-4 font-medium text-neutral-700">{row.feature}</th>
-                    <td className="px-5 py-4">
-                      <CheckIcon />
-                    </td>
-                    <td className="px-5 py-4 text-neutral-500">
-                      {row.them === false ? <CrossIcon /> : row.them}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="mx-auto max-w-4xl px-4 py-16">
+          <Link
+            href="/markdown-to-pdf"
+            className="group flex flex-col gap-6 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10 sm:flex-row sm:items-center"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-md">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-6 w-6" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+            </span>
+            <span className="flex-1">
+              <span className="block text-2xl font-bold text-neutral-900">
+                Need the other direction? Markdown <span className="text-indigo-600">→</span> PDF
+              </span>
+              <span className="mt-2 block leading-relaxed text-neutral-600">
+                Turn notes, READMEs, resumes, and docs into a polished A4 PDF with real selectable
+                text — no watermark, still 100% in your browser.
+              </span>
+            </span>
+            <span className="inline-flex items-center gap-1 font-semibold text-indigo-600">
+              Convert Markdown to PDF
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </span>
+          </Link>
         </div>
       </section>
 
@@ -331,7 +423,7 @@ export default function HomePage() {
 
       {/* From the blog */}
       <section className="border-t border-neutral-100 bg-neutral-50/60">
-        <BlogCluster posts={clusterPosts} heading="Guides from the blog" />
+        <BlogCluster posts={clusterPosts} heading="Guides: PDF to Markdown for every workflow" />
       </section>
 
       {/* Final CTA */}
@@ -339,18 +431,18 @@ export default function HomePage() {
         <div className="bg-grid absolute inset-0 opacity-20" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 py-20 text-center">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Ready to convert your first file?
+            Ready to convert your first PDF?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-indigo-100">
             Free, instant, and private. Your document never leaves your device.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/pdf-to-markdown"
+            <a
+              href="#converter"
               className="rounded-xl bg-white px-6 py-3 font-semibold text-indigo-700 shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
             >
-              PDF → Markdown
-            </Link>
+              Convert PDF → Markdown
+            </a>
             <Link
               href="/markdown-to-pdf"
               className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/20"

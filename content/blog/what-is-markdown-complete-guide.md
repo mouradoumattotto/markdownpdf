@@ -7,6 +7,8 @@ author: Mourad Oumita
 
 If you have ever written a README on GitHub, formatted a message in Discord, or taken notes in Obsidian, you have already used Markdown — possibly without knowing its name. Markdown is a lightweight way to format plain text, and over the past two decades it has quietly become the default writing format of the internet. This guide covers what it is, where it came from, how the syntax works, and why so many people refuse to write in anything else.
 
+> **Here with a PDF you need as Markdown?** The [free PDF to Markdown converter](/) on this site does it in your browser — headings and lists preserved, OCR for scans, nothing uploaded. Come back to the guide once you have your `.md` file.
+
 ## What is Markdown, exactly?
 
 Markdown is a **plain-text formatting syntax**: a small set of conventions — asterisks, hash marks, hyphens — that mark up text so software can render it as formatted HTML, while the raw text stays perfectly readable to humans. This double readability is the whole idea. Compare the same sentence in HTML and Markdown:
@@ -129,7 +131,7 @@ You can write Markdown in literally any text editor, but some tools make it nice
 
 ## Markdown and PDF: a natural pairing
 
-Markdown is ideal for writing; PDF is ideal for delivering. The two formats complement each other so well that converting between them is one of the most common Markdown workflows. When a draft is ready to share with someone who expects a "real" document, convert it with the [Markdown to PDF tool](/markdown-to-pdf). When someone hands you a PDF whose content you need to edit or reuse, the [PDF to Markdown converter](/pdf-to-markdown) — with [OCR](/blog/ocr-pdf-to-text-guide) for scanned files — brings it back into plain text. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
+Markdown is ideal for writing; PDF is ideal for delivering. The two formats complement each other so well that converting between them is one of the most common Markdown workflows. When a draft is ready to share with someone who expects a "real" document, convert it with the [Markdown to PDF tool](/markdown-to-pdf). When someone hands you a PDF whose content you need to edit or reuse, the [PDF to Markdown converter](/) — with [OCR](/blog/ocr-pdf-to-text-guide) for scanned files — brings it back into plain text. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
 
 ## FAQ
 

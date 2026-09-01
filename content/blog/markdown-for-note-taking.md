@@ -71,7 +71,7 @@ Markdown notes are perfect for *you*, but sooner or later you need to hand one t
 
 Most note apps have some form of PDF export built in, but quality and styling control vary, and exporting from some apps is clunky for a single note. A quick alternative that works regardless of which app you use: paste the note into the [Markdown to PDF converter](/markdown-to-pdf) and download a cleanly formatted PDF. The conversion runs entirely in your browser — your notes are never uploaded anywhere, which is exactly the level of privacy you want for personal or work notes.
 
-The reverse direction is just as useful for note-takers. When source material arrives as a PDF — a paper, a report, a scanned handout — convert it with the [PDF to Markdown tool](/pdf-to-markdown) (OCR included for scans) and it becomes a first-class citizen of your notes vault: searchable, linkable, and quotable. Obsidian users can follow our dedicated walkthrough for [importing PDFs into Obsidian](/blog/pdf-to-markdown-for-obsidian). Our [PDF to Markdown guide](/blog/how-to-convert-pdf-to-markdown) covers that workflow in detail.
+The reverse direction is just as useful for note-takers. When source material arrives as a PDF — a paper, a report, a scanned handout — convert it with the [PDF to Markdown tool](/) (OCR included for scans) and it becomes a first-class citizen of your notes vault: searchable, linkable, and quotable. Obsidian users can follow our dedicated walkthrough for [importing PDFs into Obsidian](/blog/pdf-to-markdown-for-obsidian). Our [PDF to Markdown guide](/blog/how-to-convert-pdf-to-markdown) covers that workflow in detail.
 
 ## Common objections, answered
 

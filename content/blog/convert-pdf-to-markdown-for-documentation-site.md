@@ -24,7 +24,7 @@ The goal of the migration is simple: turn each PDF into one or more `.md` files 
 
 Start by getting the raw text out of the PDF as structured Markdown rather than a wall of text.
 
-Open our free [PDF to Markdown converter](/pdf-to-markdown) and drop the file in. The conversion runs entirely in your browser — the file is never uploaded to a server — which matters when the documentation is internal, unreleased, or covered by an NDA. You get back Markdown with headings, paragraphs, lists, and tables reconstructed from the PDF's layout.
+Open our free [PDF to Markdown converter](/) and drop the file in. The conversion runs entirely in your browser — the file is never uploaded to a server — which matters when the documentation is internal, unreleased, or covered by an NDA. You get back Markdown with headings, paragraphs, lists, and tables reconstructed from the PDF's layout.
 
 If your PDF is a scan (an image of pages, not selectable text), the converter runs OCR automatically so you still get real text out. Scanned manuals are common in older organizations, so this step matters more than you'd expect.
 

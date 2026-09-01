@@ -1,6 +1,7 @@
 ---
 title: Clean Up Messy Markdown After PDF Conversion
 description: Fix the common problems in Markdown converted from PDF - broken line breaks, hyphenated words, page headers, ligatures, and bad lists - with a clear cleanup checklist.
+author: Mourad Oumita
 date: 2026-06-30
 ---
 
@@ -94,7 +95,7 @@ Tables are the hardest thing to recover from a PDF because the visual grid carri
 
 ## Start with a cleaner conversion
 
-The fastest cleanup is the one you do not have to do. A converter that reconstructs paragraphs, headings, and lists well leaves you far less to fix. Our free [PDF to Markdown converter](/pdf-to-markdown) runs entirely in your browser — the file is never uploaded to a server, which matters when the document is a contract, a draft, or anything you would not paste into a random website — and it rebuilds structure from the PDF's layout so the raw output already needs less work. For scanned documents it runs OCR locally too, though OCR output always deserves a closer proofread.
+The fastest cleanup is the one you do not have to do. A converter that reconstructs paragraphs, headings, and lists well leaves you far less to fix. Our free [PDF to Markdown converter](/) runs entirely in your browser — the file is never uploaded to a server, which matters when the document is a contract, a draft, or anything you would not paste into a random website — and it rebuilds structure from the PDF's layout so the raw output already needs less work. For scanned documents it runs OCR locally too, though OCR output always deserves a closer proofread.
 
 Whatever tool you use, do the cleanup in this order: rejoin hyphenated words, merge line breaks, strip page furniture, fix headings and lists, then normalize typography and tables. Working top-down means each step does not undo the last. If you want the broader picture of how conversion works and why these artifacts appear, the [how to convert PDF to Markdown](/blog/how-to-convert-pdf-to-markdown) guide is a good companion read.
 

@@ -1,6 +1,7 @@
 ---
 title: PDF to Anki Flashcards via Markdown (Free Guide)
 description: Turn a textbook or lecture PDF into Anki flashcards. Convert the PDF to clean Markdown first, then generate cards with an LLM or a markdown-to-Anki tool.
+author: Mourad Oumita
 date: 2026-07-03
 ---
 
@@ -20,7 +21,7 @@ Markdown is the pivot format. Getting there is the hard part; everything after i
 
 ## Step 1 — Convert the PDF to Markdown
 
-Open the [PDF to Markdown converter](/pdf-to-markdown) and drop your file in. Conversion runs locally in your browser — the file is never uploaded to a server, which matters when your source is a paid textbook, exam prep material, or your own lecture notes. If the PDF is a scan with no text layer, OCR runs automatically so you still get real, selectable text out.
+Open the [PDF to Markdown converter](/) and drop your file in. Conversion runs locally in your browser — the file is never uploaded to a server, which matters when your source is a paid textbook, exam prep material, or your own lecture notes. If the PDF is a scan with no text layer, OCR runs automatically so you still get real, selectable text out.
 
 Then read the result before you build a single card. Delete what won't become flashcards — cover pages, tables of contents, acknowledgements, reference lists — and confirm headings survived as `##` and `###` lines. Two clean minutes here saves you from memorizing garbled cards later. If you want a full cleanup checklist, see [cleaning up Markdown after PDF conversion](/blog/clean-up-markdown-after-pdf-conversion).
 
@@ -95,4 +96,4 @@ They can. Markdown-to-Anki tools preserve fenced code blocks as syntax-highlight
 
 ### Is my PDF uploaded anywhere?
 
-No. The [PDF to Markdown conversion](/pdf-to-markdown) happens entirely in your browser — your textbook or notes never leave your device. Only the later steps (pasting text into an LLM, if you choose Route A) involve a third-party service, and that's your call to make per document.
+No. The [PDF to Markdown conversion](/) happens entirely in your browser — your textbook or notes never leave your device. Only the later steps (pasting text into an LLM, if you choose Route A) involve a third-party service, and that's your call to make per document.

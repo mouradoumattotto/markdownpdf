@@ -46,7 +46,7 @@ Figures are images baked into the page, so the figure itself doesn't come across
 
 ## The workflow, step by step
 
-1. **Convert the PDF.** Open the [PDF to Markdown converter](/pdf-to-markdown) and drop in your paper. Everything runs locally in your browser — the file is never uploaded to a server, which matters when you're working with unpublished manuscripts, papers under review, or anything embargoed. Scanned pages are detected and OCR'd automatically.
+1. **Convert the PDF.** Open the [PDF to Markdown converter](/) and drop in your paper. Everything runs locally in your browser — the file is never uploaded to a server, which matters when you're working with unpublished manuscripts, papers under review, or anything embargoed. Scanned pages are detected and OCR'd automatically.
 2. **Check column order first.** Read the opening paragraphs. If text jumps between unrelated fragments, the columns were interleaved — flag that paper for closer cleanup or try converting a single-column version if the publisher offers one.
 3. **Fix the structure.** Make sure the abstract, and each section (`## Introduction`, `## Methods`, `## Results`, `## Discussion`) is a real heading. This is what makes the file searchable and what AI tools key on.
 4. **Handle the math.** Re-key any equations you actually need. Skip the ones you don't.

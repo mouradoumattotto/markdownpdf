@@ -1,6 +1,7 @@
 ---
 title: Convert PDF to Markdown for Claude AI (Step-by-Step)
 description: Convert a PDF to Markdown before feeding it to Claude for cleaner answers, better Projects knowledge, and reliable long-document analysis. Free browser guide.
+author: Mourad Oumita
 date: 2026-07-07
 ---
 
@@ -36,7 +37,7 @@ You do not need exact figures to benefit. Stripping repeated headers and footers
 
 You do not need to install anything. Here is the workflow with a free browser-based converter:
 
-1. **Open the converter.** Go to the [PDF to Markdown tool](/pdf-to-markdown). It runs entirely in your browser — the file is processed locally and never uploaded to a server. That matters when your PDF is a contract, an internal report, or anything else you would rather not send to a third party before you have even decided to share it with an AI.
+1. **Open the converter.** Go to the [PDF to Markdown tool](/). It runs entirely in your browser — the file is processed locally and never uploaded to a server. That matters when your PDF is a contract, an internal report, or anything else you would rather not send to a third party before you have even decided to share it with an AI.
 2. **Drop in your PDF.** The converter extracts the text and rebuilds the structure: headings, paragraphs, lists, and tables.
 3. **Run OCR if the PDF is scanned.** A scanned or photographed page has no text layer to extract. Built-in OCR recognizes the characters from the page images instead. For background, see the [guide to OCR for PDFs](/blog/ocr-pdf-to-text-guide).
 4. **Review the output.** Skim for anything mangled — complex tables and multi-column layouts are the usual suspects. Promote any heading that came through as plain bold text to a real `##` heading.
@@ -102,10 +103,10 @@ It drops visual layout — fonts, exact spacing, and page design — because Cla
 
 ### Is my PDF uploaded anywhere during conversion?
 
-No. With the [browser-based converter](/pdf-to-markdown), the file is processed locally on your own device and never leaves your browser. That is useful when the document is sensitive and you want to review it before deciding whether to share it with an AI at all.
+No. With the [browser-based converter](/), the file is processed locally on your own device and never leaves your browser. That is useful when the document is sensitive and you want to review it before deciding whether to share it with an AI at all.
 
 ### Should I use Markdown or plain text for Claude?
 
 Markdown, in nearly every case. Plain text loses the structural signals — headings, lists, table boundaries — that help Claude navigate a document. Markdown keeps them with almost no extra characters, and Claude reads and writes it natively.
 
-Convert your first document with the free [PDF to Markdown converter](/pdf-to-markdown) and compare Claude's answers before and after — the difference is usually obvious from the very first question.
+Convert your first document with the free [PDF to Markdown converter](/) and compare Claude's answers before and after — the difference is usually obvious from the very first question.

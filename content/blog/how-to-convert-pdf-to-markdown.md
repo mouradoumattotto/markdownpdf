@@ -21,7 +21,7 @@ The catch is that PDF stores *appearance*, not *structure*. There is no "this is
 
 ## Method 1: Use a browser-based converter (fastest)
 
-The quickest route is an online converter. A tool like our [PDF to Markdown converter](/pdf-to-markdown) lets you drop in a file and get Markdown back in seconds, with no software to install.
+The quickest route is an online converter. A tool like our [PDF to Markdown converter](/) lets you drop in a file and get Markdown back in seconds, with no software to install.
 
 One thing worth checking with any online tool: where does your file go? Many "free" converters upload your document to a server, which is a problem for contracts, medical records, or anything confidential. MarkdownPDF runs the entire conversion locally in your browser — the file never leaves your machine — so you can convert sensitive documents without worrying about who else might see them.
 
@@ -80,7 +80,7 @@ Tables in PDFs are usually just text plus drawn lines, with no underlying table 
 
 ### Scanned PDFs
 
-If your PDF is a scan, there is no text in it at all — just pictures of text. You need **OCR (optical character recognition)** to read it. The [PDF to Markdown tool](/pdf-to-markdown) includes OCR support for exactly this case. Quick test: try to select text in your PDF viewer. If you cannot, it is a scan and OCR is required. (Our [OCR guide](/blog/ocr-pdf-to-text-guide) covers this in depth.)
+If your PDF is a scan, there is no text in it at all — just pictures of text. You need **OCR (optical character recognition)** to read it. The [PDF to Markdown tool](/) includes OCR support for exactly this case. Quick test: try to select text in your PDF viewer. If you cannot, it is a scan and OCR is required. (Our [OCR guide](/blog/ocr-pdf-to-text-guide) covers this in depth.)
 
 ### Headers, footers, and page numbers
 
@@ -110,7 +110,7 @@ And if you later need to go the other way — turning your polished Markdown bac
 
 ### Can I convert a scanned PDF to Markdown?
 
-Yes, but it requires OCR. A scanned PDF contains images rather than text, so the converter must recognize characters optically before it can produce Markdown. Tools with built-in OCR, including our [PDF to Markdown converter](/pdf-to-markdown), handle this automatically; expect to proofread the result, since OCR accuracy depends on scan quality.
+Yes, but it requires OCR. A scanned PDF contains images rather than text, so the converter must recognize characters optically before it can produce Markdown. Tools with built-in OCR, including our [PDF to Markdown converter](/), handle this automatically; expect to proofread the result, since OCR accuracy depends on scan quality.
 
 ### Will tables convert correctly?
 

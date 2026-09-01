@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/pdf-to-markdown", label: "PDF → Markdown" },
+  { href: "/", label: "PDF → Markdown" },
   { href: "/markdown-to-pdf", label: "Markdown → PDF" },
   { href: "/blog", label: "Blog" },
 ];
@@ -32,7 +32,7 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href="/pdf-to-markdown"
+            href="/#converter"
             className="ml-2 rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-indigo-500/30 transition-all hover:shadow-md hover:shadow-indigo-500/40 hover:brightness-110"
           >
             Convert now

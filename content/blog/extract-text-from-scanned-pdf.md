@@ -26,7 +26,7 @@ If the PDF is digital, you do not need OCR at all — a converter can read the t
 
 ## Step 2: Run the extraction
 
-You do not need to install desktop software or pay for a subscription for most scanned documents. Here is the workflow with our free [PDF to Markdown converter](/pdf-to-markdown), which has OCR built in:
+You do not need to install desktop software or pay for a subscription for most scanned documents. Here is the workflow with our free [PDF to Markdown converter](/), which has OCR built in:
 
 1. **Open the converter** in any modern browser — it works on Windows, Mac, Linux, and even tablets.
 2. **Drop your PDF** onto the page. The file is processed locally in your browser using OCR that runs on your own machine — it is never uploaded to a server, which matters when the scan is a contract, a medical record, or anything else you would not email to a stranger.
@@ -79,4 +79,4 @@ If you want to weigh specific tools against each other, our roundup of the [best
 
 ## Wrapping up
 
-Extracting text from a scanned PDF comes down to four steps: confirm it is really a scan, run it through an [OCR-enabled converter](/pdf-to-markdown), improve the source if accuracy disappoints, and proofread the predictable error patterns. Once your text is out and cleaned up, it is yours to edit, search, and reuse — and if you later need a polished document again, you can [convert the Markdown back to PDF](/markdown-to-pdf) in the same browser.
+Extracting text from a scanned PDF comes down to four steps: confirm it is really a scan, run it through an [OCR-enabled converter](/), improve the source if accuracy disappoints, and proofread the predictable error patterns. Once your text is out and cleaned up, it is yours to edit, search, and reuse — and if you later need a polished document again, you can [convert the Markdown back to PDF](/markdown-to-pdf) in the same browser.

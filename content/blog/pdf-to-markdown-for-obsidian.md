@@ -25,7 +25,7 @@ Here is the workflow from PDF on disk to a well-formed note in your vault.
 
 ### Step 1: Convert the PDF to Markdown
 
-Open our free [PDF to Markdown converter](/pdf-to-markdown) in your browser and drop the PDF in. The conversion runs entirely on your own machine — the file is never uploaded to a server — which matters when you are importing contracts, research drafts, or anything else you would not paste into a random website. You get back Markdown with headings, paragraphs, and lists reconstructed from the PDF layout.
+Open our free [PDF to Markdown converter](/) in your browser and drop the PDF in. The conversion runs entirely on your own machine — the file is never uploaded to a server — which matters when you are importing contracts, research drafts, or anything else you would not paste into a random website. You get back Markdown with headings, paragraphs, and lists reconstructed from the PDF layout.
 
 Download the `.md` file or copy the output to your clipboard.
 
@@ -79,7 +79,7 @@ A few patterns that hold up as the number of imports grows:
 
 Plenty of PDFs — older papers, book chapters, anything that has been printed and re-scanned — contain no text at all, just images of pages. A normal converter has nothing to extract from them.
 
-Our [PDF to Markdown tool](/pdf-to-markdown) includes OCR (optical character recognition), which reads the page images and reconstructs the text, again entirely in your browser. Expect OCR output to need more cleanup than a digital-native PDF: the recognition is good on clean scans but degrades with skewed pages, low resolution, or unusual fonts. Skim the result against the original before you rely on it. For a deeper look at how OCR works and how to get the best results, see our [OCR PDF to text guide](/blog/ocr-pdf-to-text-guide).
+Our [PDF to Markdown tool](/) includes OCR (optical character recognition), which reads the page images and reconstructs the text, again entirely in your browser. Expect OCR output to need more cleanup than a digital-native PDF: the recognition is good on clean scans but degrades with skewed pages, low resolution, or unusual fonts. Skim the result against the original before you rely on it. For a deeper look at how OCR works and how to get the best results, see our [OCR PDF to text guide](/blog/ocr-pdf-to-text-guide).
 
 ## FAQ
 
@@ -89,7 +89,7 @@ No. Convert documents you will actually think with — papers you cite, reports 
 
 ### Does Obsidian have a built-in PDF importer?
 
-Obsidian can embed and display PDFs, and its importer plugin handles formats like Evernote and [Notion exports](/blog/pdf-to-markdown-for-notion), but it does not convert PDF content into Markdown notes. You need a conversion step first, which is exactly what a [browser-based converter](/pdf-to-markdown) provides.
+Obsidian can embed and display PDFs, and its importer plugin handles formats like Evernote and [Notion exports](/blog/pdf-to-markdown-for-notion), but it does not convert PDF content into Markdown notes. You need a conversion step first, which is exactly what a [browser-based converter](/) provides.
 
 ### What about the formatting Markdown cannot express?
 
@@ -97,4 +97,4 @@ Multi-column layouts, precise figure placement, and typography do not survive �
 
 ## The bottom line
 
-A PDF attachment is storage; a Markdown note is knowledge you can link, search, and build on. Converting takes a couple of minutes with a [free browser-based converter](/pdf-to-markdown) — including scanned documents, thanks to OCR — and turns inert files into working parts of your vault. Import the documents that matter, clean them up, link them in, and let the graph do the rest.
+A PDF attachment is storage; a Markdown note is knowledge you can link, search, and build on. Converting takes a couple of minutes with a [free browser-based converter](/) — including scanned documents, thanks to OCR — and turns inert files into working parts of your vault. Import the documents that matter, clean them up, link them in, and let the graph do the rest.

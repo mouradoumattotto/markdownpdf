@@ -89,7 +89,7 @@ For one-off conversions with no installs and no upload, the [browser-based conve
 
 ## Going the other direction
 
-Sometimes the problem is reversed: documentation exists only as a PDF and you want it back in the repo as Markdown. That is a harder conversion — PDFs do not store document structure — but our [PDF to Markdown converter](/pdf-to-markdown) handles it in the browser, OCR included for scanned pages.
+Sometimes the problem is reversed: documentation exists only as a PDF and you want it back in the repo as Markdown. That is a harder conversion — PDFs do not store document structure — but our [PDF to Markdown converter](/) handles it in the browser, OCR included for scanned pages.
 
 ## Wrap-up
 

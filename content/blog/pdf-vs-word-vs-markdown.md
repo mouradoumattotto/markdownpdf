@@ -56,7 +56,7 @@ No format decision is permanent, but conversion quality varies by direction:
 - **Markdown → PDF** is the smooth, lossy-free direction: structure maps cleanly onto styled output. Our [Markdown to PDF converter](/markdown-to-pdf) does it in your browser in seconds — see the [full how-to](/blog/convert-markdown-to-pdf).
 - **Markdown → Word** works well via tools like Pandoc, since Markdown's structure is a subset of what Word can express.
 - **Word → Markdown** is usually clean for normal documents; elaborate formatting (text boxes, multi-column layouts) has no Markdown equivalent and gets flattened.
-- **PDF → anything** is the hard direction, because a PDF stores positioned characters rather than document structure. Good converters reconstruct headings, paragraphs, and lists from the layout — our [PDF to Markdown converter](/pdf-to-markdown) does this locally in your browser, including OCR for scanned files. The practical details are in our [PDF to Markdown guide](/blog/how-to-convert-pdf-to-markdown).
+- **PDF → anything** is the hard direction, because a PDF stores positioned characters rather than document structure. Good converters reconstruct headings, paragraphs, and lists from the layout — our [PDF to Markdown converter](/) does this locally in your browser, including OCR for scanned files. The practical details are in our [PDF to Markdown guide](/blog/how-to-convert-pdf-to-markdown).
 - **Word ↔ PDF** is built into every word processor (export) — but the reverse, editing a PDF in Word, gives mixed results for the same structural reasons.
 
 The general rule: **author in an editable format, export to PDF last.** Going "downstream" to PDF is easy; clawing content back "upstream" is the painful direction.
@@ -75,4 +75,4 @@ The general rule: **author in an editable format, export to PDF last.** Going "d
 
 ## The bottom line
 
-There is no best format — there is a best format *per stage of a document's life*. Draft and maintain in something editable (Markdown for speed, durability, and version control; Word for rich review workflows), and freeze to PDF when a version needs to be final, official, or pixel-identical for every reader. Keep the conversions cheap — [PDF to Markdown](/pdf-to-markdown) one way, [Markdown to PDF](/markdown-to-pdf) the other — and the format question stops being a commitment and becomes a tool.
+There is no best format — there is a best format *per stage of a document's life*. Draft and maintain in something editable (Markdown for speed, durability, and version control; Word for rich review workflows), and freeze to PDF when a version needs to be final, official, or pixel-identical for every reader. Keep the conversions cheap — [PDF to Markdown](/) one way, [Markdown to PDF](/markdown-to-pdf) the other — and the format question stops being a commitment and becomes a tool.

@@ -94,6 +94,6 @@ Convert a document once and it becomes portable across this entire ecosystem: [p
 
 ## The practical takeaway
 
-You do not need to take any of this on faith — it is easy to test. Take a PDF you work with, ask your favorite model three specific questions about it using pasted raw text, then convert the same file with the free [PDF to Markdown converter](/pdf-to-markdown) (it runs locally in your browser; nothing is uploaded) and ask the same three questions again. Questions involving tables, section-specific content, or document structure are where you will see the gap.
+You do not need to take any of this on faith — it is easy to test. Take a PDF you work with, ask your favorite model three specific questions about it using pasted raw text, then convert the same file with the free [PDF to Markdown converter](/) (it runs locally in your browser; nothing is uploaded) and ask the same three questions again. Questions involving tables, section-specific content, or document structure are where you will see the gap.
 
 The model was always capable of answering well. It just needed input it could actually read.

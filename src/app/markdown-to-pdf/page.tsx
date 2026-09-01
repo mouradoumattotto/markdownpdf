@@ -154,7 +154,7 @@ export default function MarkdownToPdfPage() {
         <h2 className="text-xl font-bold text-neutral-900">Need the other direction?</h2>
         <p className="mt-2 text-neutral-600">
           Extract clean Markdown from any PDF with our{" "}
-          <Link href="/pdf-to-markdown" className="font-medium text-indigo-600 hover:underline">
+          <Link href="/" className="font-medium text-indigo-600 hover:underline">
             PDF to Markdown converter
           </Link>
           .

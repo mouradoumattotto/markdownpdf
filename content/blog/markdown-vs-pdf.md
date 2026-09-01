@@ -50,7 +50,7 @@ Markdown's weaknesses are the flip side of its simplicity: you cannot control ex
 - **Features beyond text.** Fillable forms, digital signatures, password protection, and accessibility tagging are all part of the standard.
 - **Universality with non-technical audiences.** Everyone can open a PDF. Sending a client a raw `.md` file is asking for a confused reply.
 
-PDF's weaknesses mirror its strengths: the format is hard to edit, hostile to version control, awkward on small screens (fixed pages do not reflow well), and painful to extract content from — which is precisely why [PDF to Markdown conversion](/pdf-to-markdown) is so useful.
+PDF's weaknesses mirror its strengths: the format is hard to edit, hostile to version control, awkward on small screens (fixed pages do not reflow well), and painful to extract content from — which is precisely why [PDF to Markdown conversion](/) is so useful.
 
 ## When to use which
 
@@ -78,7 +78,7 @@ The most productive setup treats the two formats as stages in a pipeline rather 
 
 1. **Draft in Markdown.** Fast writing, clean diffs, easy collaboration.
 2. **Publish as PDF.** When the content is final, convert it with the [Markdown to PDF tool](/markdown-to-pdf) for a presentable, shareable document.
-3. **Recover to Markdown.** When someone sends you a PDF you need to edit, quote, or repurpose, run it through the [PDF to Markdown converter](/pdf-to-markdown) to get editable text back — OCR handles even scanned documents.
+3. **Recover to Markdown.** When someone sends you a PDF you need to edit, quote, or repurpose, run it through the [PDF to Markdown converter](/) to get editable text back — OCR handles even scanned documents.
 
 Both conversions on MarkdownPDF run entirely in your browser. Nothing is uploaded to a server, which means the workflow is just as safe for a confidential contract as it is for a blog draft.
 

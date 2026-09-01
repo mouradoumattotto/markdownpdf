@@ -7,25 +7,26 @@ import { SITE } from "@/lib/site";
 // the blog's freshest post — re-stamping every URL on each publish teaches Google
 // that our lastmod carries no information, and it stops trusting the field.
 const PAGE_MODIFIED: Record<string, string> = {
-  "/pdf-to-markdown": "2026-08-21",
+  "/": "2026-09-01", // absorbed /pdf-to-markdown (HowTo, FAQ, "why convert" copy)
   "/markdown-to-pdf": "2026-06-19",
 };
 
-// /about, /contact, /privacy-policy and /terms are deliberately absent.
-// Measured 2026-08-21: only 12 of 35 sitemap URLs had ever been crawled, yet
-// Googlebot spent August re-crawling /terms and /privacy-policy. They are linked
-// from the footer, so they stay indexable and discoverable — we just refuse to
-// spend a starved crawl budget advertising them.
+// /pdf-to-markdown is gone (308 → `/`, see next.config.ts). /about, /contact,
+// /privacy-policy and /terms are deliberately absent: measured 2026-08-21, only
+// 12 of 35 sitemap URLs had ever been crawled, yet Googlebot spent August
+// re-crawling /terms and /privacy-policy. They are linked from the footer, so
+// they stay indexable and discoverable — we just refuse to spend a starved crawl
+// budget advertising them.
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const allPosts = getAllPosts();
-  // Freshest content edit across the blog. Only the hub pages (home, blog index)
+  // Freshest content edit across the blog. The hub pages (home, blog index)
   // genuinely change when a post ships — they render the post list.
   const latest = allPosts.reduce((max, p) => (p.updated > max ? p.updated : max), "");
+  const homeModified = PAGE_MODIFIED["/"] > latest ? PAGE_MODIFIED["/"] : latest;
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: SITE.url, lastModified: latest, changeFrequency: "weekly", priority: 1 },
-    { url: `${SITE.url}/pdf-to-markdown`, lastModified: PAGE_MODIFIED["/pdf-to-markdown"], changeFrequency: "monthly", priority: 0.9 },
+    { url: SITE.url, lastModified: homeModified, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE.url}/markdown-to-pdf`, lastModified: PAGE_MODIFIED["/markdown-to-pdf"], changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/blog`, lastModified: latest, changeFrequency: "weekly", priority: 0.7 },
   ];

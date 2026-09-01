@@ -39,7 +39,7 @@ That mapping is what makes the imported document feel native instead of pasted-i
 
 ## Step 1: Convert the PDF to Markdown
 
-Use the free [PDF to Markdown converter](/pdf-to-markdown) — open it, drop in your PDF, and download the resulting `.md` file. Two things make it a good fit for this workflow:
+Use the free [PDF to Markdown converter](/) — open it, drop in your PDF, and download the resulting `.md` file. Two things make it a good fit for this workflow:
 
 1. **It detects structure.** Headings, lists, and tables are reconstructed as Markdown syntax rather than flat text, which is exactly what Notion's importer needs.
 2. **It runs OCR automatically.** If your PDF is a scan (a photographed book chapter, an old report), the text is recognized in your browser via Tesseract, so even image-only PDFs come out as usable Markdown.
@@ -105,7 +105,7 @@ Usually, yes — if the converter outputs proper Markdown pipe tables, Notion tu
 
 ### What about scanned PDFs with no selectable text?
 
-Convert them with a tool that includes OCR. The [PDF to Markdown converter](/pdf-to-markdown) detects scanned pages and runs OCR automatically in your browser, so the output is normal editable Markdown ready for Notion.
+Convert them with a tool that includes OCR. The [PDF to Markdown converter](/) detects scanned pages and runs OCR automatically in your browser, so the output is normal editable Markdown ready for Notion.
 
 ### Do images from the PDF come through?
 

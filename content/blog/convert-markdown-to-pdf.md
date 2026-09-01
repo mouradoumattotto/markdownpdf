@@ -17,7 +17,7 @@ A few situations come up constantly:
 - **Archiving.** Freezing a finished document in its final visual form.
 - **Sharing outside the dev bubble.** Most of the world does not have a Markdown previewer and never will.
 
-The good news: Markdown to PDF is the *easy* direction. Markdown's explicit structure — headings, lists, emphasis, tables — maps cleanly onto a formatted page, so conversions are nearly lossless. (The reverse trip, [PDF to Markdown](/pdf-to-markdown), is where things get harder — we cover it in [how to convert PDF to Markdown](/blog/how-to-convert-pdf-to-markdown).)
+The good news: Markdown to PDF is the *easy* direction. Markdown's explicit structure — headings, lists, emphasis, tables — maps cleanly onto a formatted page, so conversions are nearly lossless. (The reverse trip, [PDF to Markdown](/), is where things get harder — we cover it in [how to convert PDF to Markdown](/blog/how-to-convert-pdf-to-markdown).)
 
 ## Method 1: Online converter (no install, instant)
 
@@ -98,7 +98,7 @@ Whatever method you choose, a few things separate a professional-looking PDF fro
 
 A simple decision path: if you convert now and then and want zero friction, use the [online converter](/markdown-to-pdf) — local processing means even confidential documents are fine. If you write Markdown in VS Code all day, install an extension. If you need publication-quality typography, batch conversion, or CI integration, invest the setup time in Pandoc. And if you are on a locked-down machine with nothing available, print-to-PDF will get you through.
 
-Whichever route you take, keep the Markdown source. The PDF is a snapshot for sharing; the `.md` file is the living document you will edit next month — and if you ever lose the source, you can recover the text with a [PDF to Markdown conversion](/pdf-to-markdown).
+Whichever route you take, keep the Markdown source. The PDF is a snapshot for sharing; the `.md` file is the living document you will edit next month — and if you ever lose the source, you can recover the text with a [PDF to Markdown conversion](/).
 
 ## FAQ
 

@@ -43,7 +43,7 @@ This matters because some PDF tables simply exceed what Markdown can express. A 
 
 ## Step 1: Extract the table with a converter
 
-The fastest route is the free [PDF to Markdown converter](/pdf-to-markdown): open it in your browser, drop in the PDF, and the tool reconstructs document structure — including tables — as Markdown syntax. Everything runs locally in your browser; the file is never uploaded to a server, so it's fine to use on confidential financials or internal reports.
+The fastest route is the free [PDF to Markdown converter](/): open it in your browser, drop in the PDF, and the tool reconstructs document structure — including tables — as Markdown syntax. Everything runs locally in your browser; the file is never uploaded to a server, so it's fine to use on confidential financials or internal reports.
 
 Two practical tips for better results:
 

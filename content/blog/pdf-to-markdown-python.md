@@ -109,7 +109,7 @@ Always check the licenses too — PyMuPDF and pymupdf4llm are AGPL-licensed (wit
 
 All of the above assumes you should be writing code in the first place. That is true when you are processing PDFs in bulk, on a schedule, or inside a larger pipeline. It is overkill when you have one PDF — or a handful — and just want the Markdown.
 
-For that case, our [PDF to Markdown converter](/pdf-to-markdown) does the conversion directly in your browser: drop the file in, get Markdown out, including OCR for scanned pages. Nothing to install, no virtual environments, no model downloads — and because the conversion runs locally on your machine, the file is never uploaded to a server, which matters for contracts and anything confidential.
+For that case, our [PDF to Markdown converter](/) does the conversion directly in your browser: drop the file in, get Markdown out, including OCR for scanned pages. Nothing to install, no virtual environments, no model downloads — and because the conversion runs locally on your machine, the file is never uploaded to a server, which matters for contracts and anything confidential.
 
 A rule of thumb:
 
@@ -121,4 +121,4 @@ If you end up doing manual cleanup either way, the practical tips in [how to con
 
 ## Closing thoughts
 
-Python's PDF ecosystem is genuinely good, but no library makes the underlying problem disappear: PDFs do not contain the structure Markdown needs, so every converter is guessing, and the guesses improve with effort and compute. Match the tool to the stakes — a quick script for clean documents, ML pipelines for hard ones, and a [browser-based converter](/pdf-to-markdown) when writing code costs more time than it saves.
+Python's PDF ecosystem is genuinely good, but no library makes the underlying problem disappear: PDFs do not contain the structure Markdown needs, so every converter is guessing, and the guesses improve with effort and compute. Match the tool to the stakes — a quick script for clean documents, ML pipelines for hard ones, and a [browser-based converter](/) when writing code costs more time than it saves.

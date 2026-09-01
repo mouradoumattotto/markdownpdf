@@ -38,7 +38,7 @@ You do not need exact numbers to benefit from this — simply removing repeated 
 
 You do not need to install anything. Here is the workflow using a free browser-based converter:
 
-1. **Open the converter.** Go to the [PDF to Markdown tool](/pdf-to-markdown). It runs entirely in your browser — the file is processed locally and never uploaded to a server, which matters if your PDF is a contract, internal report, or anything else you would rather not send to a third party.
+1. **Open the converter.** Go to the [PDF to Markdown tool](/). It runs entirely in your browser — the file is processed locally and never uploaded to a server, which matters if your PDF is a contract, internal report, or anything else you would rather not send to a third party.
 2. **Drop in your PDF.** The converter extracts the text and reconstructs structure: headings, paragraphs, lists, and tables.
 3. **Use OCR if the PDF is scanned.** If your document is a scan (a photographed or photocopied page), there is no text layer to extract. The built-in OCR recognizes the text from the page images instead. For background on how this works, see the [guide to OCR for PDFs](/blog/ocr-pdf-to-text-guide).
 4. **Review the output.** Skim the Markdown for anything mangled — complex tables and multi-column layouts are the usual suspects. Fix headings that came through as plain bold text by adding `##` markers.
@@ -102,4 +102,4 @@ Before you paste a converted document into ChatGPT, run through this:
 - Hyphenated line-break words rejoined
 - Long documents split at heading boundaries
 
-That is five minutes of preparation that pays off in every answer the model gives you. Convert your first document with the free [PDF to Markdown converter](/pdf-to-markdown) and compare the results yourself — the difference is usually obvious from the very first question.
+That is five minutes of preparation that pays off in every answer the model gives you. Convert your first document with the free [PDF to Markdown converter](/) and compare the results yourself — the difference is usually obvious from the very first question.
