@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import DeferredAnalytics from "@/components/DeferredAnalytics";
 import ConsentMode from "@/components/ConsentMode";
 import GoogleAdSense from "@/components/GoogleAdSense";
 import JsonLd from "@/components/JsonLd";
@@ -94,7 +94,7 @@ export default function RootLayout({
         />
         <ConsentMode />
         {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+          <DeferredAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
         <GoogleAdSense />
         <Header />

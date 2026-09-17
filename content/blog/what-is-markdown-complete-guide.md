@@ -2,6 +2,7 @@
 title: What Is Markdown? A Complete Beginner's Guide
 description: What is Markdown? Learn the history, core syntax with examples, flavors like CommonMark and GFM, the best tools, and why writers and developers rely on it.
 date: 2026-05-15
+updated: 2026-09-17
 author: Mourad Oumita
 ---
 
@@ -124,14 +125,42 @@ Because Gruber's original spec left details ambiguous, several standardized dial
 You can write Markdown in literally any text editor, but some tools make it nicer:
 
 - **Code editors** — VS Code has built-in Markdown preview (`Ctrl+Shift+V`) and a deep extension ecosystem.
-- **Note-taking apps** — Obsidian and Logseq store notes as local Markdown files; Notion and Bear use Markdown-style input. (See our guide to [Markdown for note-taking](/blog/markdown-for-note-taking).)
+- **Note-taking apps** — [Obsidian](/blog/pdf-to-markdown-for-obsidian) and [Logseq](/blog/pdf-to-markdown-for-logseq) store notes as local Markdown files; [Notion](/blog/pdf-to-markdown-for-notion) and Bear use Markdown-style input. (See our guide to [Markdown for note-taking](/blog/markdown-for-note-taking).)
 - **Dedicated editors** — Typora, MarkText, and iA Writer render formatting live as you type.
 - **Online editors** — StackEdit and Dillinger run in the browser with live preview.
 - **Converters** — Pandoc transforms Markdown to and from dozens of formats on the command line; browser tools like MarkdownPDF handle the PDF direction without installing anything, and process files locally so nothing is uploaded.
 
 ## Markdown and PDF: a natural pairing
 
-Markdown is ideal for writing; PDF is ideal for delivering. The two formats complement each other so well that converting between them is one of the most common Markdown workflows. When a draft is ready to share with someone who expects a "real" document, convert it with the [Markdown to PDF tool](/markdown-to-pdf). When someone hands you a PDF whose content you need to edit or reuse, the [PDF to Markdown converter](/) — with [OCR](/blog/ocr-pdf-to-text-guide) for scanned files — brings it back into plain text. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
+Markdown is ideal for writing; PDF is ideal for delivering. The two formats complement each other so well that converting between them is one of the most common Markdown workflows. When a draft is ready to share with someone who expects a "real" document, convert it with the [Markdown to PDF tool](/markdown-to-pdf). When someone hands you a PDF whose content you need to edit or reuse, the [PDF to Markdown converter](/) — with [OCR](/blog/extract-text-from-scanned-pdf) for scanned files — brings it back into plain text. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown).
+
+There is a newer reason this conversion matters: language models read Markdown far better than PDF, because the structure survives. If you are preparing sources for a chatbot or a retrieval pipeline, see the specific walkthroughs for [ChatGPT](/blog/convert-pdf-to-markdown-for-chatgpt), [Claude](/blog/convert-pdf-to-markdown-for-claude), and [RAG pipelines](/blog/pdf-to-markdown-for-rag-pipelines).
+
+## Where to go next
+
+Now that the syntax makes sense, these are the things people usually need straight afterwards:
+
+**Getting content into Markdown**
+
+- [How to convert PDF to Markdown](/blog/how-to-convert-pdf-to-markdown) — every method compared, from browser tools to the command line.
+- [Extract tables from a PDF to Markdown](/blog/extract-tables-from-pdf-to-markdown) — the hardest part of any conversion, handled properly.
+- [PDF to Markdown in Python](/blog/pdf-to-markdown-python) — the libraries worth using if you are automating it.
+- [Best PDF to Markdown converters](/blog/best-pdf-to-markdown-converters) — an honest roundup, including the ones that beat this site at specific jobs.
+- [Clean up messy Markdown after conversion](/blog/clean-up-markdown-after-pdf-conversion) — the checklist for broken line breaks, stray headers, and hyphenated words.
+- [Convert a research paper PDF to Markdown](/blog/convert-research-paper-pdf-to-markdown) — two-column layouts, footnotes, and citations, which break most converters.
+
+**Getting content out of Markdown**
+
+- [Convert Markdown to PDF](/blog/convert-markdown-to-pdf) — four methods compared, or use the [converter](/markdown-to-pdf) directly.
+- [Write a resume in Markdown and export it to PDF](/blog/markdown-resume-to-pdf).
+- [Turn a GitHub README into a PDF](/blog/convert-github-readme-to-pdf).
+
+**Going further with the format**
+
+- [Markdown frontmatter explained](/blog/markdown-frontmatter-guide) — the YAML block at the top of a file, and what tools do with it.
+- [PDF to Anki flashcards via Markdown](/blog/pdf-to-anki-flashcards-markdown) — turning study material into a deck.
+- [PDF to Markdown for documentation sites](/blog/convert-pdf-to-markdown-for-documentation-site) — Docusaurus, MkDocs, and friends.
+- [PDF to Markdown for NotebookLM](/blog/pdf-to-markdown-for-notebooklm) — why a `.md` source gives better answers and cleaner citations.
 
 ## FAQ
 

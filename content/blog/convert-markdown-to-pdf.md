@@ -1,5 +1,6 @@
 ---
 title: Convert Markdown to PDF - 4 Easy Methods Compared
+seoTitle: Convert Markdown to PDF: 4 Methods
 description: Four reliable ways to convert Markdown to PDF - online converters, Pandoc, VS Code extensions, and print-to-PDF - with styling tips and how to choose.
 date: 2026-06-02
 author: Mourad Oumita

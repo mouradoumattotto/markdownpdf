@@ -21,7 +21,9 @@ export async function generateMetadata({
   const post = getPost(slug);
   if (!post) return {};
   return {
-    title: post.title,
+    // `seoTitle` keeps the <title> under Google's truncation width; the full
+    // editorial `title` stays the H1, the OG title and the BlogPosting headline.
+    title: post.seoTitle ?? post.title,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {

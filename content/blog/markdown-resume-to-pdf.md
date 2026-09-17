@@ -1,5 +1,6 @@
 ---
 title: Markdown Resume to PDF — Write Once, Export Clean
+seoTitle: Markdown Resume to PDF (Free)
 description: Write your resume in Markdown and export it to PDF. Benefits, a complete example resume, ATS-friendly formatting tips, and a free browser-based workflow.
 date: 2026-06-06
 author: Mourad Oumita
@@ -17,7 +18,7 @@ A Markdown resume is a single text file. From that one source you can generate a
 
 ### Version control that actually works
 
-Plain text diffs cleanly. Keep your resume in a Git repository and every edit is tracked: which bullet you rewrote, when you added a role, what you cut to fit one page. Tailoring your resume for a specific job becomes a branch instead of another copied file. If you have never versioned documents this way, the comparison in [Markdown vs PDF](/blog/markdown-vs-pdf) explains why plain text wins for anything you edit repeatedly.
+Plain text diffs cleanly. Keep your resume in a Git repository and every edit is tracked: which bullet you rewrote, when you added a role, what you cut to fit one page. Tailoring your resume for a specific job becomes a branch instead of another copied file. If you have never versioned documents this way, the comparison in [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown) explains why plain text wins for anything you edit repeatedly.
 
 ### Content over formatting
 

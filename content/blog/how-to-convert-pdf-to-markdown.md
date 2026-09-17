@@ -1,5 +1,6 @@
 ---
 title: How to Convert PDF to Markdown (Step-by-Step Guide)
+seoTitle: How to Convert PDF to Markdown
 description: Learn how to convert PDF to Markdown with online tools, Pandoc, or by hand. Covers tables, scanned PDFs, OCR, and tips for getting clean, usable output.
 date: 2026-05-18
 author: Mourad Oumita
@@ -80,7 +81,7 @@ Tables in PDFs are usually just text plus drawn lines, with no underlying table 
 
 ### Scanned PDFs
 
-If your PDF is a scan, there is no text in it at all — just pictures of text. You need **OCR (optical character recognition)** to read it. The [PDF to Markdown tool](/) includes OCR support for exactly this case. Quick test: try to select text in your PDF viewer. If you cannot, it is a scan and OCR is required. (Our [OCR guide](/blog/ocr-pdf-to-text-guide) covers this in depth.)
+If your PDF is a scan, there is no text in it at all — just pictures of text. You need **OCR (optical character recognition)** to read it. The [PDF to Markdown tool](/) includes OCR support for exactly this case. Quick test: try to select text in your PDF viewer. If you cannot, it is a scan and OCR is required. (Our [OCR and scanned-PDF guide](/blog/extract-text-from-scanned-pdf) covers this in depth.)
 
 ### Headers, footers, and page numbers
 

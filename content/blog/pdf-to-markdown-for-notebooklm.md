@@ -1,8 +1,9 @@
 ---
 title: PDF to Markdown for NotebookLM — Free, No Upload, With OCR
+seoTitle: PDF to Markdown for NotebookLM (+ OCR)
 description: Stop feeding NotebookLM messy PDFs. Convert them to clean Markdown in your browser in seconds — headings preserved, OCR for scans, nothing ever uploaded.
 date: 2026-06-11
-updated: 2026-08-21
+updated: 2026-09-17
 author: Mourad Oumita
 ---
 
@@ -70,13 +71,17 @@ The conversion step earns its keep on the documents you'll lean on for weeks: te
 
 ## FAQ
 
-### Does NotebookLM support Markdown files?
+### Can NotebookLM read .md files?
 
-Yes. NotebookLM accepts `.md` files as sources alongside PDFs, `.txt`, Word documents, Google Docs, web URLs, YouTube links, and audio. Markdown formatting is interpreted, so heading levels and lists inform how the source is structured rather than arriving as flat text. The same converted file works just as well if you also [feed it to ChatGPT](/blog/convert-pdf-to-markdown-for-chatgpt).
+Yes. NotebookLM accepts Markdown (`.md`) files as sources, alongside PDFs, `.txt`, Word documents, Google Docs, web URLs, YouTube links, and audio. Markdown formatting is interpreted rather than flattened, so heading levels and lists inform how the source is structured.
+
+That is the whole reason converting first helps: a `.md` file arrives with its section boundaries intact. The same converted file works just as well if you also [feed it to ChatGPT](/blog/convert-pdf-to-markdown-for-chatgpt) or [Claude](/blog/convert-pdf-to-markdown-for-claude).
 
 ### Can NotebookLM read scanned PDFs?
 
-Sometimes, but unreliably — a scan with no text layer gives any tool very little to work with, and you can't see what was recovered. Running OCR yourself during a [PDF to Markdown conversion](/) produces text you can verify before it becomes a source, which is the safer path for course readers and archived documents.
+Not reliably. A scan with no text layer gives NotebookLM only images to work with, and you cannot see what it recovered or failed to recover. Run OCR yourself first, check the text, and upload that instead.
+
+In more detail: it sometimes works, but unreliably — a scan with no text layer gives any tool very little to work with, and you can't see what was recovered. Running OCR yourself during a [PDF to Markdown conversion](/) produces text you can verify before it becomes a source, which is the safer path for course readers and archived documents.
 
 ### What are NotebookLM's source limits?
 
@@ -85,3 +90,19 @@ At the time of writing: 50 sources per notebook on the free plan and 300 on Note
 ### My PDF is digital and clean — is converting still worth it?
 
 If you'll query the document repeatedly, usually yes, because of structure: real Markdown headings give NotebookLM section boundaries that flat extracted text doesn't. For a quick one-off question, upload the PDF directly and only convert if the answers come back confused.
+
+### How do I convert a PDF to Markdown for NotebookLM?
+
+Open the [PDF to Markdown converter](/), drop the PDF in, and download the `.md` file — then add that file to your notebook instead of the PDF. The conversion runs in your browser, handles scanned pages with OCR automatically, and takes a few seconds for a typical document.
+
+### Does converting improve NotebookLM's citations?
+
+Usually, yes — and this is the difference you notice most. Citations point back to a location in the source, so a source with real headings gives you a citation you can place ("under *Methods*") rather than a floating fragment of extracted text. It also makes it obvious when a citation is wrong.
+
+### Is it safe to convert confidential PDFs?
+
+With this converter, yes: the file is read and converted locally in your browser and is never uploaded to any server. That is not true of most online converters, which receive a full copy of your document — worth checking before you run a contract, a medical record, or unpublished research through one.
+
+### Should I split a long PDF into several Markdown files?
+
+For a long document you will query repeatedly, splitting by chapter usually beats one enormous source: each source gets its own citation surface, and you can see at a glance which chapter an answer came from. The trade-off is source slots, which are limited per notebook, so split by meaningful section rather than arbitrarily.

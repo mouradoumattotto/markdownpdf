@@ -77,7 +77,6 @@ export default function PdfToMarkdownTool() {
       <div
         role="button"
         tabIndex={0}
-        aria-label="Upload a PDF file"
         onClick={() => !working && inputRef.current?.click()}
         onKeyDown={(e) => e.key === "Enter" && !working && inputRef.current?.click()}
         onDragOver={(e) => {

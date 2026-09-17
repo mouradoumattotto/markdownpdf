@@ -1,5 +1,6 @@
 ---
 title: PDF to Markdown for Logseq - Import PDFs as Blocks
+seoTitle: PDF to Markdown for Logseq
 description: Import PDFs into Logseq as real Markdown blocks, not dead attachments. Why the outliner needs plain text, a full conversion workflow, OCR, and cleanup tips.
 author: Mourad Oumita
 date: 2026-06-19
@@ -80,7 +81,7 @@ This is the step that justifies the whole exercise. Reference key sentences into
 
 Plenty of PDFs — older papers, scanned book chapters, anything printed and re-digitized — contain no text at all, only images of pages. A normal converter has nothing to extract.
 
-Our [PDF to Markdown tool](/) includes OCR (optical character recognition), which reads the page images and reconstructs the text, again entirely in your browser. Expect OCR output to need more cleanup than a digital-native PDF: recognition is strong on clean scans but degrades with skewed pages, low resolution, or unusual fonts. Skim the result against the original before relying on it. For more on getting good results, see our [OCR PDF to text guide](/blog/ocr-pdf-to-text-guide).
+Our [PDF to Markdown tool](/) includes OCR (optical character recognition), which reads the page images and reconstructs the text, again entirely in your browser. Expect OCR output to need more cleanup than a digital-native PDF: recognition is strong on clean scans but degrades with skewed pages, low resolution, or unusual fonts. Skim the result against the original before relying on it. For more on getting good results, see our [guide to extracting text from scanned PDFs](/blog/extract-text-from-scanned-pdf).
 
 ## FAQ
 

@@ -1,5 +1,6 @@
 ---
 title: Convert a Research Paper PDF to Markdown (Full Guide)
+seoTitle: Research Paper PDF to Markdown
 description: Convert academic and research paper PDFs to clean Markdown - handle two-column layouts, equations, citations, and scans, then feed papers to AI or your notes.
 date: 2026-06-23
 author: Mourad Oumita

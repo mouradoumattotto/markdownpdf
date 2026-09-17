@@ -1,5 +1,6 @@
 ---
 title: PDF to Markdown for Docs Sites (Docusaurus, MkDocs)
+seoTitle: PDF to Markdown for Docs Sites
 description: Migrate legacy PDF documentation into a docs-as-code site. Convert PDFs to Markdown, add frontmatter, and slot pages into Docusaurus, MkDocs, or Hugo.
 date: 2026-06-26
 author: Mourad Oumita

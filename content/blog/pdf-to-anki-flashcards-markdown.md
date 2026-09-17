@@ -1,5 +1,6 @@
 ---
 title: PDF to Anki Flashcards via Markdown (Free Guide)
+seoTitle: PDF to Anki Flashcards via Markdown
 description: Turn a textbook or lecture PDF into Anki flashcards. Convert the PDF to clean Markdown first, then generate cards with an LLM or a markdown-to-Anki tool.
 author: Mourad Oumita
 date: 2026-07-03

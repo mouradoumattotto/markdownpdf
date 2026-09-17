@@ -5,6 +5,15 @@ import { marked } from "marked";
 export interface BlogPost {
   slug: string;
   title: string;
+  /**
+   * Optional shorter title used only for the <title> tag. The `title` above stays
+   * the H1 and the BlogPosting headline. Measured 2026-09-17: 19 of 27 posts
+   * produced a <title> over 60 characters once the " | MarkdownPDF" suffix was
+   * appended, which Google truncates in the SERP — and the brand, being young,
+   * is the part worth keeping. Set `seoTitle` in frontmatter to <= 44 characters
+   * when the editorial title does not fit.
+   */
+  seoTitle?: string;
   description: string;
   date: string; // ISO date — first published
   updated: string; // ISO date — last meaningful edit (falls back to `date`)
@@ -40,6 +49,7 @@ export function getAllPosts(): BlogPost[] {
       return {
         slug: file.replace(/\.md$/, ""),
         title: meta.title ?? file,
+        seoTitle: meta.seoTitle || undefined,
         description: meta.description ?? "",
         date,
         updated: meta.updated ?? date,

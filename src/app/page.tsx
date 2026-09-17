@@ -19,9 +19,12 @@ import { SITE } from "@/lib/site";
 // this title on 2026-08-21 coincided with `/` falling from pos 5.6 to 29.7 on the
 // brand query.
 export const metadata: Metadata = {
-  title: { absolute: "PDF to Markdown Converter — Free, Private, with OCR | MarkdownPDF" },
+  // Kept under ~58 characters so Google does not truncate it: the brand sits at
+  // the end and is the part that must survive. (Measured 2026-09-17: the previous
+  // title was 65 characters and the description 196 — both cut short in the SERP.)
+  title: { absolute: "PDF to Markdown Converter — Free, with OCR | MarkdownPDF" },
   description:
-    "Convert PDF to Markdown online for free, right on this page. Headings, lists, and emphasis preserved, automatic OCR for scanned PDFs, and nothing is uploaded — your file never leaves your browser.",
+    "Convert PDF to Markdown free, in your browser. Structure preserved, automatic OCR for scanned PDFs, no upload, no sign-up. Works offline.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "PDF to Markdown Converter — Free, Private, with OCR",
@@ -123,9 +126,14 @@ const faqItems = [
       "No. All conversion runs locally in your browser using JavaScript (pdf.js for text extraction, Tesseract for OCR). Your PDF is never uploaded, stored, or seen by any server, which makes MarkdownPDF safe for confidential documents.",
   },
   {
-    question: "Does it work with scanned PDFs?",
+    question: "Can I convert a scanned PDF to Markdown?",
     answer:
-      "Yes. If a page has no embedded text layer, the converter automatically runs OCR (optical character recognition) on the page image to recognize the text. OCR is slower than normal extraction, so scanned documents take a bit longer.",
+      "Yes. If a page has no embedded text layer, the converter automatically runs OCR (optical character recognition) on the page image to recognize the text. OCR PDF to Markdown conversion is slower than normal extraction, so scanned documents take a bit longer.",
+  },
+  {
+    question: "Does the PDF to Markdown converter work offline?",
+    answer:
+      "Yes. Everything runs in your browser, so once this page has loaded you can disconnect and keep converting. Nothing is sent to a server at any point, during or after the conversion.",
   },
   {
     question: "Is there a file size limit?",
@@ -227,8 +235,9 @@ export default function HomePage() {
             in seconds
           </h1>
           <p className="animate-fade-up-delay-1 mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600">
-            Free online PDF to Markdown converter with automatic OCR for scanned documents. No
-            sign-up, no upload, no limits — drop a PDF below and get clean Markdown instantly.
+            Free online PDF to Markdown converter — PDF to MD in one step, with automatic OCR for
+            scanned documents. No sign-up, no upload, no limits: drop a PDF below and get clean
+            Markdown instantly.
           </p>
 
           <div id="converter" className="animate-fade-up-delay-2 mx-auto mt-10 max-w-4xl scroll-mt-24 text-left">
@@ -250,9 +259,11 @@ export default function HomePage() {
             <strong className="text-neutral-900">MarkdownPDF</strong> is a free PDF to Markdown
             converter that runs entirely in your browser. It reads the PDF locally with pdf.js,
             rebuilds headings, lists, and emphasis from the font metrics, and falls back to
-            Tesseract OCR for scanned pages that have no text layer. The file is never uploaded,
-            there is no account and no page limit, and the output is plain Markdown you can paste
-            into ChatGPT, Claude, NotebookLM, Obsidian, or a Git repository.
+            Tesseract OCR for scanned pages that have no text layer — so converting a scanned PDF
+            to Markdown works the same as a text one. The file is never uploaded, there is no
+            account and no page limit, and once the page has loaded it keeps working offline. The
+            output is plain Markdown you can paste into ChatGPT, Claude, NotebookLM, Obsidian, or a
+            Git repository.
           </p>
         </div>
       </section>
@@ -318,7 +329,7 @@ export default function HomePage() {
           <p>
             Unlike most online converters, this tool runs entirely in your browser. That means no
             upload wait, no privacy risk, and no server-side file size limits. To learn more, read
-            our guide on <Link href="/blog/markdown-vs-pdf">Markdown vs PDF</Link>, or see{" "}
+            our guide on <Link href="/blog/pdf-vs-word-vs-markdown">Markdown vs PDF</Link>, or see{" "}
             <Link href="/blog/how-to-convert-pdf-to-markdown">
               every way to convert PDF to Markdown
             </Link>

@@ -1,5 +1,6 @@
 ---
 title: PDF to Markdown for Obsidian - Import PDFs the Right Way
+seoTitle: PDF to Markdown for Obsidian
 description: Turn PDFs into Markdown notes for your Obsidian vault. Why Markdown beats PDF attachments for linking and search, plus a full import workflow with OCR.
 date: 2026-06-03
 author: Mourad Oumita
@@ -17,7 +18,7 @@ Obsidian is built around plain-text Markdown files. Every feature that makes a v
 - **Editable content.** You can highlight, annotate inline, delete the parts you do not need, and weave quotes directly into your own writing.
 - **Longevity and sync.** Plain text is tiny, diffs cleanly, and syncs instantly. A vault full of multi-megabyte PDFs is slower everywhere.
 
-If you want the deeper argument for plain text as a note-taking foundation, see our guide to [Markdown for note-taking](/blog/markdown-for-note-taking). The short version: the PDF is a snapshot of how a document *looks*; the Markdown note is the knowledge itself. (For a fuller comparison of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).)
+If you want the deeper argument for plain text as a note-taking foundation, see our guide to [Markdown for note-taking](/blog/markdown-for-note-taking). The short version: the PDF is a snapshot of how a document *looks*; the Markdown note is the knowledge itself. (For a fuller comparison of the two formats, see [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown).)
 
 ## The conversion workflow
 
@@ -79,7 +80,7 @@ A few patterns that hold up as the number of imports grows:
 
 Plenty of PDFs — older papers, book chapters, anything that has been printed and re-scanned — contain no text at all, just images of pages. A normal converter has nothing to extract from them.
 
-Our [PDF to Markdown tool](/) includes OCR (optical character recognition), which reads the page images and reconstructs the text, again entirely in your browser. Expect OCR output to need more cleanup than a digital-native PDF: the recognition is good on clean scans but degrades with skewed pages, low resolution, or unusual fonts. Skim the result against the original before you rely on it. For a deeper look at how OCR works and how to get the best results, see our [OCR PDF to text guide](/blog/ocr-pdf-to-text-guide).
+Our [PDF to Markdown tool](/) includes OCR (optical character recognition), which reads the page images and reconstructs the text, again entirely in your browser. Expect OCR output to need more cleanup than a digital-native PDF: the recognition is good on clean scans but degrades with skewed pages, low resolution, or unusual fonts. Skim the result against the original before you rely on it. For a deeper look at how OCR works and how to get the best results, see our [guide to extracting text from scanned PDFs](/blog/extract-text-from-scanned-pdf).
 
 ## FAQ
 

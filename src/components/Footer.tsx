@@ -13,8 +13,8 @@ const columns = [
     links: [
       { href: "/blog", label: "Blog" },
       { href: "/blog/what-is-markdown-complete-guide", label: "What is Markdown?" },
-      { href: "/blog/ocr-pdf-to-text-guide", label: "OCR Guide" },
-      { href: "/blog/markdown-vs-pdf", label: "Markdown vs PDF" },
+      { href: "/blog/extract-text-from-scanned-pdf", label: "Scanned PDF & OCR" },
+      { href: "/blog/pdf-vs-word-vs-markdown", label: "PDF vs Word vs Markdown" },
     ],
   },
   {
@@ -68,7 +68,7 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        <p className="mt-12 border-t border-neutral-800 pt-6 text-xs text-neutral-500">
+        <p className="mt-12 border-t border-neutral-800 pt-6 text-xs text-neutral-400">
           © {new Date().getFullYear()} MarkdownPDF · markdownpdf.app — All rights reserved.
         </p>
       </div>

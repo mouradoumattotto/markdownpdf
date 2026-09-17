@@ -1,5 +1,6 @@
 ---
 title: PDF to Markdown for RAG Pipelines (Practical Guide)
+seoTitle: PDF to Markdown for RAG Pipelines
 description: Why clean Markdown improves RAG retrieval quality. Covers chunking strategies, metadata, common PDF extraction pitfalls, and where browser tools fit.
 date: 2026-05-25
 author: Mourad Oumita
@@ -16,7 +17,7 @@ RAG works by splitting documents into chunks, embedding each chunk as a vector, 
 1. **Each chunk must be coherent.** An embedding represents the meaning of the whole chunk. If a chunk contains half a sentence, a page number, and the start of an unrelated section, its embedding is a muddy average of all three — and it will match queries poorly.
 2. **Retrieved chunks must be readable by the LLM.** Even when retrieval finds the right chunk, the model still has to extract an answer from it. A table flattened into a word stream may contain the right numbers, but the model cannot reliably tell which number belongs to which row.
 
-Naive PDF text extraction undermines both. Markdown conversion addresses both, because it preserves the document's logical structure — and structure is exactly what good chunking and good comprehension depend on. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
+Naive PDF text extraction undermines both. Markdown conversion addresses both, because it preserves the document's logical structure — and structure is exactly what good chunking and good comprehension depend on. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown).
 
 ## Why Markdown specifically?
 
@@ -75,7 +76,7 @@ These are the failure modes to check for before anything reaches your vector sto
 - **Multi-column layouts.** Naive extractors read straight across the page, interleaving two columns line by line into nonsense. A layout-aware converter reads each column in order.
 - **Hyphenation and hard line breaks.** Words split across printed lines ("infor- mation") break both tokenization and embeddings if not rejoined.
 - **Tables.** The highest-value content in many business documents and the most fragile in extraction. Verify your converter [emits pipe tables](/blog/extract-tables-from-pdf-to-markdown), and spot-check the wide ones.
-- **Scanned pages.** A scanned PDF has no text layer at all — extraction silently returns nothing. These pages need OCR; the [OCR guide](/blog/ocr-pdf-to-text-guide) explains how recognition works and what affects its accuracy.
+- **Scanned pages.** A scanned PDF has no text layer at all — extraction silently returns nothing. These pages need OCR; the [OCR and scanned-PDF guide](/blog/extract-text-from-scanned-pdf) explains how recognition works and what affects its accuracy.
 - **Reading-order surprises.** Sidebars, callout boxes, and figure captions can appear mid-paragraph in the extracted stream. Skim the output around figures.
 
 A ten-minute manual review of one converted document catches most of these before they multiply across your whole corpus.
@@ -99,3 +100,5 @@ For large automated pipelines you will eventually [script extraction in Python](
 6. Test retrieval with real queries, and iterate on chunking — not on the embedding model — first.
 
 Clean Markdown in the middle of this pipeline is not glamorous, but it is the highest-leverage improvement most RAG systems can make.
+
+Academic sources deserve their own pass, because two-column layouts, footnotes, and reference lists defeat naive extraction — see [converting a research paper PDF to Markdown](/blog/convert-research-paper-pdf-to-markdown).

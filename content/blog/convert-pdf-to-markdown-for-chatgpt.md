@@ -1,5 +1,6 @@
 ---
 title: Convert PDF to Markdown for ChatGPT (Step-by-Step)
+seoTitle: Convert PDF to Markdown for ChatGPT
 description: Learn how to convert a PDF to Markdown for ChatGPT. Get cleaner answers, save tokens, and handle long documents with heading-based chunking.
 date: 2026-05-20
 author: Mourad Oumita
@@ -40,7 +41,7 @@ You do not need to install anything. Here is the workflow using a free browser-b
 
 1. **Open the converter.** Go to the [PDF to Markdown tool](/). It runs entirely in your browser — the file is processed locally and never uploaded to a server, which matters if your PDF is a contract, internal report, or anything else you would rather not send to a third party.
 2. **Drop in your PDF.** The converter extracts the text and reconstructs structure: headings, paragraphs, lists, and tables.
-3. **Use OCR if the PDF is scanned.** If your document is a scan (a photographed or photocopied page), there is no text layer to extract. The built-in OCR recognizes the text from the page images instead. For background on how this works, see the [guide to OCR for PDFs](/blog/ocr-pdf-to-text-guide).
+3. **Use OCR if the PDF is scanned.** If your document is a scan (a photographed or photocopied page), there is no text layer to extract. The built-in OCR recognizes the text from the page images instead. For background on how this works, see the [guide to OCR for scanned PDFs](/blog/extract-text-from-scanned-pdf).
 4. **Review the output.** Skim the Markdown for anything mangled — complex tables and multi-column layouts are the usual suspects. Fix headings that came through as plain bold text by adding `##` markers.
 5. **Copy or download the Markdown.** Paste it directly into ChatGPT, or save the `.md` file to attach or reuse later.
 
@@ -90,7 +91,7 @@ This map-then-reduce pattern keeps each request focused and produces noticeably 
 
 ### A note on uploading PDFs directly
 
-ChatGPT does accept PDF uploads, and for simple, digitally created documents that works fine. But the upload path still runs text extraction behind the scenes, with the same multi-column and table pitfalls — you just do not get to see or fix the result. Converting to Markdown yourself gives you control: you see exactly what the model will read, you can clean it, and you can reuse the same file in Claude, [NotebookLM](/blog/pdf-to-markdown-for-notebooklm), or any other tool. For a broader look at why structure matters so much to language models, see [why Markdown beats PDF for AI workflows](/blog/markdown-vs-pdf).
+ChatGPT does accept PDF uploads, and for simple, digitally created documents that works fine. But the upload path still runs text extraction behind the scenes, with the same multi-column and table pitfalls — you just do not get to see or fix the result. Converting to Markdown yourself gives you control: you see exactly what the model will read, you can clean it, and you can reuse the same file in Claude, [NotebookLM](/blog/pdf-to-markdown-for-notebooklm), or any other tool. For a broader look at why structure matters so much to language models, see [why Markdown beats PDF for AI workflows](/blog/pdf-vs-word-vs-markdown).
 
 ## Quick checklist
 

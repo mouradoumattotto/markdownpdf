@@ -9,7 +9,7 @@ If you search for "convert PDF to Markdown in Python," you will find a dozen lib
 
 ## The core difficulty
 
-PDF is a layout format, not a document format. It records where glyphs sit on a page, not "this is a heading" or "this is a table cell." Any PDF-to-Markdown converter has to infer structure from font sizes, positions, and spacing. That inference is what separates the libraries below — and it is why results vary so much between a clean digital report and a scanned two-column paper. For background on the format gap, see [Markdown vs PDF](/blog/markdown-vs-pdf).
+PDF is a layout format, not a document format. It records where glyphs sit on a page, not "this is a heading" or "this is a table cell." Any PDF-to-Markdown converter has to infer structure from font sizes, positions, and spacing. That inference is what separates the libraries below — and it is why results vary so much between a clean digital report and a scanned two-column paper. For background on the format gap, see [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown).
 
 ## PyMuPDF — fast raw extraction
 
@@ -87,7 +87,7 @@ result = converter.convert("scanned-paper.pdf")
 print(result.document.export_to_markdown())
 ```
 
-The cost is real: both pull in heavy ML dependencies (PyTorch among them), download model weights on first run, and are far slower than PyMuPDF — minutes instead of milliseconds for some documents, unless you have a GPU. They also handle scanned documents better because OCR is part of the pipeline, a topic covered in our [OCR PDF to text guide](/blog/ocr-pdf-to-text-guide).
+The cost is real: both pull in heavy ML dependencies (PyTorch among them), download model weights on first run, and are far slower than PyMuPDF — minutes instead of milliseconds for some documents, unless you have a GPU. They also handle scanned documents better because OCR is part of the pipeline, a topic covered in our [guide to extracting text from scanned PDFs](/blog/extract-text-from-scanned-pdf).
 
 **Trade-off:** best accuracy on hard documents, heaviest setup and runtime by a wide margin.
 

@@ -1,6 +1,7 @@
 ---
 title: Why LLMs Read Markdown Better Than PDF (ChatGPT & Claude)
-description: PDF extraction throws away the structure your model needs. See exactly what breaks, why Markdown gets better answers out of ChatGPT and Claude, and how to convert free.
+seoTitle: Why LLMs Read Markdown Better Than PDF
+description: PDF extraction throws away the structure your model needs. See what breaks, and why Markdown gets better answers out of ChatGPT and Claude.
 date: 2026-05-30
 updated: 2026-08-21
 author: Mourad Oumita
@@ -42,9 +43,9 @@ PDF is a print format: it records where glyphs are drawn on a page, optimized fo
 - **Line breaks become hard breaks.** Each printed line ends with a newline, fragmenting every sentence. Hyphenated words split across lines stay split.
 - **Headers, footers, page numbers leak in.** They repeat on every page, scattered through the content stream.
 - **Tables collapse.** Cell boundaries are visual; extraction yields the cell contents as a stream of words with no row or column information.
-- **Scanned pages yield nothing.** If the PDF is a scan, there is no text layer at all — you need [OCR](/blog/ocr-pdf-to-text-guide) before any of this even applies.
+- **Scanned pages yield nothing.** If the PDF is a scan, there is no text layer at all — you need [OCR](/blog/extract-text-from-scanned-pdf) before any of this even applies.
 
-For a fuller side-by-side of the two formats, see [Markdown vs PDF](/blog/markdown-vs-pdf).
+For a fuller side-by-side of the two formats, see [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown).
 
 ## A before/after example
 
@@ -97,3 +98,5 @@ Convert a document once and it becomes portable across this entire ecosystem: [p
 You do not need to take any of this on faith — it is easy to test. Take a PDF you work with, ask your favorite model three specific questions about it using pasted raw text, then convert the same file with the free [PDF to Markdown converter](/) (it runs locally in your browser; nothing is uploaded) and ask the same three questions again. Questions involving tables, section-specific content, or document structure are where you will see the gap.
 
 The model was always capable of answering well. It just needed input it could actually read.
+
+If the model you are feeding is NotebookLM specifically, the trade-offs are a little different — source slots, citation quality, and what happens to scans — and we cover them in [PDF to Markdown for NotebookLM](/blog/pdf-to-markdown-for-notebooklm).

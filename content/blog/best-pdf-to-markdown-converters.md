@@ -1,5 +1,6 @@
 ---
 title: Best PDF to Markdown Converters in 2026 (Honest Guide)
+seoTitle: Best PDF to Markdown Converters (2026)
 description: An honest comparison of PDF to Markdown conversion methods in 2026 - browser-based tools, pandoc pipelines, ML tools like marker, and manual conversion.
 date: 2026-06-05
 author: Mourad Oumita
@@ -59,7 +60,7 @@ Copy the text out of your PDF reader, paste it into an editor, and add the Markd
 ## Which should you choose?
 
 - **You convert PDFs occasionally and want it done now** → a client-side [browser converter](/). No setup, private, handles scans.
-- **Your PDFs are scanned documents** → a tool with built-in OCR, or a separate OCR pass first. Our [OCR guide](/blog/ocr-pdf-to-text-guide) explains the options.
+- **Your PDFs are scanned documents** → a tool with built-in OCR, or a separate OCR pass first. Our [OCR and scanned-PDF guide](/blog/extract-text-from-scanned-pdf) explains the options.
 - **You are processing hundreds of papers programmatically** → invest the setup time in marker or docling; the structure quality on complex layouts is worth it. If the output is headed into an LLM, [why LLMs work better with Markdown than PDF](/blog/why-llms-prefer-markdown) explains why the extra effort pays off.
 - **You already live in the terminal and only need the text** → `pdftotext` gets you 90% of what a pandoc pipeline would, with one command.
 - **The document is two pages** → just retype it. Honestly.

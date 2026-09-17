@@ -1,5 +1,6 @@
 ---
 title: Extract Tables From PDF to Markdown (Free Guide)
+seoTitle: Extract Tables From PDF to Markdown
 description: How to extract tables from a PDF and convert them to clean Markdown - why PDF tables are hard, a free browser workflow, cleanup tips, and Markdown's limits.
 date: 2026-06-12
 author: Mourad Oumita

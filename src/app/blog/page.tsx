@@ -5,7 +5,10 @@ import { getAllPosts } from "@/lib/blog";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Blog — Guides on PDF, Markdown & Document Conversion",
+  // Short enough that the " | MarkdownPDF" suffix survives truncation (43 chars
+  // total). The longer, more descriptive wording stays on the Open Graph card,
+  // which is not width-constrained.
+  title: "Guides on PDF, Markdown & OCR",
   description:
     "Practical guides on Markdown syntax, PDF conversion, OCR, and document workflows from the MarkdownPDF team.",
   alternates: { canonical: "/blog" },

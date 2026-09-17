@@ -1,6 +1,6 @@
 ---
 title: Clean Up Messy Markdown After PDF Conversion
-description: Fix the common problems in Markdown converted from PDF - broken line breaks, hyphenated words, page headers, ligatures, and bad lists - with a clear cleanup checklist.
+description: Fix the usual mess in Markdown converted from PDF — broken line breaks, hyphenated words, page headers, ligatures, bad lists — with one checklist.
 author: Mourad Oumita
 date: 2026-06-30
 ---

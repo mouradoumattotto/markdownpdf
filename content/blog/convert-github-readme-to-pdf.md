@@ -1,5 +1,6 @@
 ---
 title: Convert a GitHub README to PDF (Free, Step-by-Step)
+seoTitle: Convert a GitHub README to PDF (Free)
 description: Turn any GitHub README.md into a polished PDF for sharing, documentation deliverables, or offline reading. Step-by-step guide, caveats, and alternatives.
 date: 2026-06-10
 author: Mourad Oumita
@@ -19,7 +20,7 @@ Agencies and contractors often have to hand over documentation as part of a deli
 
 ### Offline reading and archiving
 
-PDFs are self-contained and render identically everywhere, which makes them ideal for offline reading and long-term archiving. A README on GitHub depends on GitHub being reachable and the repo continuing to exist; a PDF in your records does not. The strengths of each format are covered in more depth in [Markdown vs PDF](/blog/markdown-vs-pdf), and if your documents also pass through office tools, [PDF vs Word vs Markdown](/blog/pdf-vs-word-vs-markdown) compares all three.
+PDFs are self-contained and render identically everywhere, which makes them ideal for offline reading and long-term archiving. A README on GitHub depends on GitHub being reachable and the repo continuing to exist; a PDF in your records does not. The strengths of each format are covered in more depth in [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown), and if your documents also pass through office tools, [PDF vs Word vs Markdown](/blog/pdf-vs-word-vs-markdown) compares all three.
 
 ## Step-by-step: README to PDF in the browser
 
