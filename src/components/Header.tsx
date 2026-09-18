@@ -1,9 +1,12 @@
 import Link from "next/link";
 
+// "Tools" points at the full tool grid on the homepage rather than a separate
+// "all tools" URL: one more thin listing page would compete with the hubs.
 const links = [
   { href: "/", label: "PDF → Markdown" },
   { href: "/markdown-to-pdf", label: "Markdown → PDF" },
-  { href: "/blog", label: "Blog" },
+  { href: "/#all-tools", label: "All tools" },
+  { href: "/blog", label: "Guides" },
 ];
 
 export default function Header() {

@@ -4,6 +4,9 @@ import PdfToMarkdownTool from "@/components/PdfToMarkdownTool";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
 import BlogCluster from "@/components/BlogCluster";
+import { ToolGrid, hubLinks } from "@/components/ToolSeo";
+import { OCR_LANGUAGES } from "@/lib/ocr";
+import { TOOLS } from "@/lib/tools";
 import { getPostsByTopic } from "@/lib/blog";
 import { SITE } from "@/lib/site";
 
@@ -64,7 +67,7 @@ const features = [
     ),
     title: "OCR for scanned PDFs",
     description:
-      "Scanned pages without a text layer are detected and recognized automatically with built-in OCR — most free converters simply fail on them.",
+      "Scanned pages without a text layer are detected and recognized automatically with built-in OCR in seven languages, including French, Spanish, German and Arabic.",
   },
   {
     icon: (
@@ -132,7 +135,11 @@ const faqItems = [
   {
     question: "Does the converter need an internet connection?",
     answer:
-      "Only to load the tool itself. Your PDF is never sent anywhere — it is read and converted on your device. The first time a scanned page needs OCR, your browser downloads the recognition engine and its English language data once; the document itself stays local throughout.",
+      "Only to load the tool itself. Your PDF is never sent anywhere — it is read and converted on your device. The first time a scanned page needs OCR, your browser downloads the recognition engine and the language you picked from markdownpdf.app; the document itself stays local throughout.",
+  },
+  {
+    question: "Which languages can the OCR read?",
+    answer: `${OCR_LANGUAGES.map((l) => l.label).join(", ")}. Pick the language of your scanned pages under the drop zone before converting; the choice is remembered on your device. Pages that already contain real text are extracted directly, whatever their language.`,
   },
   {
     question: "Is there a file size limit?",
@@ -188,7 +195,7 @@ export default function HomePage() {
             "Free, browser-based PDF to Markdown converter. Extracts text, rebuilds headings, lists, and emphasis as Markdown, and runs OCR on scanned pages. Files are processed locally and never uploaded.",
           featureList: [
             "PDF text extraction with structure detection (headings, lists, emphasis)",
-            "Automatic OCR for scanned PDFs",
+            "Automatic OCR for scanned PDFs in 7 languages",
             "100% client-side processing — no upload",
             "No file size limit, no sign-up, no watermark",
             "Markdown to PDF conversion with real selectable text",
@@ -263,6 +270,31 @@ export default function HomePage() {
             account and no page limit. The output is plain Markdown you can paste into ChatGPT, Claude, NotebookLM, Obsidian, or a
             Git repository.
           </p>
+        </div>
+      </section>
+
+      {/* The rest of the suite — generated from src/lib/tools.ts */}
+      <section id="all-tools" className="scroll-mt-24 border-t border-neutral-100">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <h2 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+            All MarkdownPDF tools
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
+            Every tool works the same way as this one: free, no account, and your files never
+            leave your browser.
+          </p>
+          <div className="mt-10">
+            <ToolGrid tools={TOOLS.filter((t) => t.path !== "/")} />
+          </div>
+          {hubLinks().length > 0 && (
+            <p className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+              {hubLinks().map((h) => (
+                <Link key={h.href} href={h.href} className="font-medium text-indigo-600 hover:underline">
+                  All {h.label.toLowerCase()} →
+                </Link>
+              ))}
+            </p>
+          )}
         </div>
       </section>
 

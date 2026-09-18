@@ -1,0 +1,149 @@
+/**
+ * Single source of truth for every tool and category hub.
+ *
+ * Navigation, hub grids, "Related tools", JSON-LD (WebApplication +
+ * BreadcrumbList), the sitemap and llms.txt are all generated from this file.
+ * What is NOT generated: each tool page's title, description, H1 and body copy
+ * — those are written by hand in the page itself, because generating them is
+ * exactly how sites end up with hundreds of interchangeable thin pages.
+ *
+ * Add a tool here only when its page is live. An entry pointing at a route that
+ * does not exist would put a 404 in the nav, the hubs and the sitemap at once.
+ */
+
+export type CategoryId = "pdf" | "ocr" | "markdown" | "ai";
+
+export interface Category {
+  id: CategoryId;
+  path: string;
+  name: string;
+  /** One sentence, shown on cards and used as the hub's lead. */
+  blurb: string;
+  /** Last meaningful edit of the hub page itself (sitemap lastmod). */
+  updated: string;
+}
+
+export interface Tool {
+  slug: string;
+  path: string;
+  name: string;
+  /** Short card copy — what it does, in one line. */
+  tagline: string;
+  categories: CategoryId[];
+  input: string[];
+  output: string[];
+  /** Slugs of other tools, most relevant first. */
+  related: string[];
+  /** Blog post slugs that go deeper on this tool's job. */
+  guides: string[];
+  /** Last meaningful edit of the page (sitemap lastmod). */
+  updated: string;
+  /** Features for the WebApplication JSON-LD. Must be true of the page. */
+  features: string[];
+}
+
+export const CATEGORIES: Category[] = [
+  {
+    id: "pdf",
+    path: "/pdf-tools",
+    name: "PDF tools",
+    blurb: "Convert, split, merge, organize and clean up PDFs — processed in your browser, never uploaded.",
+    updated: "2026-09-18",
+  },
+  {
+    id: "ocr",
+    path: "/ocr-tools",
+    name: "OCR tools",
+    blurb: "Turn scans and images into real text in seven languages, with OCR that runs on your own device.",
+    updated: "2026-09-18",
+  },
+  {
+    id: "markdown",
+    path: "/markdown-tools",
+    name: "Markdown tools",
+    blurb: "Convert to and from Markdown, preview it, and export it — Word, HTML, PDF and tables.",
+    updated: "2026-09-18",
+  },
+  {
+    id: "ai",
+    path: "/ai-document-tools",
+    name: "AI document tools",
+    blurb: "Prepare documents for ChatGPT, Claude, NotebookLM and RAG pipelines: clean text, sensible splits, token counts.",
+    updated: "2026-09-18",
+  },
+];
+
+export const TOOLS: Tool[] = [
+  {
+    slug: "pdf-to-markdown",
+    path: "/",
+    name: "PDF to Markdown",
+    tagline: "Clean Markdown from any PDF, with OCR for scanned pages.",
+    categories: ["pdf", "markdown", "ocr", "ai"],
+    input: ["PDF"],
+    output: ["Markdown (.md)"],
+    related: ["pdf-to-text", "markdown-to-pdf", "split-pdf-for-ai", "ocr-pdf", "docx-to-markdown"],
+    guides: [
+      "how-to-convert-pdf-to-markdown",
+      "extract-text-from-scanned-pdf",
+      "pdf-to-markdown-for-notebooklm",
+      "convert-pdf-to-markdown-for-chatgpt",
+    ],
+    updated: "2026-09-18",
+    features: [
+      "PDF text extraction with structure detection (headings, lists, emphasis)",
+      "Automatic OCR for scanned pages in 7 languages",
+      "Runs entirely in the browser — files are never uploaded",
+      "Cancel at any time; progress and time estimate for long documents",
+    ],
+  },
+  {
+    slug: "markdown-to-pdf",
+    path: "/markdown-to-pdf",
+    name: "Markdown to PDF",
+    tagline: "A clean PDF with selectable text from your Markdown.",
+    categories: ["markdown", "pdf"],
+    input: ["Markdown (.md)"],
+    output: ["PDF"],
+    related: ["pdf-to-markdown", "markdown-to-html", "markdown-to-docx", "markdown-table-generator"],
+    guides: ["convert-markdown-to-pdf", "markdown-cheat-sheet", "markdown-resume-to-pdf", "convert-github-readme-to-pdf"],
+    updated: "2026-09-18",
+    features: [
+      "Markdown editor with live preview",
+      "Vector PDF output with selectable, searchable text",
+      "Tables, code blocks, links, blockquotes",
+    ],
+  },
+];
+
+export function getTool(slug: string): Tool | undefined {
+  return TOOLS.find((t) => t.slug === slug);
+}
+
+export function toolsIn(category: CategoryId): Tool[] {
+  return TOOLS.filter((t) => t.categories.includes(category));
+}
+
+export function getCategory(id: CategoryId): Category {
+  const c = CATEGORIES.find((c) => c.id === id);
+  if (!c) throw new Error(`Unknown category ${id}`);
+  return c;
+}
+
+/**
+ * A hub page with fewer than three tools is a thin page wrapped around a
+ * link list. Hubs are only rendered, linked and listed in the sitemap once
+ * their category has at least this many live tools.
+ */
+export const MIN_TOOLS_PER_HUB = 3;
+
+export function liveCategories(): Category[] {
+  return CATEGORIES.filter((c) => toolsIn(c.id).length >= MIN_TOOLS_PER_HUB);
+}
+
+/** Related tools for a slug, skipping any that are not live yet. */
+export function relatedTools(slug: string, limit = 6): Tool[] {
+  const tool = getTool(slug);
+  if (!tool) return [];
+  return tool.related.map(getTool).filter((t): t is Tool => Boolean(t)).slice(0, limit);
+}

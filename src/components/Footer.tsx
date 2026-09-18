@@ -1,17 +1,18 @@
 import Link from "next/link";
+import { hubLinks } from "@/components/ToolSeo";
+import { TOOLS } from "@/lib/tools";
+
+// Tool and hub links come from the registry, so a new tool or a hub that goes
+// live appears here without anyone remembering to edit the footer.
+const toolLinks = TOOLS.slice(0, 8).map((t) => ({ href: t.path, label: t.name }));
 
 const columns = [
+  { title: "Tools", links: toolLinks },
   {
-    title: "Tools",
+    title: "Categories & guides",
     links: [
-      { href: "/", label: "PDF to Markdown" },
-      { href: "/markdown-to-pdf", label: "Markdown to PDF" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { href: "/blog", label: "Blog" },
+      ...hubLinks().map((h) => ({ href: h.href, label: h.label })),
+      { href: "/blog", label: "All guides" },
       { href: "/blog/what-is-markdown-complete-guide", label: "What is Markdown?" },
       { href: "/blog/extract-text-from-scanned-pdf", label: "Scanned PDF & OCR" },
       { href: "/blog/pdf-vs-word-vs-markdown", label: "PDF vs Word vs Markdown" },
@@ -21,6 +22,7 @@ const columns = [
     title: "Company",
     links: [
       { href: "/about", label: "About" },
+      { href: "/how-it-works", label: "How it works" },
       { href: "/contact", label: "Contact" },
       { href: "/privacy-policy", label: "Privacy Policy" },
       { href: "/terms", label: "Terms of Service" },

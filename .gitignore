@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Self-hosted OCR engine, copied from node_modules at build time (scripts/copy-ocr-assets.mjs)
+/public/ocr/
+/public/pdfjs/
+# Test artifacts
+/test-results/
+/playwright-report/
+/tests/fixtures/generated/

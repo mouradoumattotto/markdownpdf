@@ -1,12 +1,32 @@
-// Client-side PDF → Markdown conversion.
+// Client-side PDF → Markdown (and plain text) conversion.
 // Strategy: extract the text layer with pdf.js and rebuild document structure
 // (headings, lists, paragraphs, emphasis) from font metrics. Pages without a
-// usable text layer (scanned documents) fall back to OCR via Tesseract.js.
+// usable text layer (scanned documents) fall back to OCR via Tesseract.js,
+// self-hosted and loaded only when the first scanned page is met.
+
+import { CancelledError, throwIfAborted } from "@/lib/files";
+import { DEFAULT_OCR_LANGUAGE, createOcrWorker, type OcrLanguage } from "@/lib/ocr";
+import { openPdf, type PdfPage } from "@/lib/pdfjs";
 
 export interface ConversionProgress {
   page: number;
   totalPages: number;
-  stage: "extracting" | "ocr";
+  /** "loading_ocr" covers the one-off download of the OCR engine + language. */
+  stage: "extracting" | "loading_ocr" | "ocr";
+}
+
+export interface ConversionOptions {
+  onProgress?: (p: ConversionProgress) => void;
+  signal?: AbortSignal;
+  /** Language of scanned pages. Ignored for pages that have a text layer. */
+  ocrLanguage?: OcrLanguage;
+}
+
+export interface ConversionResult {
+  output: string;
+  pageCount: number;
+  /** Pages that had no text layer and went through OCR. */
+  ocrPages: number;
 }
 
 interface TextRun {
@@ -28,25 +48,54 @@ interface Line {
 const OCR_TEXT_THRESHOLD = 40; // chars per page below which we assume a scanned page
 const OCR_RENDER_SCALE = 2;
 
-export async function convertPdfToMarkdown(
+export function convertPdfToMarkdown(file: File, options: ConversionOptions = {}): Promise<ConversionResult> {
+  return convertPdf(file, options, "markdown");
+}
+
+export function convertPdfToText(file: File, options: ConversionOptions = {}): Promise<ConversionResult> {
+  return convertPdf(file, options, "text");
+}
+
+/** Rejects as soon as the signal aborts, even if `promise` never settles. */
+function raceAbort<T>(promise: Promise<T>, signal?: AbortSignal): Promise<T> {
+  if (!signal) return promise;
+  return new Promise<T>((resolve, reject) => {
+    const onAbort = () => reject(new CancelledError());
+    if (signal.aborted) return onAbort();
+    signal.addEventListener("abort", onAbort, { once: true });
+    promise.then(
+      (v) => {
+        signal.removeEventListener("abort", onAbort);
+        resolve(v);
+      },
+      (e) => {
+        signal.removeEventListener("abort", onAbort);
+        reject(e);
+      },
+    );
+  });
+}
+
+async function convertPdf(
   file: File,
-  onProgress?: (p: ConversionProgress) => void,
-): Promise<string> {
-  const pdfjs = await import("pdfjs-dist");
-  pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    "pdfjs-dist/build/pdf.worker.min.mjs",
-    import.meta.url,
-  ).toString();
-
+  { onProgress, signal, ocrLanguage = DEFAULT_OCR_LANGUAGE }: ConversionOptions,
+  mode: "markdown" | "text",
+): Promise<ConversionResult> {
+  throwIfAborted(signal);
   const data = await file.arrayBuffer();
-  const loadingTask = pdfjs.getDocument({ data });
-  const doc = await loadingTask.promise;
-
-  const pageMarkdowns: string[] = [];
+  const loadingTask = await openPdf(data);
   let ocrWorker: import("tesseract.js").Worker | null = null;
+  // Terminating the worker is the only way to stop a recognition in flight.
+  const stopOcr = () => void ocrWorker?.terminate();
+  signal?.addEventListener("abort", stopOcr, { once: true });
 
   try {
+    const doc = await raceAbort(loadingTask.promise, signal);
+    const pages: string[] = [];
+    let ocrPages = 0;
+
     for (let pageNum = 1; pageNum <= doc.numPages; pageNum++) {
+      throwIfAborted(signal);
       onProgress?.({ page: pageNum, totalPages: doc.numPages, stage: "extracting" });
       const page = await doc.getPage(pageNum);
       const lines = await extractLines(page);
@@ -56,49 +105,115 @@ export async function convertPdfToMarkdown(
       );
 
       if (textLength < OCR_TEXT_THRESHOLD) {
-        onProgress?.({ page: pageNum, totalPages: doc.numPages, stage: "ocr" });
         if (!ocrWorker) {
-          const { createWorker } = await import("tesseract.js");
-          ocrWorker = await createWorker("eng");
+          onProgress?.({ page: pageNum, totalPages: doc.numPages, stage: "loading_ocr" });
+          ocrWorker = await raceAbort(createOcrWorker(ocrLanguage), signal);
         }
-        pageMarkdowns.push(await ocrPage(page, ocrWorker));
+        onProgress?.({ page: pageNum, totalPages: doc.numPages, stage: "ocr" });
+        pages.push(await raceAbort(ocrPage(page, ocrWorker), signal));
+        ocrPages++;
       } else {
-        pageMarkdowns.push(linesToMarkdown(lines));
+        pages.push(mode === "markdown" ? linesToMarkdown(lines) : linesToText(lines));
       }
       page.cleanup();
     }
+
+    const output = pages
+      .map((m) => m.trim())
+      .filter(Boolean)
+      .join("\n\n")
+      .replace(/\n{3,}/g, "\n\n");
+    return { output: output ? output + "\n" : "", pageCount: doc.numPages, ocrPages };
   } finally {
-    await ocrWorker?.terminate();
+    signal?.removeEventListener("abort", stopOcr);
+    await ocrWorker?.terminate().catch(() => {});
     await loadingTask.destroy();
   }
-
-  return pageMarkdowns
-    .map((m) => m.trim())
-    .filter(Boolean)
-    .join("\n\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .concat("\n");
 }
 
-type PDFPageProxy = Awaited<
-  ReturnType<Awaited<ReturnType<typeof import("pdfjs-dist").getDocument>["promise"]>["getPage"]>
->;
+type PDFPageProxy = PdfPage;
+
+interface FontStyle {
+  bold: boolean;
+  italic: boolean;
+}
+
+const BOLD_RE = /bold|black|heavy|semibold|demi/;
+const ITALIC_RE = /italic|oblique/;
+
+/**
+ * Real font names, for bold/italic detection.
+ *
+ * pdf.js (v4+) only exposes a generic fallback family ("sans-serif") in
+ * getTextContent().styles, and item.fontName is an internal id ("g_d0_f2").
+ * Until 2026-09-18 this code matched /bold/ against those two strings, so it
+ * never detected any emphasis. The actual name ("ABCDEF+Arial-BoldMT") only
+ * becomes available in commonObjs once the page's operator list is built.
+ *
+ * Building it costs ~35% extra on text extraction (measured: 651 -> 889 ms for
+ * 300 pages), so it is only done when the page mixes several fonts — a page in
+ * a single font has no emphasis to find.
+ */
+type FontInfo = { name?: string; bold?: boolean; black?: boolean; italic?: boolean };
+
+/**
+ * In the browser a font lands in commonObjs only once it is fully set up, which
+ * can be after getOperatorList() resolves — reading it synchronously randomly
+ * missed fonts (italics were lost in Chromium, never in Node). Wait for it,
+ * with a ceiling so a broken font can never stall a conversion.
+ */
+function resolvedFont(page: PDFPageProxy, id: string): Promise<FontInfo | null> {
+  return new Promise((resolve) => {
+    const timer = setTimeout(() => resolve(null), 2000);
+    try {
+      page.commonObjs.get(id, (data: unknown) => {
+        clearTimeout(timer);
+        resolve((data as FontInfo) ?? null);
+      });
+    } catch {
+      clearTimeout(timer);
+      resolve(null);
+    }
+  });
+}
+
+async function fontStyles(page: PDFPageProxy, fontIds: Set<string>): Promise<Map<string, FontStyle>> {
+  const styles = new Map<string, FontStyle>();
+  if (fontIds.size < 2) return styles;
+  try {
+    await page.getOperatorList();
+    for (const id of fontIds) {
+      const font = await resolvedFont(page, id);
+      if (!font) continue;
+      const name = String(font.name ?? "").toLowerCase();
+      styles.set(id, {
+        bold: Boolean(font?.bold || font?.black) || BOLD_RE.test(name),
+        italic: Boolean(font?.italic) || ITALIC_RE.test(name),
+      });
+    }
+  } catch {
+    // Emphasis is a nicety; never fail a conversion over it.
+  }
+  return styles;
+}
 
 async function extractLines(page: PDFPageProxy): Promise<Line[]> {
   const content = await page.getTextContent();
   const runs: TextRun[] = [];
+  const fontIds = new Set<string>();
+  for (const item of content.items) if ("str" in item && item.str.trim()) fontIds.add(item.fontName);
+  const styles = await fontStyles(page, fontIds);
 
   for (const item of content.items) {
     if (!("str" in item) || !item.str) continue;
-    const fontName = (content.styles[item.fontName]?.fontFamily ?? item.fontName ?? "").toLowerCase();
-    const rawFont = (item.fontName ?? "").toLowerCase();
+    const style = styles.get(item.fontName);
     runs.push({
       text: item.str,
       x: item.transform[4],
       y: item.transform[5],
       size: Math.hypot(item.transform[2], item.transform[3]),
-      bold: /bold|black|heavy/.test(fontName) || /bold|black|heavy/.test(rawFont),
-      italic: /italic|oblique/.test(fontName) || /italic|oblique/.test(rawFont),
+      bold: style?.bold ?? false,
+      italic: style?.italic ?? false,
     });
   }
 
@@ -242,6 +357,48 @@ function linesToMarkdown(lines: Line[]): string {
   flush();
 
   return mergeAdjacentListItems(blocks).join("\n\n");
+}
+
+function plainLineText(line: Line): string {
+  let out = "";
+  for (let i = 0; i < line.runs.length; i++) out += joinGap(line.runs, i) + line.runs[i].text;
+  return out.replace(/\s+/g, " ").trim();
+}
+
+/**
+ * Plain text keeps the reading order and paragraph breaks, joins lines that
+ * were wrapped by the layout, and de-hyphenates — but adds no Markdown syntax.
+ * Headings and list items stay on their own line so the text remains scannable.
+ */
+function linesToText(lines: Line[]): string {
+  const body = bodyFontSize(lines);
+  const blocks: string[] = [];
+  let paragraph = "";
+  let prevLine: Line | null = null;
+  const flush = () => {
+    if (paragraph.trim()) blocks.push(paragraph.trim());
+    paragraph = "";
+  };
+
+  for (const line of lines) {
+    const text = plainLineText(line);
+    if (!text) continue;
+    const standalone =
+      (line.size / body >= 1.15 && text.length < 120) || BULLET_RE.test(text) || ORDERED_RE.test(text);
+    if (standalone) {
+      flush();
+      blocks.push(text);
+      prevLine = line;
+      continue;
+    }
+    const gap = prevLine ? prevLine.y - line.y : 0;
+    if (!prevLine || gap > line.size * 1.7) flush();
+    if (paragraph) paragraph = paragraph.endsWith("-") ? paragraph.slice(0, -1) + text : paragraph + " " + text;
+    else paragraph = text;
+    prevLine = line;
+  }
+  flush();
+  return blocks.join("\n\n");
 }
 
 function stripEmphasis(text: string): string {

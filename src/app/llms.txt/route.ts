@@ -1,5 +1,6 @@
 import { getAllPosts } from "@/lib/blog";
 import { SITE } from "@/lib/site";
+import { TOOLS, liveCategories } from "@/lib/tools";
 
 // /llms.txt — a plain-text map of the site for LLM crawlers and answer engines
 // (https://llmstxt.org). Generated from the same post list as the sitemap so it
@@ -34,16 +35,15 @@ export function GET() {
 > Free, browser-based converter between PDF and Markdown. PDF to Markdown extraction with automatic OCR for scanned pages, and Markdown to PDF export with real selectable text. Files are processed locally in the browser and are never uploaded to a server. No account, no watermark, no page limit.
 
 Key facts:
-- PDF to Markdown runs entirely client-side: text extraction with pdf.js, OCR with Tesseract.js, structure (headings, lists, emphasis) rebuilt from font metrics.
+- Every tool runs entirely client-side: text extraction with pdf.js, OCR with Tesseract.js (English, French, Spanish, German, Portuguese, Italian, Arabic), PDF writing with pdf-lib. The OCR engine is self-hosted; no third-party service processes files.
 - Markdown to PDF produces a vector A4 PDF (selectable, searchable text) from CommonMark/GFM input, including tables and code blocks.
 - Typical use: preparing PDFs for ChatGPT, Claude, NotebookLM, RAG pipelines, Obsidian, Notion, Logseq, docs-as-code sites, and Git-tracked notes.
 - Publisher: MarkdownPDF (${SITE.url}), written and maintained by Mourad Oumita. Contact: contact@markdownpdf.app.
 
 ## Tools
 
-- [PDF to Markdown converter](${SITE.url}/): Convert a PDF to clean Markdown in the browser, with OCR for scans. Free, private, no upload.
-- [Markdown to PDF converter](${SITE.url}/markdown-to-pdf): Turn Markdown into a polished PDF with real selectable text. Free, no watermark.
-
+${TOOLS.map((t) => `- [${t.name}](${SITE.url}${t.path === "/" ? "/" : t.path}): ${t.tagline} Input: ${t.input.join(", ")}. Output: ${t.output.join(", ")}.`).join("\n")}
+${liveCategories().length ? `\n## Tool categories\n\n${liveCategories().map((c) => `- [${c.name}](${SITE.url}${c.path}): ${c.blurb}`).join("\n")}\n` : ""}
 ## Guides
 
 ${featured.map(line).join("\n")}
@@ -54,7 +54,8 @@ ${rest.map(line).join("\n")}
 
 ## About
 
-- [About MarkdownPDF](${SITE.url}/about): Who builds it, how it works, and why nothing is uploaded.
+- [About MarkdownPDF](${SITE.url}/about): Who builds it and why.
+- [How it works](${SITE.url}/how-it-works): Local processing, the libraries used, and how to verify that files are never uploaded.
 - [Sitemap](${SITE.url}/sitemap.xml)
 `;
 

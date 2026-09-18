@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Terms of service for using the MarkdownPDF file conversion tools.",
+  description: "Terms of service for MarkdownPDF: free, browser-based PDF, Markdown and OCR tools. Your files stay on your device; the tools are provided as is.",
   alternates: { canonical: "/terms" },
 };
 
