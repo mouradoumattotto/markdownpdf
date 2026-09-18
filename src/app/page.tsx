@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   // title was 65 characters and the description 196 — both cut short in the SERP.)
   title: { absolute: "PDF to Markdown Converter — Free, with OCR | MarkdownPDF" },
   description:
-    "Convert PDF to Markdown free, in your browser. Structure preserved, automatic OCR for scanned PDFs, no upload, no sign-up. Works offline.",
+    "Convert PDF to Markdown free, in your browser. Structure preserved, automatic OCR for scanned PDFs, no upload, no sign-up, no page limit.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "PDF to Markdown Converter — Free, Private, with OCR",
@@ -106,7 +106,6 @@ const comparison = [
   { feature: "OCR for scanned PDFs", us: true, them: "Paid plans only" },
   { feature: "No sign-up required", us: true, them: "Often required" },
   { feature: "No watermark on output", us: true, them: "Free tiers add one" },
-  { feature: "Works offline after loading", us: true, them: false },
 ];
 
 const faqItems = [
@@ -131,9 +130,9 @@ const faqItems = [
       "Yes. If a page has no embedded text layer, the converter automatically runs OCR (optical character recognition) on the page image to recognize the text. OCR PDF to Markdown conversion is slower than normal extraction, so scanned documents take a bit longer.",
   },
   {
-    question: "Does the PDF to Markdown converter work offline?",
+    question: "Does the converter need an internet connection?",
     answer:
-      "Yes. Everything runs in your browser, so once this page has loaded you can disconnect and keep converting. Nothing is sent to a server at any point, during or after the conversion.",
+      "Only to load the tool itself. Your PDF is never sent anywhere — it is read and converted on your device. The first time a scanned page needs OCR, your browser downloads the recognition engine and its English language data once; the document itself stays local throughout.",
   },
   {
     question: "Is there a file size limit?",
@@ -261,8 +260,7 @@ export default function HomePage() {
             rebuilds headings, lists, and emphasis from the font metrics, and falls back to
             Tesseract OCR for scanned pages that have no text layer — so converting a scanned PDF
             to Markdown works the same as a text one. The file is never uploaded, there is no
-            account and no page limit, and once the page has loaded it keeps working offline. The
-            output is plain Markdown you can paste into ChatGPT, Claude, NotebookLM, Obsidian, or a
+            account and no page limit. The output is plain Markdown you can paste into ChatGPT, Claude, NotebookLM, Obsidian, or a
             Git repository.
           </p>
         </div>

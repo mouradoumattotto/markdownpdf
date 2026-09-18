@@ -7,7 +7,7 @@ import { SITE } from "@/lib/site";
 // the blog's freshest post — re-stamping every URL on each publish teaches Google
 // that our lastmod carries no information, and it stops trusting the field.
 const PAGE_MODIFIED: Record<string, string> = {
-  "/": "2026-09-17", // retargeted title/description, "PDF to MD" + offline copy, 2 new FAQ entries
+  "/": "2026-09-17", // retargeted title/description, "PDF to MD" copy, 2 new FAQ entries
   "/markdown-to-pdf": "2026-09-17", // rebuilt: 672 -> ~1400 words, syntax support table, 5 new FAQ entries
 };
 
