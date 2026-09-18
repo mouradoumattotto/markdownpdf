@@ -47,6 +47,7 @@ export const test = base.extend<{ problems: Problems }>({
       if (problems.console.length) console.log("console errors:\n  " + problems.console.join("\n  "));
       const csp = await page.evaluate(() => (window as unknown as { __csp?: string[] }).__csp ?? []).catch(() => []);
       problems.csp.push(...csp);
+      if (problems.csp.length) console.log("CSP violations:\n  " + problems.csp.join("\n  "));
       expect(problems.csp, "CSP violations").toEqual([]);
       expect(problems.thirdParty, "requests to third parties").toEqual([]);
       expect(problems.console.filter((m) => !/Failed to load resource.*(favicon|404)/.test(m)), "console errors").toEqual([]);
@@ -98,4 +99,25 @@ export async function downloadBytes(page: Page, click: () => Promise<void>) {
 export async function expectNoHorizontalScroll(page: Page) {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow, "horizontal overflow (px)").toBeLessThanOrEqual(1);
+}
+
+/** Opens a PDF produced by a tool and reports what is really inside it. */
+export async function pdfInfo(bytes: Buffer | Uint8Array): Promise<{ pages: number; text: string; images: number }> {
+  const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  const root = join(__dirname, "..", "..");
+  const doc = await pdfjs.getDocument({
+    data: new Uint8Array(bytes),
+    standardFontDataUrl: join(root, "node_modules/pdfjs-dist/standard_fonts/"),
+    verbosity: 0,
+  }).promise;
+  let text = "";
+  let images = 0;
+  for (let i = 1; i <= doc.numPages; i++) {
+    const page = await doc.getPage(i);
+    const content = await page.getTextContent();
+    text += content.items.map((it) => ("str" in it ? it.str : "")).join(" ") + "\n";
+    const ops = await page.getOperatorList();
+    images += ops.fnArray.filter((f) => f === pdfjs.OPS.paintImageXObject || f === pdfjs.OPS.paintInlineImageXObject).length;
+  }
+  return { pages: doc.numPages, text, images };
 }

@@ -12,6 +12,7 @@ import {
 import { classifyPdfError, baseName, sniffPdf } from "@/lib/files";
 import { OCR_ASSET_VERSION, OCR_LANGUAGES } from "@/lib/ocr";
 import { PDFJS_ASSET_VERSION } from "@/lib/pdfjs";
+import { MATHJAX_VERSION, MERMAID_VERSION } from "@/lib/markdown-rich";
 import { CATEGORIES, MIN_TOOLS_PER_HUB, TOOLS, liveCategories, relatedTools } from "@/lib/tools";
 import { getAllPosts } from "@/lib/blog";
 
@@ -79,6 +80,10 @@ describe("self-hosted assets stay in sync", () => {
   });
   it("pdf.js asset version matches the installed pdfjs-dist", () => {
     expect(PDFJS_ASSET_VERSION).toBe(pkgVersion("pdfjs-dist"));
+  });
+  it("vendored MathJax and Mermaid versions match the installed packages", () => {
+    expect(MATHJAX_VERSION).toBe(pkgVersion("mathjax-full"));
+    expect(MERMAID_VERSION).toBe(pkgVersion("mermaid"));
   });
   it("every OCR language has its data copied by the asset script", () => {
     const script = readFileSync(join(root, "scripts", "copy-ocr-assets.mjs"), "utf8");

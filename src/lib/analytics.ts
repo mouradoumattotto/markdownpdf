@@ -36,6 +36,8 @@ export type ErrorCode =
   | "no_text_found"
   | "ocr_failed"
   | "too_many_files"
+  | "unsupported_script"
+  | "render_failed"
   | "unknown";
 
 export interface ToolEventParams {
@@ -49,6 +51,8 @@ export interface ToolEventParams {
   ocr_language?: string;
   duration_bucket?: string;
   error_code?: ErrorCode;
+  /** Which exporter produced the file, when a tool has several ("quick" | "print"). */
+  export_mode?: string;
 }
 
 const ALLOWED_PARAMS = new Set<string>([
@@ -62,6 +66,7 @@ const ALLOWED_PARAMS = new Set<string>([
   "ocr_language",
   "duration_bucket",
   "error_code",
+  "export_mode",
 ]);
 
 // Every allowed value is a short identifier ("pdf", "1-10mb", "ara").

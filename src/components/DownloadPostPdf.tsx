@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 
 /**
  * Renders the article itself as a PDF, in the browser, using the same converter
@@ -24,14 +25,13 @@ export default function DownloadPostPdf({
     setGenerating(true);
     setError(null);
     try {
-      const { convertMarkdownToPdf } = await import("@/lib/markdown-to-pdf");
-      const blob = await convertMarkdownToPdf(`# ${title}\n\n${markdown}`, title);
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${filename}.pdf`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const [{ convertMarkdownToPdf }, { saveBlob }] = await Promise.all([
+        import("@/lib/markdown-to-pdf"),
+        import("@/lib/files"),
+      ]);
+      const { blob } = await convertMarkdownToPdf(`# ${title}\n\n${markdown}`, { title });
+      saveBlob(blob, `${filename}.pdf`);
+      track("output_download", { tool_name: "blog-post-pdf", input_format: "md", output_format: "pdf" });
     } catch (err) {
       console.error(err);
       setError("PDF generation failed. Please try again.");

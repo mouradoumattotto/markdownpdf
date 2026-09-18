@@ -83,14 +83,22 @@ const nextConfig: NextConfig = {
     return [
       { source: "/:path*", headers: securityHeaders },
       {
-        // Versioned paths (/ocr/<tesseract version>/..., /pdfjs/<pdf.js version>/...),
-        // so they never change in place and can be cached for good. This is also
-        // what lets a tool keep working offline once it has been used.
+        // Versioned paths (/ocr/<tesseract version>/..., /pdfjs/<pdf.js version>/...,
+        // /vendor/<lib>-<version>/...), so they never change in place and can be
+        // cached for good.
         source: "/ocr/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
       {
         source: "/pdfjs/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/fonts/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/vendor/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
     ];

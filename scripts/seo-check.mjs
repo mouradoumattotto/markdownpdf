@@ -2,8 +2,8 @@
 // scripts/seo-check.mjs — Technical SEO QA for every page in the sitemap.
 //
 // Run against a local production build (or any base URL):
-//   npm run build && npx next start -p 3217 &
-//   npm run seo:check -- http://127.0.0.1:3217
+//   npm run build && npx next start -p 3219 &
+//   npm run seo:check -- http://127.0.0.1:3219
 //
 // Fails (exit 1) on anything that would hurt indexing: non-200 pages, missing
 // or duplicate titles/descriptions, missing canonical or a canonical pointing
@@ -12,7 +12,7 @@
 // return 404, or a missing security policy.
 // ------------------------------------------------------------------
 
-const BASE = (process.argv[2] ?? "http://127.0.0.1:3217").replace(/\/$/, "");
+const BASE = (process.argv[2] ?? "http://127.0.0.1:3219").replace(/\/$/, "");
 const PROD = "https://markdownpdf.app";
 const errors = [];
 const warnings = [];

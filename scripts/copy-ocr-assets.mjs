@@ -62,3 +62,36 @@ for (const dir of ["wasm", "cmaps", "standard_fonts", "iccs"]) {
   cpSync(nm("pdfjs-dist", dir), join(pdfOut, dir), { recursive: true });
 }
 console.log(`pdf.js assets -> public/pdfjs/${pdfjsVersion} (wasm, cmaps, standard_fonts, iccs)`);
+
+// ---- Unicode fonts for the Markdown -> PDF quick export ----
+// jsPDF's built-in fonts only cover Windows-1252: Greek, Cyrillic, Turkish or
+// Polish-specific letters, arrows and math symbols came out as garbage. DejaVu
+// covers them; it is fetched only when a document actually needs it.
+const fontsOut = join(root, "public", "fonts", "dejavu-2.37");
+rmSync(join(root, "public", "fonts"), { recursive: true, force: true });
+mkdirSync(fontsOut, { recursive: true });
+for (const f of ["DejaVuSans.ttf", "DejaVuSans-Bold.ttf", "DejaVuSans-Oblique.ttf", "DejaVuSans-BoldOblique.ttf", "DejaVuSansMono.ttf"]) {
+  cpSync(nm("dejavu-fonts-ttf", "ttf", f), join(fontsOut, f));
+}
+console.log("Fonts -> public/fonts/dejavu-2.37 (5 files)");
+
+// ---- MathJax and Mermaid, prebuilt ----
+// Both are served as their official browser builds instead of being bundled:
+// compiling MathJax's hundreds of TeX modules and Mermaid's diagram engines
+// pushed `next build` past the memory of an 8 GB machine (OOM-killed). The
+// browser loads them from our origin, only when a document uses them; Mermaid's
+// ESM build fetches just the chunks a given diagram type needs.
+const vendor = join(root, "public", "vendor");
+rmSync(vendor, { recursive: true, force: true });
+const mjVersion = JSON.parse(readFileSync(nm("mathjax-full", "package.json"), "utf8")).version;
+mkdirSync(join(vendor, `mathjax-${mjVersion}`), { recursive: true });
+cpSync(nm("mathjax-full", "es5", "tex-svg-full.js"), join(vendor, `mathjax-${mjVersion}`, "tex-svg-full.js"));
+const mmdVersion = JSON.parse(readFileSync(nm("mermaid", "package.json"), "utf8")).version;
+const mmdOut = join(vendor, `mermaid-${mmdVersion}`);
+mkdirSync(mmdOut, { recursive: true });
+cpSync(nm("mermaid", "dist", "mermaid.esm.min.mjs"), join(mmdOut, "mermaid.esm.min.mjs"));
+cpSync(nm("mermaid", "dist", "chunks", "mermaid.esm.min"), join(mmdOut, "chunks", "mermaid.esm.min"), {
+  recursive: true,
+  filter: (src) => !src.endsWith(".map"),
+});
+console.log(`Vendor -> public/vendor (mathjax-${mjVersion}, mermaid-${mmdVersion})`);

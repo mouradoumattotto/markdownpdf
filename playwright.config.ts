@@ -27,7 +27,7 @@ export default defineConfig({
   },
   projects: [
     // Full suite on desktop Chromium.
-    { name: "chromium", use: { ...devices["Desktop Chrome"] }, testIgnore: /perf\.spec\.ts/ },
+    { name: "chromium", use: { ...devices["Desktop Chrome"] }, testIgnore: /perf\.spec\.ts/, grepInvert: /@mobile/ },
     // Timing budgets, alone on one worker so parallel OCR tests cannot skew them.
     { name: "perf", use: { ...devices["Desktop Chrome"] }, testMatch: /perf\.spec\.ts/, fullyParallel: false },
     // Cross-browser and mobile smoke tests, tagged in the test titles.

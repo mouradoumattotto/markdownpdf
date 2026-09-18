@@ -101,7 +101,7 @@ export const TOOLS: Tool[] = [
     slug: "markdown-to-pdf",
     path: "/markdown-to-pdf",
     name: "Markdown to PDF",
-    tagline: "A clean PDF with selectable text from your Markdown.",
+    tagline: "A clean PDF from Markdown — with diagrams, math and images.",
     categories: ["markdown", "pdf"],
     input: ["Markdown (.md)"],
     output: ["PDF"],
@@ -111,7 +111,10 @@ export const TOOLS: Tool[] = [
     features: [
       "Markdown editor with live preview",
       "Vector PDF output with selectable, searchable text",
-      "Tables, code blocks, links, blockquotes",
+      "Mermaid diagrams and LaTeX math",
+      "Images from the web or attached local files",
+      "Syntax highlighting, tables, task lists",
+      "Full-fidelity export for every language through the browser's print engine",
     ],
   },
 ];

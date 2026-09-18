@@ -9,7 +9,10 @@ export default function GoogleAdSense() {
       async
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
       crossOrigin="anonymous"
-      strategy="afterInteractive"
+      // Ads load when the browser is idle: they must never compete with the
+      // tool for the main thread (measured cost of an eager third-party script:
+      // 251 ms of blocking for gtag.js alone).
+      strategy="lazyOnload"
     />
   );
 }
