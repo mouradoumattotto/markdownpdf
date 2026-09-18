@@ -71,12 +71,12 @@ const faqItems = [
   {
     question: "What page size and margins does the PDF use?",
     answer:
-      "A4 with balanced margins, sized for both on-screen reading and printing. Long documents paginate automatically, and code blocks and tables are kept intact across page breaks where possible.",
+      "A4 with balanced margins, sized for both on-screen reading and printing. Long documents paginate automatically, and long code blocks and tables continue cleanly onto the next page.",
   },
   {
     question: "Why does my Markdown render differently elsewhere?",
     answer:
-      "Markdown has several dialects. This converter follows CommonMark with GitHub Flavored Markdown extensions (tables, strikethrough, task lists, fenced code), which is what most people write today. Tool-specific extras like footnotes or LaTeX math are not part of that set.",
+      "Markdown has several dialects. This converter follows CommonMark with the GitHub Flavored Markdown extensions most people use: tables, strikethrough, and fenced code. Task lists render as plain bullets, and tool-specific extras like footnotes or LaTeX math are not supported.",
   },
 ];
 
@@ -90,7 +90,7 @@ const supportRows: { feature: string; supported: string }[] = [
   { feature: "Inline code and fenced code blocks", supported: "Yes, monospaced with background" },
   { feature: "Tables (GFM)", supported: "Yes" },
   { feature: "Blockquotes and horizontal rules", supported: "Yes" },
-  { feature: "Task lists", supported: "Yes" },
+  { feature: "Task lists", supported: "As plain bullets — checkbox state not shown" },
   { feature: "Images", supported: "Not embedded — text content only" },
   { feature: "LaTeX math, footnotes, diagrams", supported: "No — outside GFM" },
 ];

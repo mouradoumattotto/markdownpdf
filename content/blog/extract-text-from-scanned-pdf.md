@@ -89,7 +89,7 @@ Faded ink, gray backgrounds, coffee stains, and shadows from photographing a cur
 
 ### Set the language, and start from the cleanest copy
 
-Tell the tool which language the document is in — it feeds the post-processing step above and matters most for accented characters. And prefer a first-generation original over a photocopy of a photocopy, every time.
+Language matters: the post-processing step above relies on a language model, so an engine configured for the wrong language makes more mistakes, especially on accented characters. Our converter's OCR is set up for English; for scans in other languages, a desktop tool where you pick the language will do better. And prefer a first-generation original over a photocopy of a photocopy, every time.
 
 ### Mind the layout
 
