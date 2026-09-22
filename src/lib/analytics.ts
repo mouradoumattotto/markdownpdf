@@ -53,6 +53,8 @@ export interface ToolEventParams {
   error_code?: ErrorCode;
   /** Which exporter produced the file, when a tool has several ("quick" | "print"). */
   export_mode?: string;
+  /** Destination a tool prepares a file for, e.g. "notebooklm". */
+  target?: string;
 }
 
 const ALLOWED_PARAMS = new Set<string>([
@@ -67,6 +69,7 @@ const ALLOWED_PARAMS = new Set<string>([
   "duration_bucket",
   "error_code",
   "export_mode",
+  "target",
 ]);
 
 // Every allowed value is a short identifier ("pdf", "1-10mb", "ara").

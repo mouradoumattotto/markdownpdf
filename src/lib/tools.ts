@@ -117,6 +117,29 @@ export const TOOLS: Tool[] = [
       "Full-fidelity export for every language through the browser's print engine",
     ],
   },
+  {
+    slug: "split-pdf-for-ai",
+    path: "/split-pdf-for-ai",
+    name: "Split PDF for AI",
+    tagline: "Cut a PDF into parts NotebookLM, ChatGPT or Claude will accept.",
+    categories: ["pdf", "ai"],
+    input: ["PDF"],
+    output: ["PDF parts", "ZIP"],
+    related: ["pdf-to-markdown", "pdf-to-text", "split-pdf", "merge-pdf", "markdown-to-pdf"],
+    guides: [
+      "pdf-to-markdown-for-notebooklm",
+      "convert-pdf-to-markdown-for-chatgpt",
+      "convert-pdf-to-markdown-for-claude",
+      "pdf-to-markdown-for-rag-pipelines",
+    ],
+    updated: "2026-09-22",
+    features: [
+      "Splits a PDF to fit NotebookLM, ChatGPT, Claude and Gemini upload limits",
+      "Splits at chapter boundaries using the PDF's bookmarks",
+      "Counts words per page and flags pages with no text layer",
+      "Runs entirely in the browser — the file is never uploaded",
+    ],
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {
