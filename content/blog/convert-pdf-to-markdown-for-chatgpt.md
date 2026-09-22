@@ -104,3 +104,5 @@ Before you paste a converted document into ChatGPT, run through this:
 - Long documents split at heading boundaries
 
 That is five minutes of preparation that pays off in every answer the model gives you. Convert your first document with the free [PDF to Markdown converter](/) and compare the results yourself — the difference is usually obvious from the very first question.
+
+One more thing worth knowing before you upload: every tool caps what a single file may contain, in words, tokens or megabytes. The verified numbers are in [AI file upload limits](/blog/ai-file-upload-limits), and [Split PDF for AI](/split-pdf-for-ai) cuts a document down to parts ChatGPT will accept.

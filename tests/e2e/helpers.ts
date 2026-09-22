@@ -119,5 +119,7 @@ export async function pdfInfo(bytes: Buffer | Uint8Array): Promise<{ pages: numb
     const ops = await page.getOperatorList();
     images += ops.fnArray.filter((f) => f === pdfjs.OPS.paintImageXObject || f === pdfjs.OPS.paintInlineImageXObject).length;
   }
-  return { pages: doc.numPages, text, images };
+  // Tesseract's invisible text layer is written with wide inter-word spacing;
+  // normalising here keeps every assertion about PDF text readable.
+  return { pages: doc.numPages, text: text.replace(/[ \t]+/g, " "), images };
 }

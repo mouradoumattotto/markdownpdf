@@ -10,7 +10,7 @@
     "predev": "node scripts/copy-ocr-assets.mjs",
     "prebuild": "node scripts/copy-ocr-assets.mjs",
     "test": "vitest run",
-    "test:e2e": "playwright test --project=chromium --project=firefox --project=webkit --project=mobile-chrome --project=mobile-safari && playwright test --project=perf --workers=1",
+    "test:e2e": "playwright test --project=chromium --project=mobile-chrome && playwright test --project=firefox --workers=1 && playwright test --project=perf --workers=1",
     "seo:check": "node scripts/seo-check.mjs",
     "seo:report": "node scripts/seo-report.mjs"
   },

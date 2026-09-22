@@ -40,10 +40,25 @@ function assetBase(): string {
  *
  * Loaded lazily: tesseract.js is only imported the first time OCR is needed.
  */
-export async function createOcrWorker(language: OcrLanguage): Promise<Worker> {
+export async function createOcrWorker(
+  language: OcrLanguage,
+  /** Progress within the current page or image, 0..1. */
+  onProgress?: (ratio: number) => void,
+): Promise<Worker> {
   const { createWorker } = await import("tesseract.js");
   const base = assetBase();
   return createWorker(language, 1, {
+    // Only set `logger` when there is something to report: passing an explicit
+    // `undefined` overrides tesseract.js's own default and it then calls it,
+    // throwing "v is not a function" for every progress tick — which silently
+    // aborted recognition on PDF pages.
+    ...(onProgress
+      ? {
+          logger: (m: { status: string; progress: number }) => {
+            if (m.status === "recognizing text") onProgress(m.progress);
+          },
+        }
+      : {}),
     workerPath: `${base}/worker.min.js`,
     corePath: `${base}/core`,
     langPath: `${base}/lang`,

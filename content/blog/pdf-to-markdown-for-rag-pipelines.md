@@ -102,3 +102,5 @@ For large automated pipelines you will eventually [script extraction in Python](
 Clean Markdown in the middle of this pipeline is not glamorous, but it is the highest-leverage improvement most RAG systems can make.
 
 Academic sources deserve their own pass, because two-column layouts, footnotes, and reference lists defeat naive extraction — see [converting a research paper PDF to Markdown](/blog/convert-research-paper-pdf-to-markdown).
+
+One more thing worth knowing before you upload: every tool caps what a single file may contain, in words, tokens or megabytes. The verified numbers are in [AI file upload limits](/blog/ai-file-upload-limits), and [Split PDF for AI](/split-pdf-for-ai) cuts a document down to parts your pipeline will accept.
