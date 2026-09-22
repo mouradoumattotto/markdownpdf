@@ -140,6 +140,24 @@ export const TOOLS: Tool[] = [
       "Runs entirely in the browser — the file is never uploaded",
     ],
   },
+  {
+    slug: "pdf-metadata",
+    path: "/pdf-metadata",
+    name: "PDF Metadata Viewer & Remover",
+    tagline: "See what a PDF reveals about you, then remove it for good.",
+    categories: ["pdf"],
+    input: ["PDF"],
+    output: ["PDF"],
+    related: ["split-pdf-for-ai", "pdf-to-markdown", "markdown-to-pdf", "pdf-to-text"],
+    guides: [],
+    updated: "2026-09-22",
+    features: [
+      "Shows the Info dictionary, the XMP packet, custom fields and dates",
+      "Removes metadata from the file itself, not just from the viewer",
+      "Edit any field and save a corrected copy",
+      "Runs entirely in the browser — the file is never uploaded",
+    ],
+  },
 ];
 
 export function getTool(slug: string): Tool | undefined {
