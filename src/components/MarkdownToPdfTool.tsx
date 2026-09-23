@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { track } from "@/lib/analytics";
 import { detectFeatures, type DocFeatures } from "@/lib/markdown-render";
-import type { HydrateResult, ImageAssets } from "@/lib/markdown-rich";
+import type { ImageAssets } from "@/lib/markdown-rich";
 import { saveBlob } from "@/lib/files";
 import { ErrorAlert, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
+import { useMarkdownPreview } from "@/components/useMarkdownPreview";
 
 const SAMPLE = `# Project Proposal
 
@@ -101,7 +102,6 @@ export default function MarkdownToPdfTool() {
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
-  const [hydrate, setHydrate] = useState<HydrateResult | null>(null);
   const [images, setImages] = useState<{ name: string; url: string }[]>([]);
   const [theme, setTheme] = useState<"clean" | "serif">("clean");
   const previewRef = useRef<HTMLDivElement>(null);
@@ -119,36 +119,7 @@ export default function MarkdownToPdfTool() {
   }, [images]);
   useEffect(() => () => imagesRef.current.forEach((i) => URL.revokeObjectURL(i.url)), []);
 
-  // Live preview: parse, sanitize, then hydrate math / diagrams / local images.
-  // Debounced so typing stays smooth; heavy libraries load only when used.
-  useEffect(() => {
-    let cancelled = false;
-    const timer = setTimeout(async () => {
-      const [{ createMarked }, { default: DOMPurify }] = await Promise.all([
-        import("@/lib/markdown-render"),
-        import("dompurify"),
-      ]);
-      const needsRich = features.code > 0 || features.math > 0 || features.mermaid > 0 || features.images > 0;
-      const rich = needsRich ? await import("@/lib/markdown-rich") : null;
-      const highlight = rich && features.code > 0 ? await rich.loadHighlighter(rich.codeLanguages(markdown)) : null;
-      const html = DOMPurify.sanitize(await createMarked(highlight).parse(markdown));
-      if (cancelled || !previewRef.current) return;
-      previewRef.current.innerHTML = html;
-      if (rich) {
-        const result = await rich.hydrateRichContent(previewRef.current, assets);
-        // Diagram and math SVGs come from libraries, not the user: still, run
-        // them through the sanitizer's SVG profile before they stay in the page.
-        previewRef.current.querySelectorAll<HTMLElement>(".mermaid-block, .math-inline, .math-display").forEach((el) => {
-          if (el.querySelector("svg")) el.innerHTML = DOMPurify.sanitize(el.innerHTML, { USE_PROFILES: { svg: true, svgFilters: true } });
-        });
-        if (!cancelled) setHydrate(result);
-      } else if (!cancelled) setHydrate(null);
-    }, 250);
-    return () => {
-      cancelled = true;
-      clearTimeout(timer);
-    };
-  }, [markdown, assets, features]);
+  const hydrate = useMarkdownPreview(markdown, features, assets, previewRef);
 
 
   const quickExport = async () => {

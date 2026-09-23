@@ -10,7 +10,7 @@ const DESCRIPTION =
   "Split Markdown, PDFs and Word files into token-sized chunks for RAG and embeddings — at headings, never inside code — and export JSONL. Free, in your browser.";
 
 export const metadata: Metadata = {
-  title: "Markdown Chunker for RAG — Token-Based Splitter",
+  title: "Markdown Chunker for RAG — Token Splitter",
   description: DESCRIPTION,
   alternates: { canonical: "/markdown-chunker" },
   openGraph: {

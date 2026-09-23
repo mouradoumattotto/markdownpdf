@@ -33,7 +33,7 @@ export type ExtractMode = "markdown" | "text";
 type Status =
   | { kind: "idle" }
   | { kind: "working"; progress: ConversionProgress | null; eta: number | null }
-  | { kind: "done"; fileName: string; pageCount: number; ocrPages: number }
+  | { kind: "done"; fileName: string; pageCount: number; ocrPages: number; images: { name: string; blob: Blob }[]; imagesRequested: boolean }
   | { kind: "error"; message: string };
 
 const MODE = {
@@ -63,6 +63,7 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
   const [copied, setCopied] = useState(false);
   const [copyFailed, setCopyFailed] = useState(false);
   const [ocrLanguage, setOcrLanguage] = useState<OcrLanguage>(DEFAULT_OCR_LANGUAGE);
+  const [extractImages, setExtractImages] = useState(false);
   useStoredOcrLanguage(setOcrLanguage);
   const abortRef = useRef<AbortController | null>(null);
   const baseParams = useRef<ToolEventParams>({ tool_name: cfg.tool });
@@ -109,6 +110,7 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
         const result = await run(file, {
           signal: controller.signal,
           ocrLanguage,
+          extractImages: mode === "markdown" && extractImages,
           onProgress: (progress) => {
             if (progress.stage === "loading_ocr" && !ocrTracked) {
               ocrTracked = true;
@@ -153,6 +155,8 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
           fileName: `${baseName(file.name)}.${cfg.ext}`,
           pageCount: result.pageCount,
           ocrPages: result.ocrPages,
+          images: result.images,
+          imagesRequested: mode === "markdown" && extractImages,
         });
       } catch (err) {
         if (err instanceof CancelledError || controller.signal.aborted) {
@@ -168,13 +172,27 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
         abortRef.current = null;
       }
     },
-    [cfg, mode, ocrLanguage],
+    [cfg, mode, ocrLanguage, extractImages],
   );
 
   const download = () => {
     const name = status.kind === "done" ? status.fileName : `converted.${cfg.ext}`;
     saveBlob(new Blob([output], { type: cfg.mime }), name);
     track("output_download", baseParams.current);
+  };
+
+  /** Markdown plus an images/ folder, the layout static-site generators and Git repos expect. */
+  const downloadZip = async () => {
+    if (status.kind !== "done") return;
+    const { zipParts } = await import("@/lib/pdf-split");
+    const files = [
+      { name: status.fileName, bytes: new TextEncoder().encode(output) },
+      ...(await Promise.all(
+        status.images.map(async (i) => ({ name: `images/${i.name}`, bytes: new Uint8Array(await i.blob.arrayBuffer()) })),
+      )),
+    ];
+    saveBlob(await zipParts(files), status.fileName.replace(/\.md$/, ".zip"));
+    track("output_download", { ...baseParams.current, output_format: "zip" });
   };
 
   const copy = async () => {
@@ -224,7 +242,21 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
       </FileDropzone>
 
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-        <OcrLanguageSelect value={ocrLanguage} onChange={setOcrLanguage} disabled={working} />
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <OcrLanguageSelect value={ocrLanguage} onChange={setOcrLanguage} disabled={working} />
+          {mode === "markdown" && (
+            <label className="inline-flex items-center gap-2 text-sm text-neutral-700">
+              <input
+                type="checkbox"
+                checked={extractImages}
+                onChange={(e) => setExtractImages(e.target.checked)}
+                disabled={working}
+                className="accent-indigo-600"
+              />
+              Extract images
+            </label>
+          )}
+        </div>
         {working && (
           <button type="button" onClick={() => abortRef.current?.abort()} className={secondaryButton}>
             Cancel
@@ -246,7 +278,10 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
               </h2>
               <p className="mt-0.5 text-xs text-neutral-500">
                 {status.pageCount.toLocaleString()} {status.pageCount === 1 ? "page" : "pages"}
-                {status.ocrPages > 0 && ` (${status.ocrPages} via OCR)`} · {words.toLocaleString()} words ·{" "}
+                {status.ocrPages > 0 && ` (${status.ocrPages} via OCR)`}
+                {status.images.length > 0 && ` · ${status.images.length} ${status.images.length === 1 ? "image" : "images"}`}
+                {status.imagesRequested && status.images.length === 0 && " · no images found"} ·{" "}
+                {words.toLocaleString()} words ·{" "}
                 {output.length.toLocaleString()} characters
               </p>
             </div>
@@ -254,9 +289,20 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
               <button type="button" onClick={copy} className={secondaryButton}>
                 {copied ? "✓ Copied" : "Copy"}
               </button>
-              <button type="button" onClick={download} className={primaryButton}>
-                {cfg.download}
-              </button>
+              {status.images.length > 0 ? (
+                <>
+                  <button type="button" onClick={download} className={secondaryButton}>
+                    {cfg.download}
+                  </button>
+                  <button type="button" onClick={downloadZip} className={primaryButton}>
+                    Download .zip (with images)
+                  </button>
+                </>
+              ) : (
+                <button type="button" onClick={download} className={primaryButton}>
+                  {cfg.download}
+                </button>
+              )}
             </div>
           </div>
           {copyFailed && (

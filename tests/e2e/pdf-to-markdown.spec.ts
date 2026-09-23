@@ -1,4 +1,4 @@
-import { test, expect, upload, downloadText, eventNames, gaEvents, expectNoPrivateDataInEvents, expectNoHorizontalScroll } from "./helpers";
+import { test, expect, upload, downloadText, downloadBytes, eventNames, gaEvents, expectNoPrivateDataInEvents, expectNoHorizontalScroll } from "./helpers";
 
 const output = (page: import("@playwright/test").Page) => page.getByLabel("Converted Markdown");
 
@@ -160,5 +160,40 @@ test.describe("PDF to Markdown (/)", () => {
     const chooser = page.waitForEvent("filechooser");
     await page.keyboard.press("Enter");
     await chooser;
+  });
+});
+
+test.describe("PDF to Markdown — images", () => {
+  test("extracts embedded images in place, once each, skipping decoration @cross", async ({ page }) => {
+    await page.goto("/");
+    await page.getByLabel("Extract images").check();
+    await upload(page, "with-images.pdf");
+    await expect(page.getByText("Conversion complete")).toBeVisible();
+    const md = await page.getByLabel("Converted Markdown").inputValue();
+    const refs = [...md.matchAll(/!\[\]\(images\/([^)]+)\)/g)].map((m) => m[1]);
+    expect(refs).toHaveLength(3);
+    // Each image sits between the text above and below it.
+    const photo = md.indexOf(`images/${refs[1]}`);
+    expect(md.indexOf("Text before the image on page 1.")).toBeLessThan(photo);
+    expect(photo).toBeLessThan(md.indexOf("Text after the image on page 1."));
+    const chart = md.indexOf(`images/${refs[2]}`);
+    expect(md.indexOf("Text before the image on page 2.")).toBeLessThan(chart);
+    expect(refs[2]).toMatch(/^page-2-/);
+
+    const { unzipSync } = await import("fflate");
+    const zip = await downloadBytes(page, () => page.getByRole("button", { name: "Download .zip (with images)" }).click());
+    expect(zip.name).toBe("with-images.zip");
+    const entries = Object.keys(unzipSync(new Uint8Array(zip.bytes))).sort();
+    expect(entries).toEqual(["with-images.md", ...refs.map((r) => `images/${r}`)].sort());
+    // The 800×600 photo is large and opaque: saved as JPEG.
+    expect(refs[1]).toMatch(/\.jpg$/);
+  });
+
+  test("leaves images out unless asked", async ({ page }) => {
+    await page.goto("/");
+    await upload(page, "with-images.pdf");
+    await expect(page.getByText("Conversion complete")).toBeVisible();
+    expect(await page.getByLabel("Converted Markdown").inputValue()).not.toContain("![](");
+    await expect(page.getByRole("button", { name: /with images/ })).toHaveCount(0);
   });
 });

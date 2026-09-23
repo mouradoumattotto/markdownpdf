@@ -45,7 +45,18 @@ export default function MarkdownToolsPage() {
         <li>
           <strong>You wrote Markdown and need to share it.</strong>{" "}
           <Link href="/markdown-to-pdf">Markdown to PDF</Link> for a document, with diagrams and math;{" "}
+          <Link href="/markdown-to-docx">Markdown to Word</Link> for reviewers who work in Word;{" "}
           <Link href="/markdown-to-html">Markdown to HTML</Link> for a web page, a CMS or an email.
+        </li>
+        <li>
+          <strong>You are writing.</strong> The <Link href="/markdown-editor">Markdown editor</Link> has a live
+          preview and autosaves in your browser; the <Link href="/markdown-table-generator">table generator</Link>{" "}
+          builds tables from a grid or a spreadsheet paste.
+        </li>
+        <li>
+          <strong>You are feeding an AI or a search index.</strong> The{" "}
+          <Link href="/markdown-chunker">Markdown chunker</Link> splits documents into token-sized pieces at
+          headings; <Link href="/text-diff">Compare text</Link> shows what changed between two versions.
         </li>
       </ul>
       <h2>Why convert through Markdown at all?</h2>

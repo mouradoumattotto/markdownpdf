@@ -51,6 +51,18 @@ export default function PdfToolsPage() {
           the order you choose. Both copy pages untouched, so nothing loses quality.
         </li>
         <li>
+          <strong>The pages need fixing.</strong> <Link href="/organize-pdf">Organize PDF</Link> reorders, rotates
+          and deletes pages with a thumbnail of each.
+        </li>
+        <li>
+          <strong>You need images, or have images.</strong> <Link href="/pdf-to-jpg">PDF to JPG</Link> renders
+          pages as JPG or PNG; <Link href="/jpg-to-pdf">JPG to PDF</Link> turns photos and scans into one PDF.
+        </li>
+        <li>
+          <strong>You have two versions.</strong> <Link href="/text-diff">Compare text &amp; documents</Link> shows
+          every changed word between two PDFs or Word files.
+        </li>
+        <li>
           <strong>You are about to share it.</strong> The <Link href="/pdf-metadata">PDF metadata viewer</Link> shows
           the author, software and dates hidden in the file, and removes them for good.
         </li>

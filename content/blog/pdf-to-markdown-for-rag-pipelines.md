@@ -33,7 +33,7 @@ Just as important, Markdown is line-oriented plain text. Every chunking library,
 
 ## Chunking strategies for Markdown documents
 
-Once you have clean Markdown, you have real choices about how to split it.
+Once you have clean Markdown, you have real choices about how to split it. (To try them without writing code, the [Markdown chunker](/markdown-chunker) splits a document at headings with a token limit and overlap, and exports JSONL; [How to chunk documents for RAG](/blog/chunking-documents-for-rag) goes deeper on sizes and overlap.)
 
 ### Heading-based chunking
 

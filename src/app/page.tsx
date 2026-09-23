@@ -149,7 +149,7 @@ const faqItems = [
   {
     question: "Will tables and images be converted?",
     answer:
-      "Text content, headings, lists, and emphasis are converted. Complex multi-column tables and embedded images are not reliably recoverable from PDF text data, so you may need to adjust those manually.",
+      "Text content, headings, lists, and emphasis are converted. Tick “Extract images” to also save the pictures embedded in the PDF: they are linked in the Markdown where they appear and downloaded as a ZIP with an images/ folder (small decorative images and logos repeated on every page are kept once or skipped). Complex multi-column tables are not reliably recoverable from PDF text data, so you may need to adjust those manually.",
   },
   {
     question: "Does it work on mobile?",

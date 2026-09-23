@@ -249,6 +249,29 @@ function withExifOrientation(jpeg, orientation) {
   return Buffer.concat([jpeg.subarray(0, 2), segment, jpeg.subarray(2)]);
 }
 
+// ---- 6b. Text with embedded images --------------------------------------------
+// Two pages of text; a photo in the middle of page 1, a chart-sized image on
+// page 2, a 60pt logo on both pages (kept once), and a 12pt bullet icon that
+// is decoration and must be ignored.
+async function withImages() {
+  const doc = await PDFDocument.create();
+  const font = await doc.embedFont(StandardFonts.Helvetica);
+  const bold = await doc.embedFont(StandardFonts.HelveticaBold);
+  const photo = await doc.embedJpg(readFileSync(join(out, "image-sample.jpg")));
+  const chart = await doc.embedPng(readFileSync(join(out, "image-small.png")));
+  const logo = await doc.embedPng(readFileSync(join(out, "image-en.png")));
+  for (const n of [1, 2]) {
+    const page = doc.addPage(A4);
+    page.drawImage(logo, { x: 480, y: 770, width: 60, height: 40 });
+    page.drawText(n === 1 ? "Illustrated Report" : "Second Section", { x: 56, y: 780, size: 20, font: bold });
+    page.drawText(`Text before the image on page ${n}.`, { x: 56, y: 740, size: 11, font });
+    page.drawImage(n === 1 ? photo : chart, { x: 56, y: 480, width: 320, height: 240 });
+    page.drawImage(chart, { x: 56, y: 450, width: 12, height: 9 });
+    page.drawText(`Text after the image on page ${n}.`, { x: 72, y: 450, size: 11, font });
+  }
+  save("with-images.pdf", await doc.save());
+}
+
 // ---- 7. Metadata -------------------------------------------------------------
 async function metadata() {
   const doc = await PDFDocument.create();
@@ -390,6 +413,7 @@ try {
   await table();
   await multilingualText();
   await scanned(browser);
+  await withImages();
   await metadata();
   await outline();
   await broken();

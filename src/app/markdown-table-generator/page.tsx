@@ -10,7 +10,7 @@ const DESCRIPTION =
   "Create Markdown tables in a spreadsheet-like grid, or convert CSV and cells pasted from Excel or Google Sheets. Column alignment, escaping, free.";
 
 export const metadata: Metadata = {
-  title: "Markdown Table Generator — CSV & Excel to Markdown",
+  title: "Markdown Table Generator — CSV & Excel",
   description: DESCRIPTION,
   alternates: { canonical: "/markdown-table-generator" },
   openGraph: {

@@ -27,6 +27,13 @@ const libraries = [
   { name: "pdf-lib", role: "Writes PDFs: splitting, merging, reorganizing, metadata editing and removal." },
   { name: "marked", role: "Parses Markdown for previews and conversions." },
   { name: "jsPDF", role: "Generates PDFs with real, selectable text from Markdown." },
+  { name: "Mermaid and MathJax", role: "Draw diagrams and equations in Markdown previews and PDFs." },
+  { name: "mammoth", role: "Reads Word .docx files for Word to Markdown." },
+  { name: "Turndown", role: "Turns HTML — pasted, saved or converted from Word — into Markdown." },
+  { name: "docx", role: "Writes Word .docx files from Markdown." },
+  { name: "DOMPurify", role: "Sanitises HTML so previews and exports cannot carry scripts." },
+  { name: "js-tiktoken", role: "OpenAI's tokenizers, for exact token counts and chunking." },
+  { name: "jsdiff", role: "Compares two texts line by line and word by word." },
 ];
 
 export default function HowItWorksPage() {

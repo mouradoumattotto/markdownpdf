@@ -20,6 +20,12 @@ export interface ConversionOptions {
   signal?: AbortSignal;
   /** Language of scanned pages. Ignored for pages that have a text layer. */
   ocrLanguage?: OcrLanguage;
+  /**
+   * Markdown only: extract embedded images and link them where they appear
+   * (images/page-3-1.png). Off by default — it builds each page's operator
+   * list, which costs time, and most uses (AI tools) want the text alone.
+   */
+  extractImages?: boolean;
 }
 
 export interface ConversionResult {
@@ -27,6 +33,8 @@ export interface ConversionResult {
   pageCount: number;
   /** Pages that had no text layer and went through OCR. */
   ocrPages: number;
+  /** Extracted images, referenced from the Markdown as images/<name>. */
+  images: { name: string; blob: Blob }[];
 }
 
 interface TextRun {
@@ -43,6 +51,8 @@ interface Line {
   y: number;
   x: number;
   size: number;
+  /** An extracted image placed at this height instead of text. */
+  image?: string;
 }
 
 const OCR_TEXT_THRESHOLD = 40; // chars per page below which we assume a scanned page
@@ -78,7 +88,7 @@ function raceAbort<T>(promise: Promise<T>, signal?: AbortSignal): Promise<T> {
 
 async function convertPdf(
   file: File,
-  { onProgress, signal, ocrLanguage = DEFAULT_OCR_LANGUAGE }: ConversionOptions,
+  { onProgress, signal, ocrLanguage = DEFAULT_OCR_LANGUAGE, extractImages = false }: ConversionOptions,
   mode: "markdown" | "text",
 ): Promise<ConversionResult> {
   throwIfAborted(signal);
@@ -93,6 +103,8 @@ async function convertPdf(
     const doc = await raceAbort(loadingTask.promise, signal);
     const pages: string[] = [];
     let ocrPages = 0;
+    const images: { name: string; blob: Blob }[] = [];
+    const seenImages = new Set<string>();
 
     for (let pageNum = 1; pageNum <= doc.numPages; pageNum++) {
       throwIfAborted(signal);
@@ -113,6 +125,20 @@ async function convertPdf(
         pages.push(await raceAbort(ocrPage(page, ocrWorker), signal));
         ocrPages++;
       } else {
+        if (mode === "markdown" && extractImages) {
+          const { extractPageImages } = await import("@/lib/pdf-page-images");
+          const found = await raceAbort(extractPageImages(page), signal);
+          let k = 0;
+          for (const img of found) {
+            // An image repeated across pages (logo, letterhead) is kept once.
+            if (seenImages.has(img.fingerprint)) continue;
+            seenImages.add(img.fingerprint);
+            const name = `page-${pageNum}-${++k}.${img.ext}`;
+            images.push({ name, blob: img.blob });
+            lines.push({ runs: [], y: img.top, x: 0, size: 0, image: name });
+          }
+          lines.sort((a, b) => b.y - a.y);
+        }
         pages.push(mode === "markdown" ? linesToMarkdown(lines) : linesToText(lines));
       }
       page.cleanup();
@@ -123,7 +149,7 @@ async function convertPdf(
       .filter(Boolean)
       .join("\n\n")
       .replace(/\n{3,}/g, "\n\n");
-    return { output: output ? output + "\n" : "", pageCount: doc.numPages, ocrPages };
+    return { output: output ? output + "\n" : "", pageCount: doc.numPages, ocrPages, images };
   } finally {
     signal?.removeEventListener("abort", stopOcr);
     await ocrWorker?.terminate().catch(() => {});
@@ -304,6 +330,12 @@ function linesToMarkdown(lines: Line[]): string {
   };
 
   for (const line of lines) {
+    if (line.image) {
+      flush();
+      blocks.push(`![](images/${line.image})`);
+      prevLine = null;
+      continue;
+    }
     const text = lineText(line);
     if (!text) continue;
 

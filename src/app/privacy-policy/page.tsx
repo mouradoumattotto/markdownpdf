@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
       <h1 className="text-3xl font-bold tracking-tight text-neutral-900">Privacy Policy</h1>
       <div className="prose prose-neutral mt-6 max-w-none">
         <p>
-          <em>Last updated: September 18, 2026</em>
+          <em>Last updated: September 23, 2026</em>
         </p>
         <p>
           This Privacy Policy explains how MarkdownPDF (&quot;we&quot;, &quot;us&quot;) handles
@@ -90,9 +90,10 @@ export default function PrivacyPolicyPage() {
         </p>
         <h2>5. Storage on your device</h2>
         <p>
-          A few preferences are kept in your browser&apos;s local storage so you do not have to set
-          them again — for example the OCR language you last chose, or a Markdown draft in the
-          editor. They stay on your device, are never sent to us, and are removed when you clear
+          A few things are kept in your browser&apos;s local storage so you do not have to set them
+          again: the OCR language you last chose, the AI tool selected in Split PDF for AI, and the
+          document you are writing in the Markdown editor, which is autosaved there so it survives a
+          reload. They stay on your device, are never sent to us, and are removed when you clear
           your browser&apos;s site data.
         </p>
         <h2>6. Data retention</h2>
