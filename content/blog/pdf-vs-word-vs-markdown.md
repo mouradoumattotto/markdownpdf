@@ -112,7 +112,7 @@ No format decision is permanent, but conversion quality varies by direction:
 
 - **Markdown → PDF** is the smooth, lossy-free direction: structure maps cleanly onto styled output. Our [Markdown to PDF converter](/markdown-to-pdf) does it in your browser in seconds — see the [full how-to](/blog/convert-markdown-to-pdf).
 - **Markdown → Word** works well via tools like Pandoc, since Markdown's structure is a subset of what Word can express.
-- **Word → Markdown** is usually clean for normal documents; elaborate formatting (text boxes, multi-column layouts) has no Markdown equivalent and gets flattened.
+- **Word → Markdown** is usually clean for normal documents; elaborate formatting (text boxes, multi-column layouts) has no Markdown equivalent and gets flattened. The [Word to Markdown converter](/docx-to-markdown) does it in your browser, and the [Word to Markdown guide](/blog/convert-word-to-markdown) explains how to prepare a document so headings and tables survive.
 - **PDF → anything** is the hard direction, because a PDF stores positioned characters rather than document structure. Good converters reconstruct headings, paragraphs, and lists from the layout — our [PDF to Markdown converter](/) does this locally in your browser, including OCR for scanned files. The practical details are in our [PDF to Markdown guide](/blog/how-to-convert-pdf-to-markdown).
 - **Word ↔ PDF** is built into every word processor (export) — but the reverse, editing a PDF in Word, gives mixed results for the same structural reasons.
 

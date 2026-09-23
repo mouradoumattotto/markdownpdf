@@ -24,7 +24,7 @@ Three quick checks tell you which one you have:
 2. **The search test.** Press `Ctrl+F` (or `Cmd+F`) and search for a word you can clearly see on the page. Zero results on a visible word means there is no text layer.
 3. **The zoom test.** Zoom in to 400%. Digital text stays razor sharp at any zoom level; scanned text gets blurry or pixelated.
 
-If the PDF is digital, you do not need OCR at all — a converter can read the text layer directly, which is faster and perfectly accurate. Either way, the next step is the same.
+If the PDF is digital, you do not need OCR at all — a converter can read the text layer directly, which is faster and perfectly accurate. Either way, the next step is the same. (For a closer look at the difference, see [OCR vs text extraction](/blog/ocr-vs-text-extraction).)
 
 ### When is OCR actually required?
 

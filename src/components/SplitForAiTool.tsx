@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AI_TARGETS, formatBytes, getTarget } from "@/lib/ai-limits";
 import { countBucket, pageBucket, sizeBucket, track } from "@/lib/analytics";
@@ -26,13 +27,17 @@ export default function SplitForAiTool() {
   const [targetId, setTargetId] = useState("notebooklm");
   const [byChapter, setByChapter] = useState(true);
   const [custom, setCustom] = useState({ pages: "", words: "", mb: "" });
-  const [plan, setPlan] = useState<Range[]>([]);
   const abortRef = useRef<AbortController | null>(null);
-  const planner = useRef<typeof import("@/lib/pdf-split") | null>(null);
+  // Loaded with the first PDF. Kept in state (not a ref) because rendering the
+  // plan reads from it.
+  const [planner, setPlanner] = useState<typeof import("@/lib/pdf-split") | null>(null);
 
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
+      // Read after hydration on purpose: the server-rendered HTML must not
+      // depend on this visitor's storage.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (saved && (saved === "custom" || getTarget(saved))) setTargetId(saved);
     } catch {
       // storage unavailable: keep the default
@@ -50,11 +55,12 @@ export default function SplitForAiTool() {
   }, [targetId, custom]);
 
   // Re-plan whenever the target, the strategy or the document changes.
-  useEffect(() => {
-    if (!analysis || !planner.current) return;
-    const lib = planner.current;
-    setPlan(byChapter && analysis.chapters.length ? lib.planByChapters(analysis.pages, analysis.chapters, limits) : lib.planByLimits(analysis.pages, limits));
-  }, [analysis, limits, byChapter]);
+  const plan: Range[] = useMemo(() => {
+    if (!analysis || !planner) return [];
+    return byChapter && analysis.chapters.length
+      ? planner.planByChapters(analysis.pages, analysis.chapters, limits)
+      : planner.planByLimits(analysis.pages, limits);
+  }, [analysis, limits, byChapter, planner]);
 
   const params = useCallback(
     () => ({
@@ -70,7 +76,6 @@ export default function SplitForAiTool() {
 
   const load = async (f: File) => {
     setAnalysis(null);
-    setPlan([]);
     const base = { tool_name: TOOL, input_format: "pdf", file_size_bucket: sizeBucket(f.size) };
     track("file_selected", base);
     const sniff = await sniffPdf(f);
@@ -86,7 +91,7 @@ export default function SplitForAiTool() {
     try {
       const data = await f.arrayBuffer();
       const lib = await import("@/lib/pdf-split");
-      planner.current = lib;
+      setPlanner(lib);
       const result = await lib.analyzePdf(data, {
         signal: controller.signal,
         onProgress: (done, total) => setPhase({ kind: "analyzing", done, total }),
@@ -111,13 +116,13 @@ export default function SplitForAiTool() {
   };
 
   const build = async () => {
-    if (!file || !plan.length || !planner.current) return;
+    if (!file || !plan.length || !planner) return;
     const controller = new AbortController();
     abortRef.current = controller;
     setPhase({ kind: "building", done: 0, total: plan.length });
     track("conversion_start", params());
     try {
-      const parts = await planner.current.buildParts(file.data, plan, {
+      const parts = await planner.buildParts(file.data, plan, {
         maxBytes: limits.maxBytes,
         signal: controller.signal,
         onProgress: (done, total) => setPhase({ kind: "building", done, total }),
@@ -140,7 +145,7 @@ export default function SplitForAiTool() {
   };
 
   const fileName = (i: number, parts: BuiltPart[]) =>
-    planner.current!.partFileName(baseName(file!.name), i, parts.length, parts[i].range);
+    planner!.partFileName(baseName(file!.name), i, parts.length, parts[i].range);
 
   const downloadOne = (i: number, parts: BuiltPart[]) => {
     saveBlob(new Blob([parts[i].bytes as BlobPart], { type: "application/pdf" }), fileName(i, parts));
@@ -148,7 +153,7 @@ export default function SplitForAiTool() {
   };
 
   const downloadAll = async (parts: BuiltPart[]) => {
-    const zip = await planner.current!.zipParts(parts.map((p, i) => ({ name: fileName(i, parts), bytes: p.bytes })));
+    const zip = await planner!.zipParts(parts.map((p, i) => ({ name: fileName(i, parts), bytes: p.bytes })));
     saveBlob(zip, `${baseName(file!.name)}-parts.zip`);
     track("output_download", { ...params(), file_count_bucket: countBucket(parts.length) });
   };
@@ -166,7 +171,6 @@ export default function SplitForAiTool() {
   const reset = () => {
     setFile(null);
     setAnalysis(null);
-    setPlan([]);
     setPhase({ kind: "idle" });
   };
 
@@ -277,9 +281,9 @@ export default function SplitForAiTool() {
             <p role="status" className="rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-800">
               {noTextPages} of {analysis.pages.length} pages have no text layer (scanned). AI tools can only read them
               if they run OCR themselves — converting the PDF to Markdown with OCR first is more reliable.{" "}
-              <a href="/" className="font-medium underline">
+              <Link href="/" className="font-medium underline">
                 Convert with OCR
-              </a>
+              </Link>
             </p>
           )}
 
@@ -303,7 +307,7 @@ export default function SplitForAiTool() {
                         {r.label && <span className="font-normal text-neutral-500"> — {r.label}</span>}
                       </span>
                       <span className="text-neutral-600">
-                        pages {r.from + 1}–{r.to + 1} · {planner.current?.rangeWords(analysis.pages, r).toLocaleString()} words
+                        pages {r.from + 1}–{r.to + 1} · {planner?.rangeWords(analysis.pages, r).toLocaleString()} words
                       </span>
                     </li>
                   ))}

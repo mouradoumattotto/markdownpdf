@@ -93,6 +93,8 @@ const SCRIPT_NAMES: Record<NonNullable<DocFeatures["complexScript"]>, string> = 
   cjk: "Chinese, Japanese or Korean",
 };
 
+const BASE_PARAMS = { tool_name: "markdown-to-pdf", input_format: "md", output_format: "pdf" };
+
 export default function MarkdownToPdfTool() {
   const [markdown, setMarkdown] = useState(SAMPLE);
   const [mobileTab, setMobileTab] = useState<"write" | "preview">("write");
@@ -112,7 +114,9 @@ export default function MarkdownToPdfTool() {
 
   // Revoke local image URLs when the tool unmounts.
   const imagesRef = useRef(images);
-  imagesRef.current = images;
+  useEffect(() => {
+    imagesRef.current = images;
+  }, [images]);
   useEffect(() => () => imagesRef.current.forEach((i) => URL.revokeObjectURL(i.url)), []);
 
   // Live preview: parse, sanitize, then hydrate math / diagrams / local images.
@@ -146,19 +150,18 @@ export default function MarkdownToPdfTool() {
     };
   }, [markdown, assets, features]);
 
-  const baseParams = { tool_name: "markdown-to-pdf", input_format: "md", output_format: "pdf" };
 
   const quickExport = async () => {
     setBusy("quick");
     setError(null);
     setNotice(null);
-    track("conversion_start", { ...baseParams, export_mode: "quick" });
+    track("conversion_start", { ...BASE_PARAMS, export_mode: "quick" });
     try {
       const { convertMarkdownToPdf } = await import("@/lib/markdown-to-pdf");
       const { blob, warnings } = await convertMarkdownToPdf(markdown, { title, assets });
       saveBlob(blob, slugify(title));
-      track("conversion_success", { ...baseParams, export_mode: "quick" });
-      track("output_download", { ...baseParams, export_mode: "quick" });
+      track("conversion_success", { ...BASE_PARAMS, export_mode: "quick" });
+      track("output_download", { ...BASE_PARAMS, export_mode: "quick" });
       const notes: string[] = [];
       if (warnings.missingImages.length)
         notes.push(`${warnings.missingImages.length} image(s) could not be embedded (see the preview) and were replaced by their description.`);
@@ -168,7 +171,7 @@ export default function MarkdownToPdfTool() {
       if (notes.length) setNotice(notes.join(" "));
     } catch (err) {
       console.error(err);
-      track("conversion_error", { ...baseParams, export_mode: "quick", error_code: "render_failed" });
+      track("conversion_error", { ...BASE_PARAMS, export_mode: "quick", error_code: "render_failed" });
       setError("PDF generation failed. Try “Save as PDF” instead — it uses your browser's own engine.");
     } finally {
       setBusy(null);
@@ -184,7 +187,7 @@ export default function MarkdownToPdfTool() {
     if (!previewRef.current) return;
     setBusy("print");
     setError(null);
-    track("conversion_start", { ...baseParams, export_mode: "print" });
+    track("conversion_start", { ...BASE_PARAMS, export_mode: "print" });
     const root = document.createElement("div");
     root.id = "md-print-root";
     const docEl = document.createElement("article");
@@ -204,7 +207,7 @@ export default function MarkdownToPdfTool() {
       window.removeEventListener("afterprint", cleanup);
     };
     window.addEventListener("afterprint", cleanup);
-    track("conversion_success", { ...baseParams, export_mode: "print" });
+    track("conversion_success", { ...BASE_PARAMS, export_mode: "print" });
     // Let the browser lay out the print container before the dialog opens.
     requestAnimationFrame(() => {
       window.print();

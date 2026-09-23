@@ -12,6 +12,9 @@ const GDPR_REGIONS = [
 
 export default function ConsentMode() {
   return (
+    // Rendered from the root layout, where the App Router supports
+    // beforeInteractive; the lint rule predates it and only knows _document.js.
+    // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
     <Script id="google-consent-mode" strategy="beforeInteractive">
       {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}

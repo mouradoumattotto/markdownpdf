@@ -16,6 +16,7 @@ import { PDFDocument, PDFName, PDFString, StandardFonts, rgb } from "pdf-lib";
 import fontkit from "@pdf-lib/fontkit";
 import { PDFDocument as CantooPDFDocument } from "@cantoo/pdf-lib";
 import { chromium } from "@playwright/test";
+import { AlignmentType, Document, HeadingLevel, ImageRun, Packer, Paragraph, Table, TableCell, TableRow, TextRun } from "docx";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const out = join(here, "generated");
@@ -320,6 +321,48 @@ function textInputs() {
   save("sample.csv", new TextEncoder().encode(`Name,Role,City\nAda,Engineer,London\n"Grace, Jr",Admiral,"New York"\n`));
 }
 
+// ---- 11. A Word document for the DOCX converter ----------------------------
+async function docx(pngBytes) {
+  const doc = new Document({
+    creator: "ALICE_SECRET",
+    title: "Release Notes",
+    sections: [
+      {
+        children: [
+          new Paragraph({ text: "Release Notes", heading: HeadingLevel.HEADING_1 }),
+          new Paragraph({ text: "Summary", heading: HeadingLevel.HEADING_2 }),
+          new Paragraph({
+            children: [
+              new TextRun("This release adds "),
+              new TextRun({ text: "OCR", bold: true }),
+              new TextRun(" and "),
+              new TextRun({ text: "faster", italics: true }),
+              new TextRun(" exports."),
+            ],
+          }),
+          new Paragraph({ text: "First change", bullet: { level: 0 } }),
+          new Paragraph({ text: "Second change", bullet: { level: 0 } }),
+          new Paragraph({ text: "Step one", numbering: { reference: "numbers", level: 0 } }),
+          new Paragraph({ text: "Quoted remark", style: "IntenseQuote" }),
+          new Table({
+            rows: [
+              new TableRow({ children: [headerCell("Tool"), headerCell("Status")] }),
+              new TableRow({ children: [cell("Split"), cell("Done")] }),
+            ],
+          }),
+          new Paragraph({ alignment: AlignmentType.CENTER, children: [new ImageRun({ type: "png", data: pngBytes, transformation: { width: 240, height: 180 } })] }),
+        ],
+      },
+    ],
+    numbering: {
+      config: [{ reference: "numbers", levels: [{ level: 0, format: "decimal", text: "%1.", alignment: AlignmentType.START }] }],
+    },
+  });
+  save("sample.docx", await Packer.toBuffer(doc));
+}
+const cell = (text) => new TableCell({ children: [new Paragraph(text)] });
+const headerCell = (text) => new TableCell({ children: [new Paragraph({ children: [new TextRun({ text, bold: true })] })] });
+
 const browser = await chromium.launch({
   executablePath: process.env.CHROME_PATH || undefined,
 });
@@ -334,6 +377,7 @@ try {
   await outline();
   await broken();
   textInputs();
+  await docx(readFileSync(join(out, "image-small.png")));
 } finally {
   await browser.close();
 }

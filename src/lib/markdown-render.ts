@@ -138,7 +138,10 @@ export function detectFeatures(markdown: string): DocFeatures {
   const f: DocFeatures = { mermaid: 0, math: 0, images: 0, code: 0, needsUnicodeFont: false, complexScript: null };
   const walk = (list: Token[] | undefined) => {
     for (const t of list ?? []) {
-      if (t.type === "code") (t as Tokens.Code).lang?.trim().startsWith("mermaid") ? f.mermaid++ : f.code++;
+      if (t.type === "code") {
+        if ((t as Tokens.Code).lang?.trim().startsWith("mermaid")) f.mermaid++;
+        else f.code++;
+      }
       else if (t.type === "inlineMath" || t.type === "blockMath") f.math++;
       else if (t.type === "image") f.images++;
       const nested = t as { tokens?: Token[]; items?: Tokens.ListItem[]; header?: Tokens.TableCell[]; rows?: Tokens.TableCell[][] };

@@ -46,6 +46,15 @@ export default function PdfToolsPage() {
           bookmarks.
         </li>
         <li>
+          <strong>You need fewer pages, or more files in one.</strong> <Link href="/split-pdf">Split PDF</Link> cuts
+          by page ranges or extracts the pages you need; <Link href="/merge-pdf">Merge PDF</Link> combines files in
+          the order you choose. Both copy pages untouched, so nothing loses quality.
+        </li>
+        <li>
+          <strong>You are about to share it.</strong> The <Link href="/pdf-metadata">PDF metadata viewer</Link> shows
+          the author, software and dates hidden in the file, and removes them for good.
+        </li>
+        <li>
           <strong>You are going the other way.</strong> <Link href="/markdown-to-pdf">Markdown to PDF</Link> turns
           Markdown into a clean A4 document with real selectable text, diagrams and formulas included.
         </li>

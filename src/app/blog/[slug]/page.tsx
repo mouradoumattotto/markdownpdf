@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AdSlot from "@/components/AdSlot";
 import DownloadPostPdf from "@/components/DownloadPostPdf";
 import JsonLd from "@/components/JsonLd";
 import { getAllPosts, getPost, getRelatedPosts } from "@/lib/blog";
+import { splitAtMiddleSection } from "@/lib/article-split";
 import { SITE } from "@/lib/site";
+import { TOOLS, getTool } from "@/lib/tools";
 
 export const dynamicParams = false;
+
+/** Posts shorter than this get one ad, after the article; longer ones get a second, mid-article. */
+const MID_ARTICLE_AD_MIN_MINUTES = 6;
+
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -47,6 +54,12 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const related = getRelatedPosts(slug);
+  // The tools this guide is written for, from the registry; the two core
+  // converters when no tool cites it.
+  const citing = TOOLS.filter((t) => t.guides.includes(slug)).slice(0, 4);
+  const ctaTools = citing.length ? citing : [getTool("pdf-to-markdown")!, getTool("markdown-to-pdf")!];
+  const halves = post.readingMinutes >= MID_ARTICLE_AD_MIN_MINUTES ? splitAtMiddleSection(post.html) : null;
+  const prose = "prose prose-neutral max-w-none prose-a:text-indigo-600";
   const postUrl = `${SITE.url}/blog/${post.slug}`;
 
   return (
@@ -104,26 +117,34 @@ export default async function BlogPostPage({
         </time>{" "}
         · {post.readingMinutes} min read
       </p>
-      <div
-        className="prose prose-neutral mt-8 max-w-none prose-a:text-indigo-600"
-        dangerouslySetInnerHTML={{ __html: post.html }}
-      />
+      {halves ? (
+        <>
+          <div className={`${prose} mt-8`} dangerouslySetInnerHTML={{ __html: halves[0] }} />
+          <AdSlot placement="article" />
+          <div className={prose} dangerouslySetInnerHTML={{ __html: halves[1] }} />
+        </>
+      ) : (
+        <div className={`${prose} mt-8`} dangerouslySetInnerHTML={{ __html: post.html }} />
+      )}
       {post.downloadPdf && (
         <DownloadPostPdf markdown={post.body} title={post.title} filename={post.slug} />
       )}
       <aside className="mt-12 rounded-xl border border-indigo-100 bg-indigo-50 p-6">
         <p className="font-semibold text-neutral-900">Try it yourself</p>
         <p className="mt-1 text-neutral-600">
-          Convert files free and privately in your browser:{" "}
-          <Link href="/" className="font-medium text-indigo-600 hover:underline">
-            PDF to Markdown
-          </Link>{" "}
-          ·{" "}
-          <Link href="/markdown-to-pdf" className="font-medium text-indigo-600 hover:underline">
-            Markdown to PDF
-          </Link>
+          Free, and your files stay in your browser:{" "}
+          {ctaTools.map((t, i) => (
+            <span key={t.slug}>
+              {i > 0 && " · "}
+              <Link href={t.path} className="font-medium text-indigo-600 hover:underline">
+                {t.name}
+              </Link>
+            </span>
+          ))}
         </p>
       </aside>
+
+      <AdSlot placement="article" />
 
       {related.length > 0 && (
         <section className="mt-12 border-t border-neutral-200 pt-8">

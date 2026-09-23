@@ -22,7 +22,7 @@ The good news: Markdown to PDF is the *easy* direction. Markdown's explicit stru
 
 ## Method 1: Online converter (no install, instant)
 
-The fastest path is a browser-based tool. With the [Markdown to PDF converter](/markdown-to-pdf) you paste or upload your Markdown, preview the formatted result, and download a PDF — done in under a minute, on any device, with nothing to install.
+The fastest path is a browser-based tool. With the [Markdown to PDF converter](/markdown-to-pdf) you paste or upload your Markdown, preview the formatted result, and download a PDF — done in under a minute, on any device, with nothing to install. Mermaid diagrams and LaTeX math render too; the [diagrams and math guide](/blog/markdown-to-pdf-mermaid-math) covers the syntax.
 
 The usual caveat with online tools is privacy: many of them send your document to a server for rendering. MarkdownPDF does not — the conversion happens entirely in your browser, so drafts, contracts, and internal docs never leave your machine.
 

@@ -232,6 +232,31 @@ export async function buildParts(
   return out.sort((a, b) => a.range.from - b.range.from);
 }
 
+/**
+ * Copies the pages of several ranges, in the order given, into ONE new PDF —
+ * "extract pages 1-3 and 7". Page order follows the ranges, so "5, 1-4" moves
+ * page 5 to the front.
+ */
+export async function extractPages(data: ArrayBuffer, ranges: Range[]): Promise<Uint8Array> {
+  const { PDFDocument } = await import("pdf-lib");
+  const src = await PDFDocument.load(data, { updateMetadata: false });
+  const out = await PDFDocument.create({ updateMetadata: false });
+  const indices = ranges.flatMap((r) => Array.from({ length: r.to - r.from + 1 }, (_, i) => r.from + i));
+  const copied = await out.copyPages(src, indices);
+  copied.forEach((p) => out.addPage(p));
+  const title = src.getTitle();
+  if (title) out.setTitle(title);
+  out.setProducer("markdownpdf.app");
+  out.setCreator("markdownpdf.app");
+  return out.save({ useObjectStreams: true });
+}
+
+/** Page count straight from the page tree — much cheaper than a pdf.js pass. */
+export async function countPages(data: ArrayBuffer): Promise<number> {
+  const { PDFDocument } = await import("pdf-lib");
+  return (await PDFDocument.load(data, { updateMetadata: false })).getPageCount();
+}
+
 /** "report-part-02-p51-100.pdf" */
 export function partFileName(base: string, index: number, total: number, r: Range): string {
   const pad = String(total).length < 2 ? 2 : String(total).length;

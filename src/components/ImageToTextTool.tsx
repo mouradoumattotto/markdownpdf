@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { countBucket, durationBucket, extensionOf, sizeBucket, track } from "@/lib/analytics";
 import { CancelledError, saveBlob, throwIfAborted } from "@/lib/files";
-import { DEFAULT_OCR_LANGUAGE, OCR_LANGUAGES, type OcrLanguage } from "@/lib/ocr";
+import { DEFAULT_OCR_LANGUAGE, type OcrLanguage } from "@/lib/ocr";
 import FileDropzone, { ErrorAlert, PrivacyNote, ProgressBar, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 import OcrLanguageSelect, { useStoredOcrLanguage } from "@/components/OcrLanguageSelect";
 

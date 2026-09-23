@@ -31,6 +31,7 @@ export default function PdfMetadataTool() {
   const [values, setValues] = useState<MetadataValues>({});
   const [keepDates, setKeepDates] = useState(false);
   const fileRef = useRef<{ name: string; data: ArrayBuffer } | null>(null);
+  const [fileName, setFileName] = useState("");
 
   const load = async (f: File) => {
     const base = { tool_name: TOOL, input_format: "pdf", file_size_bucket: sizeBucket(f.size) };
@@ -49,6 +50,7 @@ export default function PdfMetadataTool() {
       const { readPdfMetadata } = await import("@/lib/pdf-metadata");
       const result = await readPdfMetadata(data);
       fileRef.current = { name: f.name, data };
+      setFileName(f.name);
       setReport(result);
       setValues(Object.fromEntries(METADATA_FIELDS.map((k) => [k, result.metadata[k] ?? ""])) as MetadataValues);
       setState({ kind: "ready" });
@@ -132,7 +134,7 @@ export default function PdfMetadataTool() {
         <div className="space-y-6">
           <div className="flex flex-wrap items-start justify-between gap-3 rounded-2xl bg-neutral-50 p-4">
             <div>
-              <p className="font-semibold text-neutral-900 break-all">{fileRef.current?.name}</p>
+              <p className="font-semibold text-neutral-900 break-all">{fileName}</p>
               <p className="mt-1 text-sm text-neutral-600" data-testid="overview">
                 {report.overview.pages} {report.overview.pages === 1 ? "page" : "pages"} · {formatBytes(report.overview.bytes)}
                 {report.overview.pdfVersion && ` · PDF ${report.overview.pdfVersion}`}
