@@ -228,8 +228,25 @@ async function scanned(browser) {
   save("image-small.png", small);
   const page = await browser.newPage({ viewport: { width: 800, height: 600 } });
   await page.setContent("<body style='margin:0;background:linear-gradient(#4f46e5,#a78bfa)'><h1 style='color:#fff;font:64px sans-serif;padding:80px'>JPEG sample</h1></body>");
-  save("image-sample.jpg", await page.screenshot({ type: "jpeg", quality: 85 }));
+  const jpeg = await page.screenshot({ type: "jpeg", quality: 85 });
+  save("image-sample.jpg", jpeg);
+  // The same 800x600 photo tagged "rotate 90° clockwise to display", as phones
+  // write it: shown upright it is 600x800.
+  save("image-rotated.jpg", withExifOrientation(jpeg, 6));
   await page.close();
+}
+
+/** Inserts an EXIF APP1 segment holding only an Orientation tag right after the JPEG's SOI marker. */
+function withExifOrientation(jpeg, orientation) {
+  const tiff = Buffer.from([
+    0x4d, 0x4d, 0x00, 0x2a, 0x00, 0x00, 0x00, 0x08, // big-endian TIFF header, IFD at 8
+    0x00, 0x01, // one entry
+    0x01, 0x12, 0x00, 0x03, 0x00, 0x00, 0x00, 0x01, 0x00, orientation, 0x00, 0x00, // Orientation, SHORT, 1
+    0x00, 0x00, 0x00, 0x00, // no next IFD
+  ]);
+  const payload = Buffer.concat([Buffer.from("Exif\0\0", "latin1"), tiff]);
+  const segment = Buffer.concat([Buffer.from([0xff, 0xe1, (payload.length + 2) >> 8, (payload.length + 2) & 0xff]), payload]);
+  return Buffer.concat([jpeg.subarray(0, 2), segment, jpeg.subarray(2)]);
 }
 
 // ---- 7. Metadata -------------------------------------------------------------

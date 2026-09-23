@@ -63,3 +63,34 @@ describe("mergePdfs", () => {
     await expect(mergePdfs([{ data: await numbered(1) }], { signal: controller.signal })).rejects.toThrow("Cancelled");
   });
 });
+
+describe("organizePdf", async () => {
+  const { organizePdf, normalizeRotation } = await import("@/lib/pdf-organize");
+
+  it("reorders, drops and rotates pages", async () => {
+    const out = await organizePdf(await numbered(4), [
+      { source: 3, rotate: 0 },
+      { source: 0, rotate: 90 },
+      { source: 2, rotate: -90 },
+    ]);
+    const doc = await PDFDocument.load(out);
+    expect(await widths(out)).toEqual([3, 0, 2]);
+    expect(doc.getPages().map((p) => p.getRotation().angle)).toEqual([0, 90, 270]);
+  });
+
+  it("adds to a rotation the page already had", async () => {
+    const src = await PDFDocument.create();
+    const { degrees } = await import("pdf-lib");
+    src.addPage([100, 200]).setRotation(degrees(270));
+    const out = await organizePdf(buf(await src.save()), [{ source: 0, rotate: 180 }]);
+    expect((await PDFDocument.load(out)).getPage(0).getRotation().angle).toBe(90);
+  });
+
+  it("refuses to produce an empty PDF", async () => {
+    await expect(organizePdf(await numbered(1), [])).rejects.toThrow("at least one page");
+  });
+
+  it("normalizes any angle to a quarter turn", () => {
+    expect([0, 90, 360, 450, -90, -450].map(normalizeRotation)).toEqual([0, 90, 0, 90, 270, 270]);
+  });
+});

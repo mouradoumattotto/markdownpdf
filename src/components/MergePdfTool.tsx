@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { formatBytes } from "@/lib/ai-limits";
 import { countBucket, durationBucket, pageBucket, sizeBucket, track } from "@/lib/analytics";
 import { CancelledError, classifyPdfError, saveBlob, sniffPdf } from "@/lib/files";
+import SortableList, { byName } from "@/components/SortableList";
 import FileDropzone, { ErrorAlert, PrivacyNote, ProgressBar, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 
 const TOOL = "merge-pdf";
@@ -31,7 +32,6 @@ export default function MergePdfTool() {
   const [items, setItems] = useState<Item[]>([]);
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
   const [skipped, setSkipped] = useState<string[]>([]);
-  const [dragging, setDragging] = useState<number | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   const totalPages = items.reduce((s, i) => s + i.pages, 0);
@@ -74,24 +74,8 @@ export default function MergePdfTool() {
     setPhase({ kind: "idle" });
   };
 
-  const move = (from: number, to: number) => {
-    if (to < 0 || to >= items.length || from === to) return;
-    setItems((prev) => {
-      const next = [...prev];
-      const [it] = next.splice(from, 1);
-      next.splice(to, 0, it);
-      return next;
-    });
-    if (phase.kind === "merged") setPhase({ kind: "idle" });
-  };
-
-  const remove = (id: number) => {
-    setItems((prev) => prev.filter((i) => i.id !== id));
-    if (phase.kind === "merged") setPhase({ kind: "idle" });
-  };
-
-  const sortByName = () => {
-    setItems((prev) => [...prev].sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true })));
+  const update = (next: Item[]) => {
+    setItems(next);
     if (phase.kind === "merged") setPhase({ kind: "idle" });
   };
 
@@ -161,72 +145,26 @@ export default function MergePdfTool() {
             <p className="text-sm text-neutral-600" data-testid="merge-summary">
               {items.length} {items.length === 1 ? "file" : "files"} · {totalPages} pages · {formatBytes(totalBytes)}
             </p>
-            <button type="button" onClick={sortByName} disabled={busy} className="text-sm font-medium text-indigo-600 hover:underline">
+            <button type="button" onClick={() => update(byName(items))} disabled={busy} className="text-sm font-medium text-indigo-600 hover:underline">
               Sort by name
             </button>
           </div>
-          <ol className="divide-y divide-neutral-100 rounded-xl border border-neutral-200 text-sm" aria-label="Merge order">
-            {items.map((item, index) => (
-              <li
-                key={item.id}
-                draggable={!busy}
-                onDragStart={() => setDragging(index)}
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  if (dragging !== null && dragging !== index) {
-                    move(dragging, index);
-                    setDragging(index);
-                  }
-                }}
-                // A file dragged onto the list must not make the browser open it.
-                onDrop={(e) => e.preventDefault()}
-                onDragEnd={() => setDragging(null)}
-                className={`flex items-center gap-3 px-3 py-2 ${dragging === index ? "bg-indigo-50" : "bg-white"}`}
-              >
-                <span className="cursor-grab select-none text-neutral-400" aria-hidden>
-                  ⠿
+          <SortableList
+            items={items}
+            label="Merge order"
+            disabled={busy}
+            onChange={update}
+            renderItem={(item) => (
+              <>
+                <span className="block truncate font-medium text-neutral-900" title={item.name}>
+                  {item.name}
                 </span>
-                <span className="w-6 text-right font-mono text-xs text-neutral-500">{index + 1}</span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate font-medium text-neutral-900" title={item.name}>
-                    {item.name}
-                  </span>
-                  <span className="text-xs text-neutral-500">
-                    {item.pages} {item.pages === 1 ? "page" : "pages"} · {formatBytes(item.data.byteLength)}
-                  </span>
+                <span className="text-xs text-neutral-500">
+                  {item.pages} {item.pages === 1 ? "page" : "pages"} · {formatBytes(item.data.byteLength)}
                 </span>
-                <span className="flex shrink-0 gap-1">
-                  <button
-                    type="button"
-                    onClick={() => move(index, index - 1)}
-                    disabled={busy || index === 0}
-                    aria-label={`Move ${item.name} up`}
-                    className="rounded-md p-1.5 text-neutral-600 hover:bg-neutral-100 disabled:opacity-30"
-                  >
-                    ↑
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => move(index, index + 1)}
-                    disabled={busy || index === items.length - 1}
-                    aria-label={`Move ${item.name} down`}
-                    className="rounded-md p-1.5 text-neutral-600 hover:bg-neutral-100 disabled:opacity-30"
-                  >
-                    ↓
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => remove(item.id)}
-                    disabled={busy}
-                    aria-label={`Remove ${item.name}`}
-                    className="rounded-md p-1.5 text-neutral-600 hover:bg-red-50 hover:text-red-700 disabled:opacity-30"
-                  >
-                    ✕
-                  </button>
-                </span>
-              </li>
-            ))}
-          </ol>
+              </>
+            )}
+          />
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <button type="button" onClick={merge} disabled={busy || items.length < 2} className={primaryButton}>
