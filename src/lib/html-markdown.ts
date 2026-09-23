@@ -91,19 +91,23 @@ export async function htmlToMarkdown(html: string, options: HtmlToMarkdownOption
       const html = paragraphs.map((p) => p.innerHTML).filter((s) => s.trim()).join("<br>");
       cell.innerHTML = html;
     });
-    if (table.querySelector("th")) return;
     const firstRow = table.querySelector("tr");
     if (!firstRow) return;
-    firstRow.querySelectorAll("td").forEach((td) => {
-      const th = doc.createElement("th");
-      // Word bolds header cells by hand; in a header row that is noise.
-      const only = td.children.length === 1 && td.firstElementChild;
-      const wholeCellBold =
-        only && /^(STRONG|B)$/.test(only.nodeName) && only.textContent?.trim() === td.textContent?.trim();
-      th.innerHTML = wholeCellBold ? only.innerHTML : td.innerHTML;
-      td.replaceWith(th);
+    if (!table.querySelector("th")) {
+      firstRow.querySelectorAll("td").forEach((td) => {
+        const th = doc.createElement("th");
+        th.innerHTML = td.innerHTML;
+        td.replaceWith(th);
+      });
+    }
+    // Word bolds header cells by hand; in a header row that is noise.
+    table.querySelectorAll("th").forEach((th) => {
+      const only = th.children.length === 1 ? th.firstElementChild : null;
+      if (only && /^(STRONG|B)$/.test(only.nodeName) && only.textContent?.trim() === th.textContent?.trim()) {
+        th.innerHTML = only.innerHTML;
+      }
     });
-    if (!table.querySelector("thead")) {
+    if (!table.querySelector("thead") && firstRow.querySelector("th")) {
       const thead = doc.createElement("thead");
       firstRow.parentNode?.insertBefore(thead, firstRow);
       thead.appendChild(firstRow);

@@ -6,7 +6,7 @@
  */
 
 /** Must equal the installed pdfjs-dist version (asserted in tests/unit). */
-export const PDFJS_ASSET_VERSION = "6.0.227";
+export const PDFJS_ASSET_VERSION = "6.3.289";
 
 type PdfJs = typeof import("pdfjs-dist");
 let loaded: Promise<PdfJs> | null = null;
