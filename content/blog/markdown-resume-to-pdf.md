@@ -79,12 +79,12 @@ A few structural choices worth copying:
 
 ## Exporting your Markdown resume to PDF
 
-When the content is ready, open our free [Markdown to PDF converter](/markdown-to-pdf), paste or drop in your file, and download the PDF. The conversion runs entirely in your browser — your resume, with your phone number and work history, never gets uploaded to a server. For a resume that matters: many free converters quietly send your document to their backend.
+When the content is ready, open our free [Markdown to PDF converter](/md-to-pdf), paste or drop in your file, and download the PDF. The conversion runs entirely in your browser — your resume, with your phone number and work history, never gets uploaded to a server. For a resume that matters: many free converters quietly send your document to their backend.
 
 The workflow end to end:
 
 1. Edit the `.md` file in any editor (VS Code, Obsidian, even Notepad).
-2. Open the [Markdown to PDF tool](/markdown-to-pdf) and load your file.
+2. Open the [Markdown to PDF tool](/md-to-pdf) and load your file.
 3. Check the preview — headings, bullets, and bold should look exactly as structured.
 4. Download the PDF and attach it to your application.
 
@@ -111,4 +111,4 @@ Sensible precautions still apply:
 
 ## The bottom line
 
-A resume is a document you will edit dozens of times over a career, which is exactly the kind of document plain text is built for. Write it in Markdown, version it like code, and export a clean, parser-friendly PDF with the [Markdown to PDF converter](/markdown-to-pdf) whenever an application calls for one. The formatting takes care of itself — your job is the content.
+A resume is a document you will edit dozens of times over a career, which is exactly the kind of document plain text is built for. Write it in Markdown, version it like code, and export a clean, parser-friendly PDF with the [Markdown to PDF converter](/md-to-pdf) whenever an application calls for one. The formatting takes care of itself — your job is the content.

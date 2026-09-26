@@ -1,0 +1,80 @@
+[
+ {
+  "date": "2026-09-26",
+  "cost": 0.274,
+  "ranks": {
+   "pdf to markdown": {
+    "pos": null,
+    "url": null
+   },
+   "pdf to markdown converter": {
+    "pos": null,
+    "url": null
+   },
+   "pdf to md": {
+    "pos": null,
+    "url": null
+   },
+   "convert pdf to markdown": {
+    "pos": null,
+    "url": null
+   },
+   "markdown to pdf": {
+    "pos": null,
+    "url": null
+   },
+   "md to pdf": {
+    "pos": null,
+    "url": null
+   },
+   "convert md to pdf": {
+    "pos": null,
+    "url": null
+   },
+   "markdown table generator": {
+    "pos": null,
+    "url": null
+   },
+   "markdown to word": {
+    "pos": null,
+    "url": null
+   },
+   "markdown to docx": {
+    "pos": 15,
+    "url": "/markdown-to-docx"
+   },
+   "word to markdown": {
+    "pos": null,
+    "url": null
+   },
+   "markdown to html": {
+    "pos": null,
+    "url": null
+   },
+   "html to markdown": {
+    "pos": null,
+    "url": null
+   },
+   "compare pdf files": {
+    "pos": null,
+    "url": null
+   },
+   "remove metadata from pdf": {
+    "pos": null,
+    "url": null
+   },
+   "claude token counter": {
+    "pos": null,
+    "url": null
+   },
+   "can notebooklm read markdown": {
+    "pos": null,
+    "url": null
+   },
+   "markdownpdf": {
+    "pos": null,
+    "url": null
+   }
+  }
+ }
+]

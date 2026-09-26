@@ -6,7 +6,7 @@ export const contentType = OG_CONTENT_TYPE;
 
 export default function Image() {
   return renderOgCard({
-    title: "Compare Text & Documents",
+    title: "Compare PDF Files & Text",
     subtitle: "What changed between two versions — text, PDF or Word",
   });
 }

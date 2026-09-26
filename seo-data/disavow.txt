@@ -1,0 +1,15 @@
+# Disavow file for sc-domain:markdownpdf.app — generated 2026-09-26 from DataForSEO Backlinks.
+# Every link below uses the anchor "High Quality Dofollow Backlinks DA 50 PA 40 Premium PBN Network Service markdownpdf.app … Buy Backlinks Online Cheap"
+# on an /all/<n>/<n>.html page: an automated link-spam network, not placed by us.
+# Upload at https://search.google.com/search-console/disavow-links (domain property).
+domain:betulcrime.com
+domain:betwinnermirror.com
+domain:fashionclothingnews.com
+domain:ggmap.us.com
+domain:homesforsaleoldgreenwichct.com
+domain:kernelpanicpodcast.com
+domain:m98ufa.com
+domain:onvaxs.com
+domain:plumeriamarketing.com
+domain:quotesblom.com
+domain:uncledspizza.com

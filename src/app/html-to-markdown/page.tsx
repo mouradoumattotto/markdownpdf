@@ -42,6 +42,11 @@ const faqItems = [
       "Markdown tables are simple grids. A table whose cells contain lists, several paragraphs or other tables, or that uses merged cells, cannot be written as a pipe table. Simple data tables convert cleanly, and a table without a header row gets its first row promoted.",
   },
   {
+    question: "How do I convert HTML to Markdown in Python?",
+    answer:
+      "The markdownify package is the common choice: pip install markdownify, then markdownify.markdownify(html, heading_style=\"ATX\") for # headings. html2text is an older alternative, and pandoc -f html -t gfm works from the command line. Strip navigation and scripts first, or they end up in the Markdown too.",
+  },
+  {
     question: "Is the HTML sent anywhere?",
     answer:
       "No. It is parsed as an inert document in your browser — scripts in it do not run and images in it are not loaded — and converted on the spot. Nothing is uploaded, and the page never fetches the URLs in the HTML.",
@@ -70,7 +75,7 @@ export default function HtmlToMarkdownPage() {
           <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
             HTML to{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              Markdown
+              Markdown Converter
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
@@ -92,6 +97,27 @@ export default function HtmlToMarkdownPage() {
             same structure for a fraction of the tokens, which is why{" "}
             <Link href="/blog/pdf-to-markdown-for-rag-pipelines">RAG pipelines</Link> normalise to it. Or simply
             getting a table out of a web page into a README.
+          </p>
+          <h3>How to convert HTML to Markdown</h3>
+          <ol>
+            <li>
+              Paste HTML source into the box, drop a saved .html file, or copy a section of a web page, a Google Doc
+              or a Word document and paste it directly.
+            </li>
+            <li>
+              Leave <strong>Main content only</strong> on for a full web page, so menus, sidebars and footers are
+              left out; turn it off to convert everything.
+            </li>
+            <li>Tick <strong>Keep images</strong> if you want image links kept in the Markdown.</li>
+            <li>Copy the Markdown, or download it as a .md file.</li>
+          </ol>
+          <h3>Doing it in code</h3>
+          <p>
+            To convert many pages, use a library instead: <code>turndown</code> (with the GFM plugin for tables) in
+            JavaScript — the same approach this tool is built on — <code>markdownify</code> or{" "}
+            <code>html2text</code> in Python, or <code>pandoc -f html -t gfm page.html -o page.md</code> on the
+            command line. Whatever you pick, the step that makes the difference is removing navigation, scripts
+            and boilerplate before converting; a converter reproduces faithfully whatever it is given.
           </p>
           <h3>What is dropped on purpose</h3>
           <p>

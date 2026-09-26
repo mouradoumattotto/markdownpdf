@@ -15,7 +15,7 @@ import { SITE } from "@/lib/site";
 // of only 8 indexed URLs — and Google was routing "pdf to markdown" queries to a
 // blog post instead. Keeping two converter pages when only one gets crawled split
 // the signal for nothing, so /pdf-to-markdown now 308s here and its content lives
-// on this page. /markdown-to-pdf stays separate: it is a different search intent.
+// on this page. /md-to-pdf stays separate: it is a different search intent.
 //
 // The brand is spelled out in the title on purpose: the layout's title.template
 // does not apply to app/page.tsx (same segment), and dropping "MarkdownPDF" from
@@ -432,7 +432,7 @@ export default function HomePage() {
       <section className="border-t border-neutral-100 bg-neutral-50/60">
         <div className="mx-auto max-w-4xl px-4 py-16">
           <Link
-            href="/markdown-to-pdf"
+            href="/md-to-pdf"
             className="group flex flex-col gap-6 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10 sm:flex-row sm:items-center"
           >
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-md">
@@ -485,7 +485,7 @@ export default function HomePage() {
               Convert PDF → Markdown
             </a>
             <Link
-              href="/markdown-to-pdf"
+              href="/md-to-pdf"
               className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/20"
             >
               Markdown → PDF

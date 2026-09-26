@@ -289,7 +289,7 @@ export default function MarkdownEditorTool() {
       </p>
       <p className="px-3 pb-3 text-xs text-neutral-600">
         Need page themes or right-to-left languages in the PDF? Use{" "}
-        <Link href="/markdown-to-pdf" className="font-medium text-indigo-600 hover:underline">
+        <Link href="/md-to-pdf" className="font-medium text-indigo-600 hover:underline">
           Markdown to PDF
         </Link>
         .

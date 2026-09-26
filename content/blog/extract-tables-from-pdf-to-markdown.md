@@ -96,7 +96,7 @@ Some tables shouldn't become pipe tables:
 - **Data you'll compute on**: extract to CSV and open it in a spreadsheet. Markdown tables are for *reading*, not analysis.
 - **Very wide tables** (10+ columns): pipe tables become unreadable in source form. Consider transposing the table or splitting it into two.
 
-And if your end goal is the reverse — you've cleaned up data in Markdown and need a polished document to share — the [Markdown to PDF converter](/markdown-to-pdf) renders pipe tables as proper bordered tables with selectable text.
+And if your end goal is the reverse — you've cleaned up data in Markdown and need a polished document to share — the [Markdown to PDF converter](/md-to-pdf) renders pipe tables as proper bordered tables with selectable text.
 
 ## FAQ
 

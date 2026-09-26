@@ -22,7 +22,7 @@ The good news: Markdown to PDF is the *easy* direction. Markdown's explicit stru
 
 ## Method 1: Online converter (no install, instant)
 
-The fastest path is a browser-based tool. With the [Markdown to PDF converter](/markdown-to-pdf) you paste or upload your Markdown, preview the formatted result, and download a PDF — done in under a minute, on any device, with nothing to install. Mermaid diagrams and LaTeX math render too; the [diagrams and math guide](/blog/markdown-to-pdf-mermaid-math) covers the syntax.
+The fastest path is a browser-based tool. With the [Markdown to PDF converter](/md-to-pdf) you paste or upload your Markdown, preview the formatted result, and download a PDF — done in under a minute, on any device, with nothing to install. Mermaid diagrams and LaTeX math render too; the [diagrams and math guide](/blog/markdown-to-pdf-mermaid-math) covers the syntax.
 
 The usual caveat with online tools is privacy: many of them send your document to a server for rendering. MarkdownPDF does not — the conversion happens entirely in your browser, so drafts, contracts, and internal docs never leave your machine.
 
@@ -97,7 +97,7 @@ Whatever method you choose, a few things separate a professional-looking PDF fro
 
 ## Choosing the right method
 
-A simple decision path: if you convert now and then and want zero friction, use the [online converter](/markdown-to-pdf) — local processing means even confidential documents are fine. If you write Markdown in VS Code all day, install an extension. If you need publication-quality typography, batch conversion, or CI integration, invest the setup time in Pandoc. And if you are on a locked-down machine with nothing available, print-to-PDF will get you through.
+A simple decision path: if you convert now and then and want zero friction, use the [online converter](/md-to-pdf) — local processing means even confidential documents are fine. If you write Markdown in VS Code all day, install an extension. If you need publication-quality typography, batch conversion, or CI integration, invest the setup time in Pandoc. And if you are on a locked-down machine with nothing available, print-to-PDF will get you through.
 
 Whichever route you take, keep the Markdown source. The PDF is a snapshot for sharing; the `.md` file is the living document you will edit next month — and if you ever lose the source, you can recover the text with a [PDF to Markdown conversion](/).
 
@@ -113,7 +113,7 @@ With Pandoc and VS Code extensions, fully — page geometry is a configuration o
 
 ### Is it safe to convert private documents with an online tool?
 
-It depends on where the rendering happens. Tools that upload your Markdown to a server see your content; tools that render in the browser do not. MarkdownPDF's [Markdown to PDF converter](/markdown-to-pdf) runs entirely client-side, so your document never leaves your device.
+It depends on where the rendering happens. Tools that upload your Markdown to a server see your content; tools that render in the browser do not. MarkdownPDF's [Markdown to PDF converter](/md-to-pdf) runs entirely client-side, so your document never leaves your device.
 
 ### How do I force a page break in Markdown?
 

@@ -12,7 +12,7 @@ async function quickPdf(page: Page) {
 
 test.describe("Markdown to PDF", () => {
   test("quick export produces real, highlighted text with checkboxes @cross", async ({ page }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     await expect(preview(page).locator("h1")).toHaveText("Project Proposal");
     await expect(preview(page).locator("code .hljs-keyword").first()).toBeVisible();
     const pdf = await quickPdf(page);
@@ -26,7 +26,7 @@ test.describe("Markdown to PDF", () => {
   });
 
   test("renders Mermaid and LaTeX in the preview and embeds them in the PDF", async ({ page }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     await page.getByRole("button", { name: "Try diagrams & math" }).click();
     await expect(preview(page).locator(".mermaid-block svg")).toBeVisible({ timeout: 60_000 });
     await expect(preview(page).locator(".math-display svg")).toBeVisible({ timeout: 60_000 });
@@ -40,7 +40,7 @@ test.describe("Markdown to PDF", () => {
   });
 
   test("embeds a Unicode font for Greek and Cyrillic text", async ({ page }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     await editor(page).fill("# Ελληνικά και Русский\n\nΚαλημέρα κόσμε. Привет, мир → готово ✓\n\n**Жирный** и *курсив*.");
     const pdf = await quickPdf(page);
     expect(pdf.text).toContain("Ελληνικά");
@@ -49,7 +49,7 @@ test.describe("Markdown to PDF", () => {
   });
 
   test("routes Arabic text to the browser engine, which prints it correctly", async ({ page }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     await editor(page).fill("# فاتورة\n\nمرحبا بالعالم، شكرا لكم على ثقتكم.\n\n$$a^2 + b^2 = c^2$$");
     await expect(quick(page)).toBeDisabled();
     await expect(page.getByText("contains Arabic text")).toBeVisible();
@@ -73,7 +73,7 @@ test.describe("Markdown to PDF", () => {
   });
 
   test("uses attached local images and reports missing ones", async ({ page }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     await editor(page).fill("# Photos\n\n![Sample](image-sample.jpg)\n\n![Missing one](nowhere.png)\n");
     await expect(page.getByText("2 image(s) not found")).toBeVisible();
     await page.getByTestId("image-input").setInputFiles(fixture("image-sample.jpg"));
@@ -87,7 +87,7 @@ test.describe("Markdown to PDF", () => {
   });
 
   test("keeps going when a diagram has a syntax error", async ({ page, problems }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     await editor(page).fill("# Broken\n\n```mermaid\nflowchart LR\n  A --> \n```\n\nText after.");
     await expect(preview(page).locator(".mermaid-error")).toBeVisible({ timeout: 60_000 });
     await expect(page.getByText(/diagram\(s\) contain a Mermaid syntax error/)).toBeVisible();
@@ -98,14 +98,14 @@ test.describe("Markdown to PDF", () => {
   });
 
   test("does not treat prices as math", async ({ page }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     await editor(page).fill("It costs $5 and $10 today.");
     await expect(preview(page)).toContainText("It costs $5 and $10 today.");
     await expect(preview(page).locator(".math-inline")).toHaveCount(0);
   });
 
   test("opens a .md file", async ({ page }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     const chooser = page.waitForEvent("filechooser");
     await page.getByRole("button", { name: "Open .md file" }).click();
     await (await chooser).setFiles({ name: "notes.md", mimeType: "text/markdown", buffer: Buffer.from("# From a file\n\nHello.") });
@@ -114,7 +114,7 @@ test.describe("Markdown to PDF", () => {
   });
 
   test("works on a phone @mobile", async ({ page }) => {
-    await page.goto("/markdown-to-pdf");
+    await page.goto("/md-to-pdf");
     await expectNoHorizontalScroll(page);
     await page.getByRole("tab", { name: "preview" }).click();
     await expect(preview(page).locator("h1")).toHaveText("Project Proposal");

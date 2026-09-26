@@ -4,7 +4,7 @@ import Link from "next/link";
 // "all tools" URL: one more thin listing page would compete with the hubs.
 const links = [
   { href: "/", label: "PDF → Markdown" },
-  { href: "/markdown-to-pdf", label: "Markdown → PDF" },
+  { href: "/md-to-pdf", label: "Markdown → PDF" },
   { href: "/#all-tools", label: "All tools" },
   { href: "/blog", label: "Guides" },
 ];

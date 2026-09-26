@@ -90,7 +90,7 @@ Be selective about what you convert. Skip the conversion and just embed when:
 - It's **layout-heavy** — slide decks, posters, and brochures lose their meaning as linear text.
 - You'll **never edit or search it** — pure archives can stay as attachments.
 
-For everything else — reports, papers, documentation, meeting handouts, book chapters — editable blocks beat a frozen file. And if you ever need to go the other direction and turn a polished Notion-exported Markdown doc back into a shareable file, the [Markdown to PDF converter](/markdown-to-pdf) closes the loop.
+For everything else — reports, papers, documentation, meeting handouts, book chapters — editable blocks beat a frozen file. And if you ever need to go the other direction and turn a polished Notion-exported Markdown doc back into a shareable file, the [Markdown to PDF converter](/md-to-pdf) closes the loop.
 
 If you use Obsidian alongside Notion (or are choosing between them), the same conversion-first logic applies there too — see our guide to [importing PDFs into Obsidian](/blog/pdf-to-markdown-for-obsidian) for that workflow.
 

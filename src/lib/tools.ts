@@ -100,7 +100,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "markdown-to-pdf",
-    path: "/markdown-to-pdf",
+    path: "/md-to-pdf",
     name: "Markdown to PDF",
     tagline: "A clean PDF from Markdown — with diagrams, math and images.",
     categories: ["markdown", "pdf"],
@@ -144,14 +144,14 @@ export const TOOLS: Tool[] = [
   {
     slug: "pdf-metadata",
     path: "/pdf-metadata",
-    name: "PDF Metadata Viewer & Remover",
+    name: "PDF Metadata Viewer & Editor",
     tagline: "See what a PDF reveals about you, then remove it for good.",
     categories: ["pdf"],
     input: ["PDF"],
     output: ["PDF"],
     related: ["split-pdf-for-ai", "pdf-to-markdown", "markdown-to-pdf", "pdf-to-text"],
     guides: ["how-to-remove-pdf-metadata"],
-    updated: "2026-09-22",
+    updated: "2026-09-26",
     features: [
       "Shows the Info dictionary, the XMP packet, custom fields and dates",
       "Removes metadata from the file itself, not just from the viewer",
@@ -223,7 +223,7 @@ export const TOOLS: Tool[] = [
     output: ["Markdown (.md)", "ZIP"],
     related: ["html-to-markdown", "pdf-to-markdown", "markdown-to-pdf", "markdown-to-html"],
     guides: ["convert-word-to-markdown", "pdf-vs-word-vs-markdown", "markdown-cheat-sheet", "why-llms-prefer-markdown"],
-    updated: "2026-09-23",
+    updated: "2026-09-26",
     features: [
       "Converts Word .docx headings, lists, tables, links and emphasis to Markdown",
       "Images left out, saved to a folder in a ZIP, or embedded",
@@ -241,7 +241,7 @@ export const TOOLS: Tool[] = [
     output: ["Markdown (.md)"],
     related: ["markdown-to-html", "docx-to-markdown", "pdf-to-markdown", "markdown-to-pdf"],
     guides: ["markdown-vs-html", "markdown-cheat-sheet", "why-llms-prefer-markdown", "pdf-to-markdown-for-rag-pipelines"],
-    updated: "2026-09-23",
+    updated: "2026-09-26",
     features: [
       "Converts HTML code or formatted text pasted from a web page, Word or Google Docs",
       "Strips menus, headers and footers to keep the main content",
@@ -259,7 +259,7 @@ export const TOOLS: Tool[] = [
     output: ["HTML"],
     related: ["html-to-markdown", "markdown-to-pdf", "docx-to-markdown", "pdf-to-markdown"],
     guides: ["markdown-vs-html", "markdown-cheat-sheet", "what-is-markdown-complete-guide", "markdown-frontmatter-guide"],
-    updated: "2026-09-23",
+    updated: "2026-09-26",
     features: [
       "GitHub-flavored Markdown: tables, task lists, strikethrough, fenced code",
       "HTML fragment or complete standalone page",
@@ -367,7 +367,7 @@ export const TOOLS: Tool[] = [
     output: ["Word (.docx)"],
     related: ["docx-to-markdown", "markdown-to-pdf", "markdown-to-html", "markdown-table-generator"],
     guides: ["pdf-vs-word-vs-markdown", "convert-word-to-markdown", "markdown-cheat-sheet"],
-    updated: "2026-09-23",
+    updated: "2026-09-26",
     features: [
       "Headings become Word heading styles, lists use Word numbering",
       "Tables with a repeating header row, links, code, task lists",
@@ -385,7 +385,7 @@ export const TOOLS: Tool[] = [
     output: ["Markdown (.md)", "CSV"],
     related: ["markdown-to-html", "markdown-to-pdf", "markdown-to-docx", "html-to-markdown"],
     guides: ["markdown-cheat-sheet", "extract-tables-from-pdf-to-markdown"],
-    updated: "2026-09-23",
+    updated: "2026-09-26",
     features: [
       "Edit tables in a spreadsheet-like grid with per-column alignment",
       "Import CSV, TSV, cells pasted from Excel or Google Sheets, or an existing Markdown table",
@@ -403,7 +403,7 @@ export const TOOLS: Tool[] = [
     output: ["Token count"],
     related: ["markdown-chunker", "split-pdf-for-ai", "pdf-to-markdown", "docx-to-markdown"],
     guides: ["chunking-documents-for-rag", "ai-file-upload-limits", "why-llms-prefer-markdown", "convert-pdf-to-markdown-for-chatgpt"],
-    updated: "2026-09-23",
+    updated: "2026-09-26",
     features: [
       "Exact token counts with OpenAI's o200k_base and cl100k_base tokenizers",
       "Clearly labelled estimate range for Claude, Gemini and other models",
@@ -432,14 +432,14 @@ export const TOOLS: Tool[] = [
   {
     slug: "text-diff",
     path: "/text-diff",
-    name: "Compare Text & Documents",
+    name: "Compare PDF & Text",
     tagline: "See what changed between two versions — text, PDF or Word, word by word.",
     categories: ["pdf", "markdown"],
     input: ["Text", "PDF", "Word (.docx)", "Markdown"],
     output: ["Diff", "Unified diff (.diff)"],
     related: ["pdf-to-text", "docx-to-markdown", "pdf-to-markdown", "markdown-to-html"],
     guides: ["ocr-vs-text-extraction", "pdf-vs-word-vs-markdown"],
-    updated: "2026-09-23",
+    updated: "2026-09-26",
     features: [
       "Line-by-line comparison with the changed words highlighted",
       "Compares PDFs and Word documents by their text, not only pasted text",

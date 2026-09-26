@@ -44,7 +44,7 @@ export default function MarkdownToolsPage() {
         </li>
         <li>
           <strong>You wrote Markdown and need to share it.</strong>{" "}
-          <Link href="/markdown-to-pdf">Markdown to PDF</Link> for a document, with diagrams and math;{" "}
+          <Link href="/md-to-pdf">Markdown to PDF</Link> for a document, with diagrams and math;{" "}
           <Link href="/markdown-to-docx">Markdown to Word</Link> for reviewers who work in Word;{" "}
           <Link href="/markdown-to-html">Markdown to HTML</Link> for a web page, a CMS or an email.
         </li>

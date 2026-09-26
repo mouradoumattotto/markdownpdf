@@ -90,4 +90,4 @@ A simple rule works for most people:
 - **Keep HTML** when the output is the product: designed pages, emails, anything with layout.
 - **Convert at the boundary**: write Markdown, generate HTML when publishing; import HTML into Markdown once, then maintain it as Markdown.
 
-If you need a document rather than a web page, the same Markdown can also become a PDF with [Markdown to PDF](/markdown-to-pdf) — and the [Markdown cheat sheet](/blog/markdown-cheat-sheet) covers the syntax for all of it.
+If you need a document rather than a web page, the same Markdown can also become a PDF with [Markdown to PDF](/md-to-pdf) — and the [Markdown cheat sheet](/blog/markdown-cheat-sheet) covers the syntax for all of it.

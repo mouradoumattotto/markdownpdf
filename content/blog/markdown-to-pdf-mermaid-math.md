@@ -91,7 +91,7 @@ A few constructs cover most documents:
 
 ### In the browser
 
-[Markdown to PDF](/markdown-to-pdf) renders Mermaid diagrams and LaTeX math in the live preview and in the exported PDF, along with code highlighting, tables, task lists and images. The Markdown is converted in your browser; nothing is uploaded.
+[Markdown to PDF](/md-to-pdf) renders Mermaid diagrams and LaTeX math in the live preview and in the exported PDF, along with code highlighting, tables, task lists and images. The Markdown is converted in your browser; nothing is uploaded.
 
 Two export modes:
 
@@ -141,4 +141,4 @@ $$
 where $t_0$ is start-up time and $t_p$ the time per page.
 ````
 
-Paste it into [Markdown to PDF](/markdown-to-pdf), adjust, and export. For the rest of the syntax — tables, task lists, footnotes — see the [Markdown cheat sheet](/blog/markdown-cheat-sheet).
+Paste it into [Markdown to PDF](/md-to-pdf), adjust, and export. For the rest of the syntax — tables, task lists, footnotes — see the [Markdown cheat sheet](/blog/markdown-cheat-sheet).

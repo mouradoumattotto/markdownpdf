@@ -7,10 +7,12 @@ import { Breadcrumbs, RelatedTools, ToolJsonLd, toolCrumbs } from "@/components/
 import { getTool } from "@/lib/tools";
 
 const DESCRIPTION =
-  "See every hidden field in a PDF — author, software, dates, XMP — and remove them for good. Runs in your browser: the file is never uploaded to be cleaned.";
+  "Remove metadata from a PDF for good, or edit it: author, software, dates and XMP. Runs in your browser, so the file is never uploaded to be cleaned.";
 
 export const metadata: Metadata = {
-  title: "PDF Metadata Viewer & Remover",
+  // DataForSEO 2026-09-26 (US): "remove metadata from pdf" and its variants
+  // 1,600/mo (KD 11-26), "pdf metadata editor" 720 (KD 6). The tool edits too.
+  title: "Remove PDF Metadata — Viewer & Editor, Free",
   description: DESCRIPTION,
   alternates: { canonical: "/pdf-metadata" },
   openGraph: {
@@ -25,6 +27,11 @@ const faqItems = [
     question: "What metadata does a PDF contain?",
     answer:
       "Usually the title, the author (often your account name), the subject and keywords, the software that created the document and the software that wrote the PDF, and the creation and modification dates. Many files also carry an XMP packet: a second copy of the same information in XML, sometimes with more — editing history, device details, or the original file name.",
+  },
+  {
+    question: "How do I delete metadata from a PDF without Acrobat?",
+    answer:
+      "Open the PDF in the tool above and click “Remove all metadata”. It works in any modern browser on Windows, macOS, Linux, iOS or Android, needs no account and no installation, and the file never leaves your device.",
   },
   {
     question: "Why does it matter?",
@@ -70,7 +77,7 @@ export default function PdfMetadataPage() {
           <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
             PDF Metadata{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              Viewer &amp; Remover
+              Viewer, Editor &amp; Remover
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
@@ -103,6 +110,71 @@ export default function PdfMetadataPage() {
             removing metadata will not hide it — that is redaction, a different and much harder job, and one worth
             doing properly rather than by drawing a black rectangle over the words.
           </p>
+          <h3>How to remove metadata from a PDF</h3>
+          <ol>
+            <li>Drop the PDF on the box above, or click it to choose a file. It is read in your browser.</li>
+            <li>
+              Look at what it reveals: the document fields, the dates, any custom entries and, if there is one, the
+              XMP packet.
+            </li>
+            <li>
+              Leave &ldquo;Keep the creation and modification dates&rdquo; unticked to delete the dates too, then
+              click <strong>Remove all metadata</strong>.
+            </li>
+            <li>
+              Download the new file, saved as <code>…-no-metadata.pdf</code>. The summary lists exactly what was
+              deleted; your original file is not modified.
+            </li>
+          </ol>
+
+          <h3>How to edit PDF metadata</h3>
+          <ol>
+            <li>Open the PDF the same way.</li>
+            <li>
+              Type into the fields you want to change — typically the title and the author. Emptying a field removes
+              it.
+            </li>
+            <li>
+              Click <strong>Save my changes</strong> and download <code>…-updated.pdf</code>. Everything else is
+              cleared on the way — the XMP packet, custom entries, per-page metadata — so the file carries only what
+              you typed, plus its original dates.
+            </li>
+          </ol>
+
+          <h3>What each field means</h3>
+          <ul>
+            <li>
+              <strong>Title</strong> — shown in a reader&apos;s tab or title bar instead of the file name, and often
+              used by search engines as the title of a PDF result.
+            </li>
+            <li>
+              <strong>Author</strong> — usually filled in automatically from the account name of whoever created the
+              document.
+            </li>
+            <li>
+              <strong>Subject</strong> and <strong>Keywords</strong> — free-text descriptions, rarely used, sometimes
+              left over from a template.
+            </li>
+            <li>
+              <strong>Creator</strong> — the application the document was written in, such as Word or InDesign.
+            </li>
+            <li>
+              <strong>Producer</strong> — the software that generated the PDF itself, often with its version number.
+            </li>
+            <li>
+              <strong>CreationDate</strong> and <strong>ModDate</strong> — when the PDF was created and last
+              modified, usually with a time zone.
+            </li>
+            <li>
+              <strong>XMP</strong> — an XML copy of all of the above, which can add editing history, the original
+              file name or other application data.
+            </li>
+          </ul>
+          <p>
+            For the reasons to do this before sending a file, and how to check the result yourself, see{" "}
+            <Link href="/blog/how-to-remove-pdf-metadata">how to remove PDF metadata</Link>.
+          </p>
+
           <h3>Where this fits</h3>
           <p>
             Cleaning metadata pairs well with the rest of the suite: if you are about to hand a document to an AI

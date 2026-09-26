@@ -117,7 +117,7 @@ Because Gruber's original spec left details ambiguous, several standardized dial
 - **Focus.** Formatting happens inline with ordinary characters, so you never leave the keyboard or break your train of thought to fiddle with a toolbar.
 - **Portability.** A Markdown file is not locked to any application. Switch editors, switch operating systems, switch decades — the file still works.
 - **Version control.** Git treats Markdown like code: every change is diffable, blame-able, and revertible line by line. This is why virtually all software documentation is Markdown.
-- **One source, many outputs.** The same file can become a web page, documentation site, ebook, presentation, or — with a converter like [Markdown to PDF](/markdown-to-pdf) — a polished, printable document.
+- **One source, many outputs.** The same file can become a web page, documentation site, ebook, presentation, or — with a converter like [Markdown to PDF](/md-to-pdf) — a polished, printable document.
 - **Longevity.** Plain text is the most durable file format ever invented. There is no vendor that can discontinue it.
 
 ## Tools to write Markdown
@@ -132,7 +132,7 @@ You can write Markdown in literally any text editor, but some tools make it nice
 
 ## Markdown and PDF: a natural pairing
 
-Markdown is ideal for writing; PDF is ideal for delivering. The two formats complement each other so well that converting between them is one of the most common Markdown workflows. When a draft is ready to share with someone who expects a "real" document, convert it with the [Markdown to PDF tool](/markdown-to-pdf). When someone hands you a PDF whose content you need to edit or reuse, the [PDF to Markdown converter](/) — with [OCR](/blog/extract-text-from-scanned-pdf) for scanned files — brings it back into plain text. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown).
+Markdown is ideal for writing; PDF is ideal for delivering. The two formats complement each other so well that converting between them is one of the most common Markdown workflows. When a draft is ready to share with someone who expects a "real" document, convert it with the [Markdown to PDF tool](/md-to-pdf). When someone hands you a PDF whose content you need to edit or reuse, the [PDF to Markdown converter](/) — with [OCR](/blog/extract-text-from-scanned-pdf) for scanned files — brings it back into plain text. For a deeper comparison of the two formats, see [Markdown vs PDF](/blog/pdf-vs-word-vs-markdown).
 
 There is a newer reason this conversion matters: language models read Markdown far better than PDF, because the structure survives. If you are preparing sources for a chatbot or a retrieval pipeline, see the specific walkthroughs for [ChatGPT](/blog/convert-pdf-to-markdown-for-chatgpt), [Claude](/blog/convert-pdf-to-markdown-for-claude), and [RAG pipelines](/blog/pdf-to-markdown-for-rag-pipelines).
 
@@ -151,7 +151,7 @@ Now that the syntax makes sense, these are the things people usually need straig
 
 **Getting content out of Markdown**
 
-- [Convert Markdown to PDF](/blog/convert-markdown-to-pdf) — four methods compared, or use the [converter](/markdown-to-pdf) directly.
+- [Convert Markdown to PDF](/blog/convert-markdown-to-pdf) — four methods compared, or use the [converter](/md-to-pdf) directly.
 - [Write a resume in Markdown and export it to PDF](/blog/markdown-resume-to-pdf).
 - [Turn a GitHub README into a PDF](/blog/convert-github-readme-to-pdf).
 

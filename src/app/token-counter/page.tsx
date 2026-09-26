@@ -10,7 +10,9 @@ const DESCRIPTION =
   "Count tokens exactly with OpenAI's tokenizers — for pasted text, PDFs and Word files — with an honest estimate for Claude and Gemini. Free, nothing uploaded.";
 
 export const metadata: Metadata = {
-  title: "Token Counter — Exact GPT Tokens, PDF & Word",
+  // DataForSEO 2026-09-26 (US): "token counter" 5,400/mo (KD 19), "openai token
+  // counter" 590, "claude token counter" 320 (KD 7), "gemini token counter" 140.
+  title: "Token Counter for OpenAI, Claude & Gemini",
   description: DESCRIPTION,
   alternates: { canonical: "/token-counter" },
   openGraph: {
@@ -89,6 +91,66 @@ export default function TokenCounterPage() {
             same 1,000 words can be 1,300 tokens of English prose or 3,000 tokens of JSON. Counting before you paste
             tells you whether a document will fit, how much of the context it leaves for the answer, and what an API
             call will cost.
+          </p>
+          <h3>OpenAI, Claude and Gemini count differently</h3>
+          <p>
+            Every model family has its own tokenizer, so the same text is a different number of tokens in each.
+            OpenAI publishes its tokenizers, which is why this counter gives exact figures for GPT-4o, GPT-4.1 and
+            the o-series (<code>o200k_base</code>) and for GPT-4 and GPT-3.5 (<code>cl100k_base</code>). Anthropic
+            and Google do not ship tokenizers that run offline: an exact Claude token count comes from
+            Anthropic&apos;s token-counting API endpoint, and an exact Gemini count from the Gemini API&apos;s{" "}
+            <code>countTokens</code> method — both of which mean sending the text to them. Here, Claude and Gemini
+            get a range derived from the OpenAI count instead, clearly marked as an estimate.
+          </p>
+          <h3>Rules of thumb</h3>
+          <p>
+            Useful for a first guess, never for a bill — the exact figure depends on the text and the tokenizer:
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Content</th>
+                <th>Typical tokens</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>English prose</td>
+                <td>about 1.3 tokens per word (roughly 4 characters per token)</td>
+              </tr>
+              <tr>
+                <td>1,000 words of English</td>
+                <td>about 1,300 tokens</td>
+              </tr>
+              <tr>
+                <td>A dense page of a PDF</td>
+                <td>about 500 to 800 tokens of text</td>
+              </tr>
+              <tr>
+                <td>Code, JSON, tables of numbers</td>
+                <td>noticeably more per word than prose</td>
+              </tr>
+              <tr>
+                <td>Non-Latin scripts (Arabic, Chinese, Hindi…)</td>
+                <td>often several times more than English for the same meaning</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3>How to count the tokens in a PDF or Word file</h3>
+          <ol>
+            <li>Drop the PDF, Word, Markdown, HTML, CSV or text file on the counter above.</li>
+            <li>
+              Its text is extracted in your browser — scanned PDF pages go through OCR — and placed in the text
+              box, where you can trim what you do not need.
+            </li>
+            <li>
+              Read the counts: exact for OpenAI models, a range for Claude and Gemini, plus words, characters and
+              lines.
+            </li>
+          </ol>
+          <p>
+            Only the text is counted. When you upload a PDF to ChatGPT, Claude or Gemini, page images may be sent
+            to the model as well and add their own tokens, so treat the figure as the minimum.
           </p>
           <h3>Make documents cheaper to read</h3>
           <p>

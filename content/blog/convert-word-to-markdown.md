@@ -78,6 +78,6 @@ Markdown describes structure, not layout, so some things have nowhere to go:
 1. **Check the heading levels.** A document that starts with a *Heading 2* produces `##` everywhere; shift them if your destination expects a single `#` title.
 2. **Scan the tables.** Look for merged cells that were split and cells whose content ran together.
 3. **Fix image paths** if you moved the Markdown file away from its `images/` folder.
-4. **Preview it.** The [Markdown to HTML converter](/markdown-to-html) shows the rendered result side by side, and [Markdown to PDF](/markdown-to-pdf) turns it back into a document if you need one.
+4. **Preview it.** The [Markdown to HTML converter](/markdown-to-html) shows the rendered result side by side, and [Markdown to PDF](/md-to-pdf) turns it back into a document if you need one.
 
 If you are converting for an AI tool, Markdown is worth the effort: models read headings and lists as structure, and use far fewer tokens on Markdown than on the XML inside a .docx. [Why LLMs prefer Markdown](/blog/why-llms-prefer-markdown) explains the difference.

@@ -74,7 +74,7 @@ export default function AboutPage() {
             scanned and has no text layer, built-in OCR recognizes the text automatically.
           </li>
           <li>
-            <Link href="/markdown-to-pdf">Markdown to PDF</Link> turns Markdown into a polished A4
+            <Link href="/md-to-pdf">Markdown to PDF</Link> turns Markdown into a polished A4
             PDF with real, selectable vector text — including tables, code blocks, and links.
           </li>
         </ul>

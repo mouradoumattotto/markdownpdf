@@ -21,14 +21,17 @@ const DESCRIPTION =
   "Free Markdown to PDF converter with Mermaid diagrams, LaTeX math, images and syntax highlighting. Real selectable text, any language, nothing uploaded.";
 
 export const metadata: Metadata = {
-  title: "Markdown to PDF Converter: Mermaid & Math",
+  // 2026-09-26 (DataForSEO, US): "md to pdf" has the same volume as "markdown to
+  // pdf" (14,800/mo each, KD 17 vs 26) and "convert md to pdf" another 3,600; the
+  // title named neither. Mermaid & math stay: they are what sets the tool apart.
+  title: "Markdown to PDF (MD to PDF) — Mermaid & Math",
   description: DESCRIPTION,
-  alternates: { canonical: "/markdown-to-pdf" },
+  alternates: { canonical: "/md-to-pdf" },
   openGraph: {
     title: "Markdown to PDF Converter — Mermaid, LaTeX math, images",
     description:
       "Convert Markdown to PDF for free, with diagrams, formulas and images. Real selectable text, no watermark, nothing uploaded.",
-    url: "/markdown-to-pdf",
+    url: "/md-to-pdf",
   },
 };
 

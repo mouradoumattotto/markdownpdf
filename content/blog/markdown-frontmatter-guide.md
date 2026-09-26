@@ -120,7 +120,7 @@ slug: your-post-title
 
 ## Frontmatter and PDF conversion
 
-Frontmatter is metadata, not content, so it should not appear in a finished PDF. When you convert Markdown to a document, the metadata block is typically stripped (or used to set the PDF title) rather than printed. If you are exporting notes or articles, our [Markdown to PDF converter](/markdown-to-pdf) handles the document body and leaves the YAML block out of the visible output — and like everything on this site, the conversion runs locally in your browser, so your files are never uploaded anywhere.
+Frontmatter is metadata, not content, so it should not appear in a finished PDF. When you convert Markdown to a document, the metadata block is typically stripped (or used to set the PDF title) rather than printed. If you are exporting notes or articles, our [Markdown to PDF converter](/md-to-pdf) handles the document body and leaves the YAML block out of the visible output — and like everything on this site, the conversion runs locally in your browser, so your files are never uploaded anywhere.
 
 Going the other direction, when you convert a PDF *into* Markdown, you start with no frontmatter at all — the extracted text is pure content. Adding a small metadata block afterward (title, source, date) is what turns a raw conversion into an organized, searchable note. For the syntax of everything that goes *below* the frontmatter, keep our [Markdown cheat sheet](/blog/markdown-cheat-sheet) handy.
 

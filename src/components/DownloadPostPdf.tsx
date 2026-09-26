@@ -6,7 +6,7 @@ import { track } from "@/lib/analytics";
 
 /**
  * Renders the article itself as a PDF, in the browser, using the same converter
- * that powers /markdown-to-pdf. Serves the "<topic> pdf" search intent — the
+ * that powers /md-to-pdf. Serves the "<topic> pdf" search intent — the
  * reader wants the page as a file — and demonstrates the tool on real content.
  */
 export default function DownloadPostPdf({
@@ -57,7 +57,7 @@ export default function DownloadPostPdf({
         </button>
         <span className="text-sm text-neutral-600">
           Built with our free{" "}
-          <Link href="/markdown-to-pdf" className="font-medium text-indigo-600 hover:underline">
+          <Link href="/md-to-pdf" className="font-medium text-indigo-600 hover:underline">
             Markdown to PDF
           </Link>{" "}
           converter.

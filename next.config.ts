@@ -126,6 +126,14 @@ const nextConfig: NextConfig = {
         destination: "/blog/pdf-vs-word-vs-markdown",
         permanent: true,
       },
+
+      // Moved 2026-09-26. The URL sat in "Discovered - currently not indexed"
+      // for three months and was never fetched, while tool pages launched on
+      // 2026-09-23 were crawled and indexed within a day: Googlebot had parked
+      // this one URL. Never crawled means no signal to lose by moving it, and
+      // "md to pdf" matches "markdown to pdf" in volume (14,800/mo each, US,
+      // DataForSEO) at a lower difficulty (KD 17 vs 26).
+      { source: "/markdown-to-pdf", destination: "/md-to-pdf", permanent: true },
     ];
   },
 };

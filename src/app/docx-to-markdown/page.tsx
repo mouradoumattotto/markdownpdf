@@ -70,7 +70,7 @@ export default function DocxToMarkdownPage() {
           <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
             Word to{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              Markdown
+              Markdown Converter
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
@@ -93,6 +93,30 @@ export default function DocxToMarkdownPage() {
             <Link href="/blog/why-llms-prefer-markdown">why LLMs prefer Markdown</Link>. Converting a handbook, a
             spec or a set of meeting notes once gives you a version you can edit anywhere.
           </p>
+          <h3>How to convert a Word document to Markdown</h3>
+          <ol>
+            <li>
+              Drop a <code>.docx</code> file on the converter above, or click to choose one. Google Docs users can
+              download their document with File → Download → Microsoft Word first.
+            </li>
+            <li>
+              Choose what happens to images: leave them out, save them to an <code>images/</code> folder next to
+              the Markdown (downloaded together as a ZIP), or embed them in the file itself.
+            </li>
+            <li>
+              Read the Markdown in the preview, then copy it or download the <code>.md</code> file — ready for
+              GitHub, Obsidian, a static-site generator or a prompt.
+            </li>
+          </ol>
+          <h3>What converts, and how</h3>
+          <ul>
+            <li>Heading 1 to Heading 6 styles → <code>#</code> to <code>######</code> headings.</li>
+            <li>Bulleted and numbered lists → Markdown lists, nesting included.</li>
+            <li>Tables → GitHub-flavored pipe tables, with the first row as the header.</li>
+            <li>Bold, italic and strikethrough → <code>**bold**</code>, <code>*italic*</code> and{" "}
+              <code>~~strikethrough~~</code>.</li>
+            <li>Hyperlinks → <code>[text](url)</code>; footnotes → a numbered list at the end, linked from the text.</li>
+          </ul>
           <h3>Getting a clean result</h3>
           <p>
             The converter follows the document&apos;s structure, so the better the Word file uses styles, the
@@ -100,9 +124,17 @@ export default function DocxToMarkdownPage() {
             lists; a Word table becomes a Markdown table whose first row is used as the header. Merged cells and
             tables nested inside tables have no Markdown equivalent, so those tables need a look after conversion.
           </p>
+          <h3>Word to Markdown with pandoc</h3>
+          <p>
+            On the command line, <code>pandoc input.docx -t gfm -o output.md</code> does the same job and is the
+            better choice for converting a whole folder in a script; add{" "}
+            <code>--extract-media=images</code> to save the pictures. For one document at a time, the converter on
+            this page needs no install, and like pandoc it keeps the file on your machine — unlike most online Word
+            to Markdown converters, which upload it to a server.
+          </p>
           <h3>From Markdown back out</h3>
           <p>
-            Once the content is in Markdown, you can turn it into a <Link href="/markdown-to-pdf">PDF</Link> or a{" "}
+            Once the content is in Markdown, you can turn it into a <Link href="/md-to-pdf">PDF</Link> or a{" "}
             <Link href="/markdown-to-html">web page</Link>. For PDFs you received rather than wrote, go the other
             way with <Link href="/">PDF to Markdown</Link>. The trade-offs between the three formats are in{" "}
             <Link href="/blog/pdf-vs-word-vs-markdown">PDF vs Word vs Markdown</Link>.

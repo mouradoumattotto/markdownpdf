@@ -42,6 +42,16 @@ const faqItems = [
       "They are exported as their source — a ```mermaid code block and $…$ expressions — which is what GitHub, GitLab and most documentation generators expect and render themselves. For a document with the diagrams and equations drawn, use Markdown to PDF.",
   },
   {
+    question: "How do I convert a Markdown file to HTML?",
+    answer:
+      "Drop the .md file on the converter (or paste its contents), choose a fragment or a complete page, then copy the HTML or download it as an .html file. The preview shows how it renders before you save it.",
+  },
+  {
+    question: "How do I convert Markdown to HTML in Python?",
+    answer:
+      "Install the markdown package (pip install markdown) and call markdown.markdown(text), adding extensions=[\"tables\", \"fenced_code\"] for tables and fenced code blocks. The output is not sanitised: run it through a sanitiser such as nh3 or bleach before publishing Markdown you did not write.",
+  },
+  {
     question: "Is my Markdown uploaded?",
     answer: "No. The conversion runs in your browser as you type. Nothing is sent to a server or stored.",
   },
@@ -64,7 +74,7 @@ export default function MarkdownToHtmlPage() {
           <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
             Markdown to{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              HTML
+              HTML Converter
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
@@ -91,9 +101,26 @@ export default function MarkdownToHtmlPage() {
             or an <code>onerror</code> handler. Pasting that into a CMS is a classic way to inject code into a site.
             Every conversion here goes through DOMPurify first, so what you copy is safe to publish.
           </p>
+          <h3>How to convert Markdown to HTML</h3>
+          <ol>
+            <li>Paste your Markdown into the editor, or drop a .md file on it.</li>
+            <li>Check the live preview — it is the sanitised HTML, rendered.</li>
+            <li>Choose a fragment for a CMS or email, or a complete page to open on its own.</li>
+            <li>Copy the HTML, or download it as an .html file.</li>
+          </ol>
+          <h3>Doing it in code</h3>
+          <p>
+            For a build step rather than a one-off, the usual choices are the <code>markdown</code> package in Python
+            (<code>markdown.markdown(text, extensions=[&quot;tables&quot;])</code>), <code>marked</code> or{" "}
+            <code>markdown-it</code> in JavaScript, and <code>pandoc input.md -o output.html</code> on the command
+            line, which adds <code>-s</code> for a standalone page. None of them sanitise by default: if the
+            Markdown can come from someone else, pass the result through a sanitiser (DOMPurify in the browser,{" "}
+            <code>nh3</code> or <code>bleach</code> in Python) before it reaches a page — the same step this
+            converter always applies.
+          </p>
           <h3>Other formats</h3>
           <p>
-            Need a document rather than a web page? <Link href="/markdown-to-pdf">Markdown to PDF</Link> draws
+            Need a document rather than a web page? <Link href="/md-to-pdf">Markdown to PDF</Link> draws
             Mermaid diagrams and LaTeX math too. Starting from a page you already have?{" "}
             <Link href="/html-to-markdown">HTML to Markdown</Link> goes the other way. New to the syntax? Start with
             the <Link href="/blog/markdown-cheat-sheet">cheat sheet</Link>.

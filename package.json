@@ -12,7 +12,9 @@
     "test": "vitest run",
     "test:e2e": "playwright test --project=chromium --project=mobile-chrome && playwright test --project=firefox --workers=1 && playwright test --project=perf --workers=1",
     "seo:check": "node scripts/seo-check.mjs",
-    "seo:report": "node scripts/seo-report.mjs"
+    "seo:report": "node scripts/seo-report.mjs",
+    "seo:rank": "node scripts/seo-rank.mjs",
+    "seo:dataforseo": "node scripts/dataforseo.mjs"
   },
   "dependencies": {
     "@joplin/turndown-plugin-gfm": "^1.0.68",

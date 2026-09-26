@@ -105,7 +105,7 @@ Equations rarely survive extraction intact, ligatures (fi, fl) sometimes come th
 
 For most people, most of the time: use a browser-based converter and spend five minutes cleaning the output. It is the best effort-to-result ratio, and with a local-processing tool like MarkdownPDF there is no privacy trade-off. Reach for Pandoc when you are converting in bulk or wiring conversion into a pipeline, and convert by hand only when the document is short and accuracy matters more than time.
 
-And if you later need to go the other way — turning your polished Markdown back into a shareable document — the companion [Markdown to PDF converter](/markdown-to-pdf) handles that side of the round trip.
+And if you later need to go the other way — turning your polished Markdown back into a shareable document — the companion [Markdown to PDF converter](/md-to-pdf) handles that side of the round trip.
 
 ## FAQ
 

@@ -24,7 +24,7 @@ PDFs are self-contained and render identically everywhere, which makes them idea
 
 ## Step-by-step: README to PDF in the browser
 
-The fastest route uses our free [Markdown to PDF converter](/markdown-to-pdf), which runs entirely in your browser — the file is never uploaded anywhere, so this works for private and proprietary READMEs too.
+The fastest route uses our free [Markdown to PDF converter](/md-to-pdf), which runs entirely in your browser — the file is never uploaded anywhere, so this works for private and proprietary READMEs too.
 
 ### Step 1: Get the raw Markdown
 
@@ -34,7 +34,7 @@ Alternatively, if you have the repository cloned locally, the file is already on
 
 ### Step 2: Load it into the converter
 
-Open the [Markdown to PDF tool](/markdown-to-pdf) and paste the Markdown or drop the `.md` file in.
+Open the [Markdown to PDF tool](/md-to-pdf) and paste the Markdown or drop the `.md` file in.
 
 ### Step 3: Check the preview
 
@@ -86,7 +86,7 @@ If you live in VS Code, extensions such as "Markdown PDF" add an export-to-PDF c
 
 You can open the README on GitHub and use the browser's Print → Save as PDF. It works in a pinch, but you get GitHub's page furniture and whatever the print stylesheet decides, with little control over the result.
 
-For one-off conversions with no installs and no upload, the [browser-based converter](/markdown-to-pdf) remains the shortest path; the general workflow is covered in [how to convert Markdown to PDF](/blog/convert-markdown-to-pdf). The same export-from-Markdown approach also works well for other documents — for example, [writing a resume in Markdown and exporting it to PDF](/blog/markdown-resume-to-pdf).
+For one-off conversions with no installs and no upload, the [browser-based converter](/md-to-pdf) remains the shortest path; the general workflow is covered in [how to convert Markdown to PDF](/blog/convert-markdown-to-pdf). The same export-from-Markdown approach also works well for other documents — for example, [writing a resume in Markdown and exporting it to PDF](/blog/markdown-resume-to-pdf).
 
 ## Going the other direction
 
@@ -94,4 +94,4 @@ Sometimes the problem is reversed: documentation exists only as a PDF and you wa
 
 ## Wrap-up
 
-A README is often the best documentation a project has, and converting it to PDF makes that documentation portable: attachable, archivable, readable offline. Grab the raw Markdown, run it through the [Markdown to PDF converter](/markdown-to-pdf), tidy badges and image paths if you care about polish, and you have a deliverable in minutes — no toolchain required.
+A README is often the best documentation a project has, and converting it to PDF makes that documentation portable: attachable, archivable, readable offline. Grab the raw Markdown, run it through the [Markdown to PDF converter](/md-to-pdf), tidy badges and image paths if you care about polish, and you have a deliverable in minutes — no toolchain required.

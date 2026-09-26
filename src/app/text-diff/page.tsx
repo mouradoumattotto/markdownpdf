@@ -10,7 +10,10 @@ const DESCRIPTION =
   "Compare two texts, PDFs or Word documents and see exactly what changed, word by word. Side-by-side or unified view. Free, and nothing is uploaded.";
 
 export const metadata: Metadata = {
-  title: "Compare Text & PDF Files — Diff Checker",
+  // DataForSEO 2026-09-26 (US): "compare pdf files" / "compare pdf documents"
+  // 2,400/mo each at KD 15, and the SERP is forums and Reddit threads — far easier
+  // than generic "diff checker". The PDF angle leads.
+  title: "Compare PDF Files & Text — Free Diff Checker",
   description: DESCRIPTION,
   alternates: { canonical: "/text-diff" },
   openGraph: {
@@ -25,6 +28,11 @@ const faqItems = [
     question: "Can I compare two PDFs?",
     answer:
       "Yes — by their text. Open a PDF on each side and its text is extracted (with OCR for scanned pages) and compared. This finds changed wording, numbers and dates; it does not compare layout, images or formatting. Word documents and Markdown files work the same way.",
+  },
+  {
+    question: "Can I compare a PDF with a Word document?",
+    answer:
+      "Yes. Each side reads its own file, so you can open a PDF as the original and a .docx as the changed version (or the other way round). Both are turned into text first, which is what makes the comparison possible; differences in layout between the two formats are not reported.",
   },
   {
     question: "Why are some lines shown as changed rather than removed and added?",
@@ -70,7 +78,7 @@ export default function TextDiffPage() {
           <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
             Compare{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              Text & Documents
+              PDF Files & Text
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
@@ -98,6 +106,57 @@ export default function TextDiffPage() {
             for later comparison, save it with <Link href="/pdf-to-text">PDF to Text</Link> or{" "}
             <Link href="/docx-to-markdown">Word to Markdown</Link>.
           </p>
+
+          <h3>How to compare two PDF files</h3>
+          <ol>
+            <li>
+              In the <strong>Original</strong> box, click &ldquo;Open a file&rdquo; (or drop the file on the box) and
+              choose the earlier version. Its text is extracted in your browser; scanned pages go through OCR.
+            </li>
+            <li>Do the same with the newer version in the <strong>Changed</strong> box.</li>
+            <li>
+              The comparison runs by itself. The summary counts added, removed and changed lines; inside a changed
+              line, only the words that differ are highlighted.
+            </li>
+            <li>
+              Switch between <strong>Side by side</strong> and <strong>Unified</strong>, tick &ldquo;Ignore
+              case&rdquo; or &ldquo;Ignore spacing&rdquo; if those differences do not matter to you, and download the
+              result as a <code>.diff</code> file to keep a record.
+            </li>
+          </ol>
+          <p>
+            The two sides do not have to be the same kind of file: a PDF can be compared with a Word document, or
+            with text pasted from an email.
+          </p>
+
+          <h3>What the comparison finds — and what it does not</h3>
+          <p>
+            It finds every difference in the <em>words</em>: a changed number, a new clause, a deleted sentence, a date
+            moved by a week. It does not compare how the pages look — fonts, colours, images, margins and page
+            breaks are ignored, so a PDF that was only re-laid-out compares as identical. PDFs and Word files are
+            read as Markdown-style text, so a heading shows up with its <code>#</code> marker. A paragraph moved to
+            another page appears as removed in one place and added in the other.
+          </p>
+
+          <h3>When it is worth checking</h3>
+          <ul>
+            <li>
+              <strong>Contracts and agreements.</strong> Compare the version you approved with the one sent for
+              signature, before you sign it.
+            </li>
+            <li>
+              <strong>Successive versions of a document.</strong> Policies, specifications, terms of service,
+              manuscripts: see what changed between v3 and v4 without relying on a change log someone else wrote.
+            </li>
+            <li>
+              <strong>Word vs the exported PDF.</strong> Check that the PDF you are about to publish says the same
+              thing as the Word draft that was last reviewed.
+            </li>
+            <li>
+              <strong>AI rewrites.</strong> Paste your text and the version an assistant returned to see every word
+              it changed, not just the ones it mentioned.
+            </li>
+          </ul>
         </div>
       </section>
 

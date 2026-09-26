@@ -79,7 +79,7 @@ Markdown arrived in 2004, created by John Gruber with input from Aaron Swartz, w
 - **Speed of writing.** No toolbar, no mouse — your hands stay on the keyboard and formatting never interrupts the flow of thought.
 - **Version control and collaboration.** Because Markdown is plain text, Git can show exactly which sentence changed between versions. Try that with a PDF.
 - **Future-proofing.** A `.md` file from 2004 opens perfectly today and will open perfectly in 2050. No vendor, no proprietary reader, no format rot.
-- **Convertibility.** One Markdown source can become a web page, a slide deck, an ebook, or — via a [Markdown to PDF converter](/markdown-to-pdf) — a polished PDF.
+- **Convertibility.** One Markdown source can become a web page, a slide deck, an ebook, or — via a [Markdown to PDF converter](/md-to-pdf) — a polished PDF.
 - **Tooling ecosystem.** Static site generators (Hugo, Jekyll, Astro), documentation systems, wikis, and nearly every developer tool speak Markdown natively.
 
 Markdown's weaknesses are the flip side of its simplicity: you cannot control exact layout, complex tables get unwieldy, and the same file can render slightly differently across apps, because the various Markdown flavors do not agree on every detail.
@@ -101,7 +101,7 @@ A useful rule of thumb: **Markdown is for documents that are alive; PDF is for d
 The most productive setup treats the two formats as stages in a pipeline rather than alternatives:
 
 1. **Draft in Markdown.** Fast writing, clean diffs, easy collaboration.
-2. **Publish as PDF.** When the content is final, convert it with the [Markdown to PDF tool](/markdown-to-pdf) for a presentable, shareable document.
+2. **Publish as PDF.** When the content is final, convert it with the [Markdown to PDF tool](/md-to-pdf) for a presentable, shareable document.
 3. **Recover to Markdown.** When someone sends you a PDF you need to edit, quote, or repurpose, run it through the [PDF to Markdown converter](/) to get editable text back — OCR handles even scanned documents.
 
 Both conversions on MarkdownPDF run entirely in your browser. Nothing is uploaded to a server, which means the workflow is just as safe for a confidential contract as it is for a blog draft.
@@ -110,7 +110,7 @@ Both conversions on MarkdownPDF run entirely in your browser. Nothing is uploade
 
 No format decision is permanent, but conversion quality varies by direction:
 
-- **Markdown → PDF** is the smooth, lossy-free direction: structure maps cleanly onto styled output. Our [Markdown to PDF converter](/markdown-to-pdf) does it in your browser in seconds — see the [full how-to](/blog/convert-markdown-to-pdf).
+- **Markdown → PDF** is the smooth, lossy-free direction: structure maps cleanly onto styled output. Our [Markdown to PDF converter](/md-to-pdf) does it in your browser in seconds — see the [full how-to](/blog/convert-markdown-to-pdf).
 - **Markdown → Word** works well via tools like Pandoc, since Markdown's structure is a subset of what Word can express.
 - **Word → Markdown** is usually clean for normal documents; elaborate formatting (text boxes, multi-column layouts) has no Markdown equivalent and gets flattened. The [Word to Markdown converter](/docx-to-markdown) does it in your browser, and the [Word to Markdown guide](/blog/convert-word-to-markdown) explains how to prepare a document so headings and tables survive.
 - **PDF → anything** is the hard direction, because a PDF stores positioned characters rather than document structure. Good converters reconstruct headings, paragraphs, and lists from the layout — our [PDF to Markdown converter](/) does this locally in your browser, including OCR for scanned files. The practical details are in our [PDF to Markdown guide](/blog/how-to-convert-pdf-to-markdown).
@@ -132,7 +132,7 @@ The general rule: **author in an editable format, export to PDF last.** Going "d
 
 ## The bottom line
 
-There is no best format — there is a best format *per stage of a document's life*. Draft and maintain in something editable (Markdown for speed, durability, and version control; Word for rich review workflows), and freeze to PDF when a version needs to be final, official, or pixel-identical for every reader. Keep the conversions cheap — [PDF to Markdown](/) one way, [Markdown to PDF](/markdown-to-pdf) the other — and the format question stops being a commitment and becomes a tool.
+There is no best format — there is a best format *per stage of a document's life*. Draft and maintain in something editable (Markdown for speed, durability, and version control; Word for rich review workflows), and freeze to PDF when a version needs to be final, official, or pixel-identical for every reader. Keep the conversions cheap — [PDF to Markdown](/) one way, [Markdown to PDF](/md-to-pdf) the other — and the format question stops being a commitment and becomes a tool.
 
 ## FAQ
 

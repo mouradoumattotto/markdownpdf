@@ -7,7 +7,7 @@ author: Mourad Oumita
 downloadPdf: true
 ---
 
-Markdown's whole promise is that you can learn it in an afternoon — but until the syntax is muscle memory, everyone needs a reference. This cheat sheet covers every element of standard Markdown plus the GitHub Flavored Markdown (GFM) extras you will meet in the wild, each with the exact syntax and what it renders as. Keep it open in a tab, or [export it to PDF](/markdown-to-pdf) and pin it next to your desk. New to Markdown entirely? Start with our [complete beginner's guide](/blog/what-is-markdown-complete-guide) first.
+Markdown's whole promise is that you can learn it in an afternoon — but until the syntax is muscle memory, everyone needs a reference. This cheat sheet covers every element of standard Markdown plus the GitHub Flavored Markdown (GFM) extras you will meet in the wild, each with the exact syntax and what it renders as. Keep it open in a tab, or [export it to PDF](/md-to-pdf) and pin it next to your desk. New to Markdown entirely? Start with our [complete beginner's guide](/blog/what-is-markdown-complete-guide) first.
 
 ## Basic syntax
 
@@ -195,6 +195,6 @@ GFM turns bare URLs into clickable links automatically. In strict standard Markd
 
 ## Print this cheat sheet
 
-A reference is most useful when it is in front of you. Copy this page's Markdown into our free [Markdown to PDF converter](/markdown-to-pdf) and you get a clean, printable PDF in seconds — converted entirely in your browser, nothing uploaded anywhere. The same tool turns any of your own Markdown — notes, READMEs, documentation — into shareable PDFs; see our [Markdown to PDF guide](/blog/convert-markdown-to-pdf) for styling tips.
+A reference is most useful when it is in front of you. Copy this page's Markdown into our free [Markdown to PDF converter](/md-to-pdf) and you get a clean, printable PDF in seconds — converted entirely in your browser, nothing uploaded anywhere. The same tool turns any of your own Markdown — notes, READMEs, documentation — into shareable PDFs; see our [Markdown to PDF guide](/blog/convert-markdown-to-pdf) for styling tips.
 
 And if you need the reverse trip — extracting Markdown *out of* a PDF — our [PDF to Markdown converter](/) handles that too, [OCR](/blog/extract-text-from-scanned-pdf) included. Publishing on the web instead? [Markdown to HTML](/markdown-to-html) gives you clean HTML with a live preview, and [HTML to Markdown](/html-to-markdown) brings existing pages back into Markdown.

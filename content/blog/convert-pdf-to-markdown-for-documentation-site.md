@@ -75,7 +75,7 @@ A good target is one focused topic per page: "Installation," "Configuration," "A
 
 Run your generator's local dev server (`npm run start` for Docusaurus, `mkdocs serve`, or `hugo server`) and click through the new pages. Watch for broken internal links and malformed tables — these are the two issues that survive cleanup most often. Once a section looks right, commit it. Because everything is now plain text in Git, the rest of your team can review the migration like any other pull request.
 
-If you ever need to go the other direction — publishing a polished, branded PDF *from* your Markdown docs for an offline release — you can [convert Markdown back to PDF](/markdown-to-pdf) with selectable text and proper code blocks.
+If you ever need to go the other direction — publishing a polished, branded PDF *from* your Markdown docs for an offline release — you can [convert Markdown back to PDF](/md-to-pdf) with selectable text and proper code blocks.
 
 ## A realistic migration plan
 
