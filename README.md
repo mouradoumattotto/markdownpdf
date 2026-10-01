@@ -33,7 +33,7 @@ npm test           # unit tests (Vitest)
 npm run test:e2e   # end-to-end tests (Playwright)
 ```
 
-Canonical URLs come from `NEXT_PUBLIC_SITE_URL`, which defaults to `https://markdownpdf.app`. AdSense activation steps are in [`docs/adsense.md`](docs/adsense.md).
+Canonical URLs come from `NEXT_PUBLIC_SITE_URL`, which defaults to `https://markdownpdf.app`.
 
 ## Feedback
 
