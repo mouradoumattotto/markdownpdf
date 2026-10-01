@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { ConversionProgress } from "@/lib/pdf-to-markdown";
 import { DEFAULT_OCR_LANGUAGE, OCR_LANGUAGES, type OcrLanguage } from "@/lib/ocr";
@@ -27,7 +27,8 @@ import FileDropzone, {
   toolCard,
 } from "@/components/FileDropzone";
 import OcrLanguageSelect, { useStoredOcrLanguage } from "@/components/OcrLanguageSelect";
-import PdfPagesView from "@/components/PdfPagesView";
+import PdfPagesView, { type PdfPagesApi } from "@/components/PdfPagesView";
+import { SAMPLES, getSample, sampleUrl, type Sample } from "@/lib/samples";
 
 export type ExtractMode = "markdown" | "text";
 
@@ -38,6 +39,7 @@ type Status =
       kind: "done";
       file: File;
       ocrPageNumbers: number[];
+      pageOutputs: string[];
       fileName: string;
       sourceName: string;
       seconds: number;
@@ -50,13 +52,16 @@ type Status =
 
 type Source = { name: string; size: number };
 
-/** Sample PDFs (public/samples) for visitors with no file at hand. */
-const SAMPLES = [
-  { label: "Two-column article", file: "columns.pdf" },
-  { label: "Scanned · OCR", file: "scanned-en.pdf" },
-  { label: "Table", file: "table.pdf" },
-  { label: "With images", file: "with-images.pdf", images: true, markdownOnly: true },
-] as const;
+/** Strips Markdown syntax from a line so it can be matched against the PDF's own text. */
+function plainLine(line: string): string {
+  return line
+    .replace(/^\s*(#{1,6}|[-*+]|\d+[.)]|>)\s+/, "")
+    .replace(/[|*_`]/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .trim();
+}
+
+const isWide = () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches;
 
 function formatSize(bytes: number): string {
   if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
@@ -89,6 +94,7 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
   const [output, setOutput] = useState("");
   const [copied, setCopied] = useState(false);
   const [copyFailed, setCopyFailed] = useState(false);
+  const [copiedAi, setCopiedAi] = useState(false);
   const [ocrLanguage, setOcrLanguage] = useState<OcrLanguage>(DEFAULT_OCR_LANGUAGE);
   const [extractImages, setExtractImages] = useState(false);
   const [view, setView] = useState<"source" | "preview">("source");
@@ -96,7 +102,11 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
   const [showOriginal, setShowOriginal] = useState(false);
   const [sampleLoading, setSampleLoading] = useState<string | null>(null);
   const pickerRef = useRef<(() => void) | null>(null);
-  const originalScrollRef = useRef<HTMLDivElement>(null);
+  const pagesApi = useRef<PdfPagesApi>(null);
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const [syncScroll, setSyncScroll] = useState(true);
+  // Which pane last scrolled, so the other one's echo does not bounce back.
+  const scrollLead = useRef<{ who: "text" | "pdf"; at: number } | null>(null);
   useStoredOcrLanguage(setOcrLanguage);
   const abortRef = useRef<AbortController | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
@@ -194,6 +204,7 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
           kind: "done",
           file,
           ocrPageNumbers: result.ocrPageNumbers,
+          pageOutputs: result.pageOutputs,
           fileName: `${baseName(file.name)}.${cfg.ext}`,
           sourceName: file.name,
           seconds: (performance.now() - started) / 1000,
@@ -271,31 +282,126 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
     return () => window.removeEventListener("mdpdf:pick", pick);
   }, [status.kind]);
 
-  const runSample = async (sample: (typeof SAMPLES)[number]) => {
-    setSampleLoading(sample.file);
-    try {
-      const res = await fetch(`/samples/${sample.file}`);
-      if (!res.ok) throw new Error(String(res.status));
-      const blob = await res.blob();
-      await convert(new File([blob], sample.file, { type: "application/pdf" }), {
-        extractImages: "images" in sample ? sample.images : undefined,
-      });
-    } catch {
-      setStatus({ kind: "error", message: "The sample could not be loaded. Check your connection and try again." });
-    } finally {
-      setSampleLoading(null);
-    }
-  };
+  const runSample = useCallback(
+    async (sample: Sample) => {
+      setSampleLoading(sample.slug);
+      try {
+        const res = await fetch(sampleUrl(sample));
+        if (!res.ok) throw new Error(String(res.status));
+        const blob = await res.blob();
+        await convert(new File([blob], sample.file, { type: "application/pdf" }), { extractImages: sample.images });
+      } catch {
+        setStatus({ kind: "error", message: "The sample could not be loaded. Check your connection and try again." });
+      } finally {
+        setSampleLoading(null);
+      }
+    },
+    [convert],
+  );
+
+  // /?sample=<slug> (links from /examples), and the sample cards on this page.
+  const runSampleRef = useRef(runSample);
+  useEffect(() => {
+    runSampleRef.current = runSample;
+  });
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("sample");
+    const sample = slug ? getSample(slug) : undefined;
+    if (sample) void runSampleRef.current(sample);
+    const onSample = (e: Event) => {
+      const s = getSample((e as CustomEvent<string>).detail);
+      if (s) void runSampleRef.current(s);
+    };
+    window.addEventListener("mdpdf:sample", onSample);
+    return () => window.removeEventListener("mdpdf:sample", onSample);
+  }, []);
 
   const review = () => {
     if (status.kind !== "done" || status.ocrPageNumbers.length === 0) return;
     setShowOriginal(true);
     // Wait a frame so the pane is displayed (it is hidden on small screens).
-    requestAnimationFrame(() => {
-      const pane = originalScrollRef.current;
-      const target = document.getElementById(`orig-page-${status.ocrPageNumbers[0]}`);
-      if (pane && target) pane.scrollTo({ top: target.offsetTop - pane.offsetTop - 12, behavior: "smooth" });
+    requestAnimationFrame(() => void pagesApi.current?.locate(status.ocrPageNumbers[0], ""));
+  };
+
+  // Where each page's output starts in the (editable) text. Found by searching for
+  // each page's opening words in order, so it survives edits elsewhere.
+  const pageStarts = useMemo(() => {
+    if (status.kind !== "done") return [];
+    const starts: { page: number; at: number }[] = [];
+    let from = 0;
+    status.pageOutputs.forEach((text, i) => {
+      const probe = text.slice(0, 80);
+      if (!probe) return;
+      const at = output.indexOf(probe, from);
+      if (at >= 0) {
+        starts.push({ page: i + 1, at });
+        from = at + probe.length;
+      }
     });
+    return starts;
+  }, [status, output]);
+
+  const pageAt = (pos: number) => {
+    let k = 0;
+    while (k + 1 < pageStarts.length && pageStarts[k + 1].at <= pos) k++;
+    const cur = pageStarts[k];
+    const end = pageStarts[k + 1]?.at ?? output.length;
+    return cur ? { page: cur.page, fraction: Math.min(1, (pos - cur.at) / Math.max(1, end - cur.at)), start: cur.at, end } : null;
+  };
+
+  /** Click on a line of Markdown → show and outline that line in the original. */
+  const locateCaret = () => {
+    const el = textRef.current;
+    if (!el || !isWide()) return;
+    const pos = el.selectionStart;
+    const hit = pageAt(pos);
+    if (!hit) return;
+    const lineStart = output.lastIndexOf("\n", pos - 1) + 1;
+    const lineEnd = output.indexOf("\n", pos);
+    scrollLead.current = { who: "text", at: Date.now() + 600 };
+    void pagesApi.current?.locate(hit.page, plainLine(output.slice(lineStart, lineEnd < 0 ? undefined : lineEnd)));
+  };
+
+  // Scroll together. The text side maps its scroll position to a character offset
+  // (proportionally — the textarea does not expose line positions), then to a page.
+  const onTextScroll = () => {
+    const el = textRef.current;
+    if (!syncScroll || !el || !isWide()) return;
+    const lead = scrollLead.current;
+    if (lead?.who === "pdf" && Date.now() < lead.at) return;
+    scrollLead.current = { who: "text", at: Date.now() + 120 };
+    const max = el.scrollHeight - el.clientHeight;
+    const hit = pageAt(max > 0 ? (el.scrollTop / max) * output.length : 0);
+    if (hit) pagesApi.current?.scrollTo(hit.page, hit.fraction);
+  };
+
+  const onPdfScroll = (page: number, fraction: number) => {
+    const el = textRef.current;
+    if (!syncScroll || !el || !isWide()) return;
+    const lead = scrollLead.current;
+    if (lead?.who === "text" && Date.now() < lead.at) return;
+    scrollLead.current = { who: "pdf", at: Date.now() + 120 };
+    const i = pageStarts.findIndex((p) => p.page >= page);
+    if (i < 0) return;
+    const start = pageStarts[i].at;
+    const end = pageStarts[i + 1]?.at ?? output.length;
+    const pos = pageStarts[i].page === page ? start + fraction * (end - start) : start;
+    el.scrollTop = (pos / Math.max(1, output.length)) * (el.scrollHeight - el.clientHeight);
+  };
+
+  /** The text wrapped the way chat assistants handle documents best: tagged, with its source. */
+  const copyForAi = async () => {
+    if (status.kind !== "done") return;
+    const name = status.sourceName.replace(/"/g, "'");
+    const wrapped = `<document source="${name}" pages="${status.pageCount}" format="markdown">\n${output.trim()}\n</document>\n`;
+    try {
+      await navigator.clipboard.writeText(wrapped);
+      setCopiedAi(true);
+      setTimeout(() => setCopiedAi(false), 2000);
+      track("output_copy", { ...baseParams.current, output_format: "ai" });
+    } catch {
+      setCopyFailed(true);
+    }
   };
 
   const working = status.kind === "working";
@@ -311,6 +417,16 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
         <button type="button" onClick={copy} className={`${secondaryButton} flex-1 lg:flex-none`}>
           {copied ? "✓ Copied" : "Copy"}
         </button>
+        {mode === "markdown" && (
+          <button
+            type="button"
+            onClick={copyForAi}
+            title="Copies the Markdown inside a <document> tag with the file name — the format ChatGPT and Claude handle best"
+            className={`${secondaryButton} flex-1 lg:flex-none`}
+          >
+            {copiedAi ? "✓ Copied" : "Copy for AI"}
+          </button>
+        )}
         {status.images.length > 0 ? (
           <>
             <button type="button" onClick={download} className={`${secondaryButton} flex-1 lg:flex-none`}>
@@ -360,18 +476,22 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
 
         <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4 text-sm text-neutral-600">
           <span className="mr-1">No file handy?</span>
-          {SAMPLES.filter((x) => mode === "markdown" || !("markdownOnly" in x)).map((x) => (
+          {SAMPLES.filter((x) => x.chip).map((x) => (
             <button
-              key={x.file}
+              key={x.slug}
               type="button"
               onClick={() => runSample(x)}
               onMouseEnter={prefetch}
               disabled={Boolean(sampleLoading)}
+              title={x.title}
               className="min-h-9 rounded-full border border-[#d4d4d0] bg-white px-3 py-1.5 font-medium text-ink transition-colors hover:border-brand-400 hover:text-brand-700 disabled:opacity-60"
             >
-              {sampleLoading === x.file ? "Loading…" : x.label}
+              {sampleLoading === x.slug ? "Loading…" : x.kind}
             </button>
           ))}
+          <Link href="/examples" className="px-1 font-semibold text-brand-700 hover:underline">
+            All examples →
+          </Link>
         </div>
         <p className="mt-4 text-center text-[13px] font-semibold text-[oklch(0.45_0.12_150)]">
           ● Processed in your browser — your file never leaves your device.
@@ -510,20 +630,35 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
             >
               <div className="hidden items-center border-b border-line bg-white px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500 lg:flex">
                 Original
-                <span className="ml-auto font-medium normal-case tracking-normal">
-                  {status.pageCount.toLocaleString()} {status.pageCount === 1 ? "page" : "pages"}
+                <span className="ml-2 font-medium normal-case tracking-normal">
+                  · {status.pageCount.toLocaleString()} {status.pageCount === 1 ? "page" : "pages"}
                 </span>
+                <label className="ml-auto flex cursor-pointer items-center gap-2 font-medium normal-case tracking-normal text-neutral-600">
+                  <input
+                    type="checkbox"
+                    role="switch"
+                    checked={syncScroll}
+                    onChange={(e) => setSyncScroll(e.target.checked)}
+                    className="peer sr-only"
+                  />
+                  <span
+                    aria-hidden
+                    className="relative h-[14px] w-[26px] rounded-full bg-neutral-300 transition-colors after:absolute after:left-[2px] after:top-[2px] after:h-[10px] after:w-[10px] after:rounded-full after:bg-white after:transition-transform peer-checked:bg-brand-600 peer-checked:after:translate-x-3 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-300"
+                  />
+                  Scroll together
+                </label>
               </div>
               <PdfPagesView
                 file={status.file}
                 flagged={status.ocrPageNumbers}
-                scrollRef={originalScrollRef}
+                apiRef={pagesApi}
+                onScrollAt={onPdfScroll}
                 className="h-[60vh] lg:h-[34rem]"
               />
             </section>
 
             <section
-              aria-label={`Converted ${cfg.label}`}
+              aria-label={`${cfg.label} output`}
               className={`${showOriginal ? "hidden" : "flex"} flex-col overflow-hidden rounded-xl border border-line bg-white lg:flex`}
             >
               <div className="flex flex-wrap items-center gap-1 border-b border-line px-2.5 py-2 text-[13px] font-semibold">
@@ -556,6 +691,10 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
                 <MarkdownPreview markdown={output} images={status.images} />
               ) : (
                 <textarea
+                  ref={textRef}
+                  onClick={locateCaret}
+                  onKeyUp={(e) => (e.key.startsWith("Arrow") || e.key === "PageUp" || e.key === "PageDown") && locateCaret()}
+                  onScroll={onTextScroll}
                   value={output}
                   onChange={(e) => setOutput(e.target.value)}
                   spellCheck={false}
@@ -565,7 +704,8 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
                 />
               )}
               <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-line px-4 py-2.5 text-[13px] text-neutral-500">
-                <span>Edit the text above before you copy or download.</span>
+                <span className="hidden lg:inline">Click any line to find it in the PDF.</span>
+                <span className="lg:hidden">Edit the text above before you copy or download.</span>
                 <Link href="/contact" className="ml-auto font-semibold text-ink hover:text-brand-700">
                   Something off? Tell us
                 </Link>

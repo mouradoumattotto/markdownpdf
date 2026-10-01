@@ -83,7 +83,7 @@ export default function SiteNav({ groups, links }: { groups: MenuGroup[]; links:
 
   return (
     <>
-      <nav className="hidden flex-1 items-center gap-6 text-sm font-medium md:flex" aria-label="Main navigation">
+      <nav className="hidden flex-1 items-center gap-6 text-sm font-medium lg:flex" aria-label="Main navigation">
         <div ref={toolsRef} className="relative">
           <button
             type="button"
@@ -102,7 +102,7 @@ export default function SiteNav({ groups, links }: { groups: MenuGroup[]; links:
               id="tools-menu"
               className="fixed inset-x-4 top-[4.5rem] z-50 mx-auto max-h-[calc(100vh-6rem)] max-w-6xl overflow-auto rounded-[14px] border border-line bg-white p-6 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.3)] lg:inset-x-10"
             >
-              <div className="grid gap-x-6 gap-y-6 md:grid-cols-2 xl:grid-cols-4">
+              <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 xl:grid-cols-5">
                 {groups.map((g) => (
                   <div key={g.title}>
                     <p className="mb-2 px-2.5 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">
@@ -144,7 +144,7 @@ export default function SiteNav({ groups, links }: { groups: MenuGroup[]; links:
         ))}
       </nav>
 
-      <div className="ml-auto flex items-center gap-2 md:ml-0">
+      <div className="ml-auto flex items-center gap-2 lg:ml-0">
         <ConvertButton className="rounded-lg bg-brand-600 px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-700 sm:px-4" />
         <button
           type="button"
@@ -152,7 +152,7 @@ export default function SiteNav({ groups, links }: { groups: MenuGroup[]; links:
           aria-controls="mobile-menu"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen((o) => !o)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-white text-ink md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-white text-ink lg:hidden"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5" aria-hidden>
             {mobileOpen ? <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" /> : <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />}
@@ -164,7 +164,7 @@ export default function SiteNav({ groups, links }: { groups: MenuGroup[]; links:
         <nav
           id="mobile-menu"
           aria-label="Mobile navigation"
-          className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto bg-paper px-4 pb-8 pt-4 md:hidden"
+          className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto bg-paper px-4 pb-8 pt-4 lg:hidden"
         >
           {groups.map((g) => (
             <div key={g.title} className="mb-5">

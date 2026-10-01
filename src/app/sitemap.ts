@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { SITE } from "@/lib/site";
 import { TOOLS, liveCategories } from "@/lib/tools";
+import { USE_CASES } from "@/lib/use-cases";
 
 // Every entry is a canonical, indexable URL with a lastmod that only moves when
 // that page's own content changed (Tool.updated / Category.updated in
@@ -47,5 +48,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...tools, ...hubs, ...blog];
+  // Product pages: examples run live on real documents, the comparison, and one
+  // page per profession. Dates move only when their own content changes.
+  const product: MetadataRoute.Sitemap = [
+    { url: url("/examples"), lastModified: "2026-10-01", changeFrequency: "monthly", priority: 0.8 },
+    { url: url("/compare"), lastModified: "2026-10-01", changeFrequency: "monthly", priority: 0.7 },
+    { url: url("/use-cases"), lastModified: "2026-10-01", changeFrequency: "monthly", priority: 0.6 },
+    ...USE_CASES.map((u) => ({
+      url: url(`/use-cases/${u.slug}`),
+      lastModified: u.updated,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+
+  return [...tools, ...hubs, ...product, ...blog];
 }

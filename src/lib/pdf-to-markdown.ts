@@ -7,6 +7,8 @@
 import { CancelledError, throwIfAborted } from "@/lib/files";
 import { DEFAULT_OCR_LANGUAGE, createOcrWorker, type OcrLanguage } from "@/lib/ocr";
 import { openPdf, type PdfPage } from "@/lib/pdfjs";
+import { findTables, tableToMarkdown } from "@/lib/pdf-tables";
+import { reorderColumns } from "@/lib/pdf-layout";
 
 export interface ConversionProgress {
   page: number;
@@ -26,6 +28,11 @@ export interface ConversionOptions {
    * list, which costs time, and most uses (AI tools) want the text alone.
    */
   extractImages?: boolean;
+  /**
+   * false: pages with no text layer are listed in ocrPageNumbers but not
+   * recognised (tools that only need the text layer, e.g. table extraction).
+   */
+  ocr?: boolean;
 }
 
 export interface ConversionResult {
@@ -37,11 +44,16 @@ export interface ConversionResult {
   ocrPageNumbers: number[];
   /** Extracted images, referenced from the Markdown as images/<name>. */
   images: { name: string; blob: Blob }[];
+  /** Tables found on text pages (Markdown mode), in reading order. */
+  tables: { page: number; rows: string[][] }[];
+  /** Output of each page on its own (index 0 = page 1) — lets the UI map text back to its page. */
+  pageOutputs: string[];
 }
 
 interface TextRun {
   text: string;
   x: number;
+  width: number;
   y: number;
   size: number;
   bold: boolean;
@@ -90,7 +102,7 @@ function raceAbort<T>(promise: Promise<T>, signal?: AbortSignal): Promise<T> {
 
 async function convertPdf(
   file: File,
-  { onProgress, signal, ocrLanguage = DEFAULT_OCR_LANGUAGE, extractImages = false }: ConversionOptions,
+  { onProgress, signal, ocrLanguage = DEFAULT_OCR_LANGUAGE, extractImages = false, ocr = true }: ConversionOptions,
   mode: "markdown" | "text",
 ): Promise<ConversionResult> {
   throwIfAborted(signal);
@@ -106,6 +118,7 @@ async function convertPdf(
     const pages: string[] = [];
     const ocrPageNumbers: number[] = [];
     const images: { name: string; blob: Blob }[] = [];
+    const tables: ConversionResult["tables"] = [];
     const seenImages = new Set<string>();
 
     for (let pageNum = 1; pageNum <= doc.numPages; pageNum++) {
@@ -118,7 +131,10 @@ async function convertPdf(
         0,
       );
 
-      if (textLength < OCR_TEXT_THRESHOLD) {
+      if (textLength < OCR_TEXT_THRESHOLD && !ocr) {
+        pages.push("");
+        ocrPageNumbers.push(pageNum);
+      } else if (textLength < OCR_TEXT_THRESHOLD) {
         if (!ocrWorker) {
           onProgress?.({ page: pageNum, totalPages: doc.numPages, stage: "loading_ocr" });
           ocrWorker = await raceAbort(createOcrWorker(ocrLanguage), signal);
@@ -141,7 +157,13 @@ async function convertPdf(
           }
           lines.sort((a, b) => b.y - a.y);
         }
-        pages.push(mode === "markdown" ? linesToMarkdown(lines) : linesToText(lines));
+        if (mode === "markdown") {
+          const { markdown, tables: found } = linesToMarkdown(lines);
+          pages.push(markdown);
+          for (const rows of found) tables.push({ page: pageNum, rows });
+        } else {
+          pages.push(linesToText(lines));
+        }
       }
       page.cleanup();
     }
@@ -151,7 +173,15 @@ async function convertPdf(
       .filter(Boolean)
       .join("\n\n")
       .replace(/\n{3,}/g, "\n\n");
-    return { output: output ? output + "\n" : "", pageCount: doc.numPages, ocrPages: ocrPageNumbers.length, ocrPageNumbers, images };
+    return {
+      output: output ? output + "\n" : "",
+      pageCount: doc.numPages,
+      ocrPages: ocrPageNumbers.length,
+      ocrPageNumbers,
+      images,
+      tables,
+      pageOutputs: pages.map((m) => m.trim()),
+    };
   } finally {
     signal?.removeEventListener("abort", stopOcr);
     await ocrWorker?.terminate().catch(() => {});
@@ -238,6 +268,7 @@ async function extractLines(page: PDFPageProxy): Promise<Line[]> {
     runs.push({
       text: item.str,
       x: item.transform[4],
+      width: item.width,
       y: item.transform[5],
       size: Math.hypot(item.transform[2], item.transform[3]),
       bold: style?.bold ?? false,
@@ -261,7 +292,10 @@ async function extractLines(page: PDFPageProxy): Promise<Line[]> {
     line.x = line.runs[0].x;
     line.size = Math.max(...line.runs.map((r) => r.size));
   }
-  return lines.filter((l) => l.runs.some((r) => r.text.trim()));
+  return reorderColumns<TextRun, Line>(
+    lines.filter((l) => l.runs.some((r) => r.text.trim())),
+    (runs, line) => ({ ...line, runs, x: runs[0].x, size: Math.max(...runs.map((r) => r.size)) }),
+  );
 }
 
 function bodyFontSize(lines: Line[]): number {
@@ -320,18 +354,29 @@ function joinGap(runs: TextRun[], index: number): string {
 const BULLET_RE = /^\s*[•◦▪‣·∙–-]\s+/;
 const ORDERED_RE = /^\s*(\d{1,3})[.)]\s+/;
 
-function linesToMarkdown(lines: Line[]): string {
+function linesToMarkdown(lines: Line[]): { markdown: string; tables: string[][][] } {
   const body = bodyFontSize(lines);
   const blocks: string[] = [];
   let paragraph = "";
   let prevLine: Line | null = null;
+  const found = findTables(lines.map((l) => ({ y: l.y, size: l.size, runs: l.image ? [] : l.runs })));
+  const tableAt = new Map(found.map((t) => [t.start, t]));
 
   const flush = () => {
     if (paragraph.trim()) blocks.push(paragraph.trim());
     paragraph = "";
   };
 
-  for (const line of lines) {
+  for (let li = 0; li < lines.length; li++) {
+    const line = lines[li];
+    const table = tableAt.get(li);
+    if (table) {
+      flush();
+      blocks.push(tableToMarkdown(table.rows));
+      li = table.end;
+      prevLine = null;
+      continue;
+    }
     if (line.image) {
       flush();
       blocks.push(`![](images/${line.image})`);
@@ -390,7 +435,7 @@ function linesToMarkdown(lines: Line[]): string {
   }
   flush();
 
-  return mergeAdjacentListItems(blocks).join("\n\n");
+  return { markdown: mergeAdjacentListItems(blocks).join("\n\n"), tables: found.map((t) => t.rows) };
 }
 
 function plainLineText(line: Line): string {

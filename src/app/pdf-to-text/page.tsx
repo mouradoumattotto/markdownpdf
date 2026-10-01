@@ -42,9 +42,9 @@ const faqItems = [
       "No server limit, because there is no server: the work happens on your device. A 300-page document converts in seconds; scanned pages take a few seconds each. Long jobs show progress, an estimated time, and a Cancel button.",
   },
   {
-    question: "Why is the layout of my columns mixed up?",
+    question: "Does it handle two-column documents?",
     answer:
-      "Text is extracted in the order the PDF stores it, which for multi-column layouts is not always the reading order. Academic papers and newspapers are the usual offenders. The text is all there; the sequence may need a pass.",
+      "Yes. The gutter between columns is detected and each column is read top to bottom, while titles and wide figures that span the page stay in place. Unusual layouts — sidebars, text boxes, pull quotes — can still land out of order.",
   },
 ];
 
@@ -108,8 +108,8 @@ export default function PdfToTextPage() {
       <section className="mx-auto max-w-3xl px-4 py-12">
         <h2 className="text-xl font-extrabold text-neutral-900">Limitations</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600">
-          <li>Multi-column layouts can come out in the wrong reading order.</li>
-          <li>Tables lose their grid: cells arrive as text in the order the PDF stores them.</li>
+          <li>Sidebars, text boxes and pull quotes can land out of reading order.</li>
+          <li>Tables lose their grid in plain text — use <Link href="/">PDF to Markdown</Link> or <Link href="/pdf-tables-to-csv">PDF tables to CSV</Link> to keep it.</li>
           <li>Images are not extracted, and text drawn inside a figure is only recovered by OCR on a scanned page.</li>
           <li>Encrypted PDFs must be unlocked and saved again before conversion.</li>
         </ul>

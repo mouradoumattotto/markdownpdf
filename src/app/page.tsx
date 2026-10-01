@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import SampleRunLink from "@/components/SampleRunLink";
+import { SAMPLES, sampleThumb } from "@/lib/samples";
 import PdfToMarkdownTool from "@/components/PdfToMarkdownTool";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
@@ -67,14 +70,6 @@ const pillars = [
   },
 ];
 
-const comparison = [
-  { feature: "Files stay on your device", us: true, them: false },
-  { feature: "Free with no page limit", us: true, them: false },
-  { feature: "OCR for scanned PDFs", us: true, them: "Paid plans only" },
-  { feature: "No sign-up required", us: true, them: "Often required" },
-  { feature: "No watermark on output", us: true, them: "Free tiers add one" },
-];
-
 const faqItems = [
   {
     question: "How do I convert a PDF to Markdown?",
@@ -113,7 +108,7 @@ const faqItems = [
   {
     question: "Will tables and images be converted?",
     answer:
-      "Text content, headings, lists, and emphasis are converted. Tick “Extract images” to also save the pictures embedded in the PDF: they are linked in the Markdown where they appear and downloaded as a ZIP with an images/ folder (small decorative images and logos repeated on every page are kept once or skipped). Complex multi-column tables are not reliably recoverable from PDF text data, so you may need to adjust those manually.",
+      "Text content, headings, lists, and emphasis are converted. Tick “Extract images” to also save the pictures embedded in the PDF: they are linked in the Markdown where they appear and downloaded as a ZIP with an images/ folder (small decorative images and logos repeated on every page are kept once or skipped). Tables whose cells line up are rebuilt as Markdown tables — and the PDF tables to CSV tool exports them for a spreadsheet. Irregular tables with merged cells may need a manual pass.",
   },
   {
     question: "Does it work on mobile?",
@@ -121,22 +116,6 @@ const faqItems = [
       "Yes. The site works in any modern browser, including Safari on iOS and Chrome on Android. Large scanned PDFs may convert more slowly on older phones.",
   },
 ];
-
-function CheckIcon({ className = "h-5 w-5 text-emerald-500" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className={className} aria-hidden>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-    </svg>
-  );
-}
-
-function CrossIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-5 w-5 text-neutral-300" aria-hidden>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-}
 
 export default function HomePage() {
   const clusterPosts = getPostsByTopic("pdf to markdown convert ocr scanned tables chatgpt claude notebooklm obsidian");
@@ -319,34 +298,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Comparison */}
-      <section className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
-        <h2 className="text-center text-[1.75rem] font-extrabold tracking-[-0.03em] text-neutral-900 sm:text-4xl">
-          MarkdownPDF vs. typical online converters
-        </h2>
-        <div className="mt-12 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-neutral-200 bg-neutral-50">
-                <th scope="col" className="px-5 py-4 font-semibold text-neutral-900"></th>
-                <th scope="col" className="px-5 py-4 font-semibold text-indigo-600">MarkdownPDF</th>
-                <th scope="col" className="px-5 py-4 font-semibold text-neutral-500">Typical converters</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-neutral-100">
-              {comparison.map((row) => (
-                <tr key={row.feature}>
-                  <th scope="row" className="px-5 py-4 font-medium text-neutral-700">{row.feature}</th>
-                  <td className="px-5 py-4">
-                    <CheckIcon />
-                  </td>
-                  <td className="px-5 py-4 text-neutral-500">
-                    {row.them === false ? <CrossIcon /> : row.them}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Live examples — the proof is the product running on real documents */}
+      <section className="border-y border-line bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-10">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 className="text-[1.75rem] font-extrabold tracking-[-0.03em] text-ink sm:text-3xl">Run a real PDF. Right here.</h2>
+              <p className="mt-2 text-neutral-600">Nothing pre-rendered. Rough edges included.</p>
+            </div>
+            <Link href="/examples" className="font-semibold text-brand-700 hover:underline">
+              All {SAMPLES.length} examples →
+            </Link>
+          </div>
+          <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            {SAMPLES.filter((x) => x.chip).map((x) => (
+              <li key={x.slug}>
+                <SampleRunLink
+                  slug={x.slug}
+                  className="group flex h-full flex-col overflow-hidden rounded-[14px] border border-line bg-white transition hover:-translate-y-0.5 hover:border-neutral-300"
+                >
+                  <Image
+                    src={sampleThumb(x)}
+                    alt=""
+                    width={480}
+                    height={620}
+                    className="h-32 w-full border-b border-line object-cover object-top sm:h-40"
+                  />
+                  <span className="flex flex-1 flex-col gap-1 p-3 sm:p-4">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.06em] text-brand-700 sm:text-xs">{x.kind}</span>
+                    <span className="text-sm font-bold leading-snug text-ink sm:text-base">{x.title}</span>
+                    <span className="mt-auto pt-1 text-[13px] text-neutral-500 group-hover:text-brand-700">Run it live →</span>
+                  </span>
+                </SampleRunLink>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-sm text-neutral-600">
+            How does it stack up against other converters, Marker or Docling?{" "}
+            <Link href="/compare" className="font-semibold text-ink underline underline-offset-2 hover:text-brand-700">
+              See the honest comparison
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

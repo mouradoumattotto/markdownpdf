@@ -76,3 +76,42 @@ describe("PDF -> Markdown structure", () => {
     await expect(run).rejects.toMatchObject({ name: "CancelledError" });
   });
 });
+
+describe("PDF -> Markdown tables", () => {
+  it("rebuilds a table as a Markdown table and reports it", async () => {
+    const { output, tables } = await convertPdfToMarkdown(fixture("table.pdf"));
+    expect(output).toContain("| Plan | Price | Pages |");
+    expect(output).toContain("| --- | --- | --- |");
+    expect(output).toContain("| Team | USD 12 | Unlimited |");
+    expect(tables).toEqual([
+      {
+        page: 1,
+        rows: [
+          ["Plan", "Price", "Pages"],
+          ["Starter", "USD 0", "Unlimited"],
+          ["Team", "USD 12", "Unlimited"],
+        ],
+      },
+    ]);
+  });
+
+  it("does not mistake a two-column layout for a table", async () => {
+    const { output, tables } = await convertPdfToMarkdown(fixture("columns.pdf"));
+    expect(tables).toEqual([]);
+    expect(output).not.toContain("|");
+    expect(output).toContain("LEFTCOL");
+    expect(output).toContain("RIGHTCOL");
+    // Read column by column: the left column is one paragraph that ends before
+    // the right column starts, instead of the two interleaving line by line.
+    const left = output.slice(output.indexOf("LEFTCOL"), output.indexOf("RIGHTCOL"));
+    expect(left.trim().split("\n").filter(Boolean)).toHaveLength(1);
+    expect(left.split(" ").length).toBeGreaterThan(30);
+  });
+
+  it("returns each page's output for mapping text back to its page", async () => {
+    const { pageOutputs, pageCount } = await convertPdfToMarkdown(fixture("pages-10.pdf"));
+    expect(pageOutputs).toHaveLength(pageCount);
+    pageOutputs.forEach((p, i) => expect(p).toContain(`MARKER-PAGE-${i + 1} `));
+  });
+});
+

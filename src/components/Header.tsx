@@ -1,14 +1,28 @@
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { toolMenuGroups } from "@/components/ToolSeo";
+import { USE_CASES } from "@/lib/use-cases";
 
 // Every entry is a page, never a homepage anchor: an anchor breaks as soon as
 // the visitor is anywhere other than `/`. Tools live in the "Tools" menu.
 const links = [
+  { href: "/examples", label: "Examples" },
+  { href: "/use-cases", label: "Use cases" },
+  { href: "/compare", label: "Compare" },
   { href: "/blog", label: "Guides" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/about", label: "About" },
 ];
+
+const useCaseGroup = {
+  title: "Use cases",
+  href: "/use-cases",
+  items: USE_CASES.map((u) => ({
+    href: `/use-cases/${u.slug}`,
+    name: `For ${u.name.toLowerCase()}`,
+    tagline: u.lead.split(". ")[0] + ".",
+    glyph: u.glyph,
+    tile: "#52525b",
+  })),
+};
 
 /** "Markdown·PDF" wordmark — the brand name stays one word for search, the dot is decoration. */
 export function Wordmark({ className = "" }: { className?: string }) {
@@ -28,7 +42,7 @@ export default function Header() {
         <Link href="/" aria-label="MarkdownPDF home" className="shrink-0 text-ink hover:opacity-80">
           <Wordmark />
         </Link>
-        <SiteNav groups={toolMenuGroups()} links={links} />
+        <SiteNav groups={[...toolMenuGroups(), useCaseGroup]} links={links} />
       </div>
     </header>
   );

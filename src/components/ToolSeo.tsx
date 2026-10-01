@@ -129,6 +129,9 @@ const GLYPHS: Record<string, string> = {
   "markdown-chunker": "RAG",
   "text-diff": "DIFF",
   "markdown-editor": "EDIT",
+  "pdf-tables-to-csv": "CSV",
+  "batch-pdf-to-markdown": "×N",
+  "pdf-to-obsidian": "OB",
 };
 
 /** Tile colour per primary category: the brand red for PDF tools, then fixed hues. */
