@@ -33,23 +33,22 @@ const columns = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-line bg-white text-neutral-600">
+    <footer className="mt-auto bg-ink text-sm text-neutral-400">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
-          <div className="col-span-2 sm:col-span-1">
-            <Wordmark className="text-ink" />
-            <p className="mt-3 text-sm leading-relaxed">
-              Free, private conversion between PDF and Markdown. Your files never leave your
-              browser.
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="col-span-2 md:col-span-1">
+            <Wordmark className="text-lg text-white [&>span]:text-brand-400" />
+            <p className="mt-3 max-w-xs leading-relaxed">
+              Clean Markdown from any PDF, in your browser. Your files never leave your device.
             </p>
           </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">{col.title}</p>
-              <ul className="mt-4 space-y-1">
+              <p className="font-semibold text-white">{col.title}</p>
+              <ul className="mt-3 space-y-0.5">
                 {col.links.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="block py-1 text-sm text-neutral-700 transition-colors hover:text-ink">
+                    <Link href={l.href} className="block py-1 transition-colors hover:text-white">
                       {l.label}
                     </Link>
                   </li>
@@ -58,16 +57,9 @@ export default function Footer() {
             </div>
           ))}
         </div>
-      </div>
-      <div className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-wrap gap-x-7 gap-y-2 px-4 py-5 text-[13px] sm:px-6 lg:px-10">
-          <span>✓ No upload</span>
-          <span>✓ No account</span>
-          <span>✓ Works on scanned PDFs</span>
-          <span className="w-full sm:ml-auto sm:w-auto">
-            © {new Date().getFullYear()} MarkdownPDF · markdownpdf.app
-          </span>
-        </div>
+        <p className="mt-10 border-t border-white/10 pt-6 text-xs">
+          © {new Date().getFullYear()} MarkdownPDF · markdownpdf.app — free, no upload, no account.
+        </p>
       </div>
     </footer>
   );

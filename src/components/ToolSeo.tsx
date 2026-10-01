@@ -2,7 +2,16 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { getPost } from "@/lib/blog";
 import { SITE } from "@/lib/site";
-import { getCategory, getTool, liveCategories, relatedTools, type CategoryId, type Tool } from "@/lib/tools";
+import {
+  CATEGORIES,
+  TOOLS,
+  getCategory,
+  getTool,
+  liveCategories,
+  relatedTools,
+  type CategoryId,
+  type Tool,
+} from "@/lib/tools";
 
 export interface Crumb {
   name: string;
@@ -130,8 +139,27 @@ const TILE: Record<CategoryId, string> = {
   ai: "oklch(0.6 0.13 200)",
 };
 
+/** The coloured tile shown beside a tool everywhere: cards, menu, related links. */
+export function toolBadge(tool: Tool): { glyph: string; tile: string } {
+  return { glyph: GLYPHS[tool.slug] ?? tool.output[0].slice(0, 3).toUpperCase(), tile: TILE[tool.categories[0]] };
+}
+
+/** Tools grouped under their primary category, for the header menus. */
+export function toolMenuGroups() {
+  return CATEGORIES.map((c) => ({
+    title: c.name,
+    href: liveCategories().some((l) => l.id === c.id) ? c.path : null,
+    items: TOOLS.filter((t) => t.categories[0] === c.id).map((t) => ({
+      href: t.path,
+      name: t.name,
+      tagline: t.tagline,
+      ...toolBadge(t),
+    })),
+  })).filter((g) => g.items.length > 0);
+}
+
 function ToolCard({ tool }: { tool: Tool }) {
-  const glyph = GLYPHS[tool.slug] ?? tool.output[0].slice(0, 3).toUpperCase();
+  const { glyph } = toolBadge(tool);
   return (
     <Link
       href={tool.path}
@@ -170,12 +198,32 @@ export function RelatedTools({ slug, heading = "Related tools" }: { slug: string
   if (tools.length === 0) return null;
   return (
     <section className="mx-auto max-w-5xl px-4 py-12" aria-labelledby="related-tools">
-      <h2 id="related-tools" className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">
+      <h2 id="related-tools" className="text-base font-bold text-ink">
         {heading}
       </h2>
-      <div className="mt-6">
-        <ToolGrid tools={tools} columns={3} />
-      </div>
+      <ul className="mt-4 flex flex-wrap gap-2.5 sm:gap-3">
+        {tools.map((t) => {
+          const { glyph, tile } = toolBadge(t);
+          return (
+            <li key={t.slug} className="w-full sm:w-auto">
+              <Link
+                href={t.path}
+                title={t.tagline}
+                className="flex min-h-12 items-center gap-2.5 rounded-[10px] border border-line bg-white py-2 pl-2 pr-4 text-sm font-semibold text-ink transition hover:border-neutral-300 hover:shadow-sm"
+              >
+                <span
+                  aria-hidden
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-mono text-[10px] font-semibold text-white"
+                  style={{ background: tile }}
+                >
+                  {glyph}
+                </span>
+                {t.name}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }

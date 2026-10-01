@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 interface Props {
   /** Passed to <input accept>, e.g. ".pdf,application/pdf". */
@@ -16,6 +16,10 @@ interface Props {
   /** Optional: fired while a file is dragged over, before it is dropped. */
   onDragIntent?: () => void;
   compact?: boolean;
+  /** Accept a file dropped anywhere on the page, not only on the zone itself. */
+  dropAnywhere?: boolean;
+  /** Receives the zone's "open the file picker" function (header CTA, "New file"). */
+  pickerRef?: React.RefObject<(() => void) | null>;
 }
 
 function UploadIcon({ className }: { className: string }) {
@@ -51,9 +55,12 @@ export default function FileDropzone({
   children,
   onDragIntent,
   compact = false,
+  dropAnywhere = false,
+  pickerRef,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragOver, setDragOver] = useState(false);
+  const [pageDrag, setPageDrag] = useState(false);
 
   const open = () => {
     if (!disabled) inputRef.current?.click();
@@ -64,6 +71,50 @@ export default function FileDropzone({
     const files = Array.from(list);
     onFiles(multiple ? files : files.slice(0, 1));
   };
+
+  const emitRef = useRef(emit);
+  const intentRef = useRef(onDragIntent);
+  useEffect(() => {
+    emitRef.current = emit;
+    intentRef.current = onDragIntent;
+    if (pickerRef) pickerRef.current = () => inputRef.current?.click();
+  });
+
+  useEffect(() => {
+    if (!dropAnywhere || disabled) return;
+    // dragenter/dragleave fire for every child crossed; count to know when the
+    // file has really left the window.
+    let depth = 0;
+    const hasFiles = (e: DragEvent) => Array.from(e.dataTransfer?.types ?? []).includes("Files");
+    const enter = (e: DragEvent) => {
+      if (!hasFiles(e)) return;
+      depth++;
+      setPageDrag(true);
+      intentRef.current?.();
+    };
+    const leave = () => {
+      depth = Math.max(0, depth - 1);
+      if (depth === 0) setPageDrag(false);
+    };
+    const over = (e: DragEvent) => hasFiles(e) && e.preventDefault();
+    const drop = (e: DragEvent) => {
+      if (!hasFiles(e)) return;
+      e.preventDefault();
+      depth = 0;
+      setPageDrag(false);
+      emitRef.current(e.dataTransfer?.files ?? null);
+    };
+    window.addEventListener("dragenter", enter);
+    window.addEventListener("dragleave", leave);
+    window.addEventListener("dragover", over);
+    window.addEventListener("drop", drop);
+    return () => {
+      window.removeEventListener("dragenter", enter);
+      window.removeEventListener("dragleave", leave);
+      window.removeEventListener("dragover", over);
+      window.removeEventListener("drop", drop);
+    };
+  }, [dropAnywhere, disabled]);
 
   return (
     <div
@@ -88,7 +139,8 @@ export default function FileDropzone({
       onDrop={(e) => {
         e.preventDefault();
         setDragOver(false);
-        emit(e.dataTransfer.files);
+        // With dropAnywhere the window listener handles it.
+        if (!dropAnywhere) emit(e.dataTransfer.files);
       }}
       onMouseEnter={onDragIntent}
       onFocus={onDragIntent}
@@ -100,6 +152,13 @@ export default function FileDropzone({
           : "border-neutral-300 bg-paper/60 hover:border-brand-400 hover:bg-brand-50/40"
       } ${disabled ? "pointer-events-none opacity-70" : ""}`}
     >
+      {pageDrag && (
+        <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-brand-600/10 p-6 backdrop-blur-[2px]">
+          <p className="rounded-2xl border-2 border-dashed border-brand-500 bg-white px-8 py-6 text-lg font-bold text-ink shadow-xl">
+            Drop to convert
+          </p>
+        </div>
+      )}
       <input
         ref={inputRef}
         type="file"
@@ -130,7 +189,10 @@ export default function FileDropzone({
               <UploadIcon className="h-5 w-5 sm:h-6 sm:w-6" />
               {buttonLabel(accept, multiple)}
             </span>
-            <p className="mt-3.5 text-[15px] text-neutral-600">{label}</p>
+            <p className="mt-3.5 text-[15px] text-neutral-600">
+              {label}
+              {dropAnywhere && <span className="pointer-coarse:hidden"> — anywhere on this page</span>}
+            </p>
             {hint && <div className="mt-2 text-sm text-neutral-500">{hint}</div>}
           </>
         ))}
@@ -145,7 +207,7 @@ export function PrivacyNote({ children }: { children?: ReactNode }) {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4 text-emerald-500" aria-hidden>
         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
       </svg>
-      {children ?? "Processed on your device — never uploaded"}
+      {children ?? "Your file never leaves your device"}
     </span>
   );
 }

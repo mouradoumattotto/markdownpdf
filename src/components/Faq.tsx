@@ -1,3 +1,4 @@
+import Link from "next/link";
 import JsonLd from "./JsonLd";
 
 export interface FaqItem {
@@ -7,30 +8,21 @@ export interface FaqItem {
 
 export default function Faq({ items, title = "Frequently asked questions" }: { items: FaqItem[]; title?: string }) {
   return (
-    <section className="mx-auto max-w-3xl">
-      <h2 className="text-center text-[1.75rem] font-extrabold tracking-[-0.03em] text-neutral-900 sm:text-4xl">
-        {title}
-      </h2>
-      <div className="mt-10 space-y-3">
+    <section className="mx-auto grid max-w-6xl gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+      <div>
+        <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-[-0.03em] text-ink sm:text-3xl">{title}</h2>
+        <p className="mt-2 text-[15px] text-neutral-600">Still stuck? <Link href="/contact" className="font-semibold text-brand-700 hover:underline">Ask us</Link>.</p>
+      </div>
+      <div className="border-t border-line">
         {items.map((item) => (
-          <details
-            key={item.question}
-            className="group rounded-xl border border-neutral-200 bg-white transition-colors open:border-indigo-200 open:shadow-sm hover:border-neutral-300"
-          >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden">
+          <details key={item.question} className="group border-b border-line">
+            <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-base font-semibold text-ink [&::-webkit-details-marker]:hidden">
               {item.question}
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                className="h-5 w-5 shrink-0 text-neutral-400 transition-transform group-open:rotate-180"
-                aria-hidden
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
+              <span aria-hidden className="text-xl font-normal leading-none text-neutral-500 transition-transform group-open:rotate-45">
+                +
+              </span>
             </summary>
-            <p className="px-5 pb-5 leading-relaxed text-neutral-600">{item.answer}</p>
+            <p className="pb-5 pr-8 leading-relaxed text-neutral-600">{item.answer}</p>
           </details>
         ))}
       </div>

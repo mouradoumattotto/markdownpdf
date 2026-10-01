@@ -33,6 +33,8 @@ export interface ConversionResult {
   pageCount: number;
   /** Pages that had no text layer and went through OCR. */
   ocrPages: number;
+  /** 1-based numbers of those pages — flagged for review in the result view. */
+  ocrPageNumbers: number[];
   /** Extracted images, referenced from the Markdown as images/<name>. */
   images: { name: string; blob: Blob }[];
 }
@@ -102,7 +104,7 @@ async function convertPdf(
   try {
     const doc = await raceAbort(loadingTask.promise, signal);
     const pages: string[] = [];
-    let ocrPages = 0;
+    const ocrPageNumbers: number[] = [];
     const images: { name: string; blob: Blob }[] = [];
     const seenImages = new Set<string>();
 
@@ -123,7 +125,7 @@ async function convertPdf(
         }
         onProgress?.({ page: pageNum, totalPages: doc.numPages, stage: "ocr" });
         pages.push(await raceAbort(ocrPage(page, ocrWorker), signal));
-        ocrPages++;
+        ocrPageNumbers.push(pageNum);
       } else {
         if (mode === "markdown" && extractImages) {
           const { extractPageImages } = await import("@/lib/pdf-page-images");
@@ -149,7 +151,7 @@ async function convertPdf(
       .filter(Boolean)
       .join("\n\n")
       .replace(/\n{3,}/g, "\n\n");
-    return { output: output ? output + "\n" : "", pageCount: doc.numPages, ocrPages, images };
+    return { output: output ? output + "\n" : "", pageCount: doc.numPages, ocrPages: ocrPageNumbers.length, ocrPageNumbers, images };
   } finally {
     signal?.removeEventListener("abort", stopOcr);
     await ocrWorker?.terminate().catch(() => {});

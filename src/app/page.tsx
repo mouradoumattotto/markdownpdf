@@ -52,54 +52,18 @@ const steps = [
   },
 ];
 
-const features = [
+const pillars = [
   {
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-    ),
-    title: "100% private by design",
-    description:
-      "Conversion happens entirely in your browser. Your contracts, reports, and notes are never uploaded to any server — we couldn't read them if we wanted to.",
+    title: "Clean output",
+    text: "Headings, lists, emphasis and tables come back as real Markdown. Tick “Extract images” and every figure is saved as a file, linked where it appeared.",
   },
   {
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V4.5a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5z" />
-    ),
-    title: "OCR for scanned PDFs",
-    description:
-      "Scanned pages without a text layer are detected and recognized automatically with built-in OCR in seven languages, including French, Spanish, German and Arabic.",
+    title: "Verify at a glance",
+    text: "The original PDF sits beside the Markdown. Scanned pages read with OCR are flagged, so you know exactly which ones to check.",
   },
   {
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h10.5" />
-    ),
-    title: "Structure preserved",
-    description:
-      "Headings, lists, emphasis, and paragraphs are detected from font metrics and rebuilt as clean, ready-to-use Markdown.",
-  },
-  {
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-    ),
-    title: "Ready for LLMs and notes",
-    description:
-      "Clean Markdown is what ChatGPT, Claude, NotebookLM, Obsidian, and Notion actually want. Structure survives, tokens drop, answers improve.",
-  },
-  {
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-    ),
-    title: "Instant, no limits",
-    description:
-      "No server round-trip means no waiting and no file size caps. A 300-page PDF converts as easily as a one-pager.",
-  },
-  {
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    ),
-    title: "Free forever",
-    description:
-      "No account, no watermark, no premium tier holding features hostage. Both converters are completely free.",
+    title: "Never uploaded",
+    text: "Everything runs in your browser — text extraction and OCR included. No account, no watermark, no page limit.",
   },
 ];
 
@@ -221,7 +185,7 @@ export default function HomePage() {
 
       {/* Hero — the converter itself, as on every tool page */}
       <section>
-        <div className="mx-auto max-w-5xl px-4 pb-10 pt-10 text-center sm:px-6 sm:pb-14 sm:pt-16">
+        <div className="mx-auto max-w-6xl px-4 pb-10 pt-8 text-center sm:px-6 sm:pb-14 sm:pt-16">
           <h1 className="animate-fade-up mx-auto max-w-3xl text-[2.125rem] font-extrabold leading-[1.05] tracking-[-0.035em] text-ink [text-wrap:balance] sm:text-[3.25rem]">
             Convert PDF to Markdown in seconds
           </h1>
@@ -230,22 +194,11 @@ export default function HomePage() {
             scanned documents. No sign-up, no upload, no limits.
           </p>
 
-          <div id="converter" className="animate-fade-up-delay-2 mx-auto mt-8 max-w-4xl scroll-mt-24 text-left sm:mt-10">
+          <div id="converter" className="animate-fade-up-delay-2 mx-auto mt-8 max-w-5xl scroll-mt-24 text-left sm:mt-10">
             <PdfToMarkdownTool />
           </div>
 
-          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-neutral-600">
-            {["No sign-up", "No watermark", "No file limits", "OCR included", "Works on mobile"].map((t) => (
-              <li key={t} className="inline-flex items-center gap-1.5">
-                <CheckIcon className="h-4 w-4 text-brand-600" />
-                {t}
-              </li>
-            ))}
-          </ul>
         </div>
-        <p className="flex items-center justify-center gap-2 bg-[oklch(0.97_0.02_150)] px-4 py-4 text-center text-[13px] font-medium text-[oklch(0.45_0.12_150)]">
-          <span aria-hidden>●</span> Processed in your browser — nothing is uploaded
-        </p>
       </section>
 
       {/* The rest of the suite — generated from src/lib/tools.ts */}
@@ -264,7 +217,7 @@ export default function HomePage() {
             <p className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
               {hubLinks().map((h) => (
                 <Link key={h.href} href={h.href} className="py-1 font-semibold text-brand-600 hover:underline">
-                  All {h.label.toLowerCase()} →
+                  All {h.label} →
                 </Link>
               ))}
             </p>
@@ -281,6 +234,18 @@ export default function HomePage() {
             account and no page limit. The output is plain Markdown you can paste into ChatGPT, Claude, NotebookLM, Obsidian, or a
             Git repository.
           </p>
+        </div>
+      </section>
+
+      {/* Three pillars — each promise said once */}
+      <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 sm:pb-20 lg:px-10">
+        <div className="grid gap-px overflow-hidden rounded-[14px] border border-line bg-line md:grid-cols-3">
+          {pillars.map((p) => (
+            <div key={p.title} className="bg-white p-6 sm:p-7">
+              <h3 className="text-[19px] font-bold text-ink">{p.title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-neutral-600">{p.text}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -354,35 +319,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="border-y border-line bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
-          <h2 className="text-center text-[1.75rem] font-extrabold tracking-[-0.03em] text-neutral-900 sm:text-4xl">
-            Built different from other converters
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
-            Most online converters upload your files to a server. We rebuilt conversion to run
-            entirely on your device instead.
-          </p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((f) => (
-              <div
-                key={f.title}
-                className="group rounded-[14px] border border-line bg-paper p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-neutral-300 sm:p-7"
-              >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-colors group-hover:bg-indigo-600 group-hover:text-white">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-6 w-6" aria-hidden>
-                    {f.icon}
-                  </svg>
-                </span>
-                <h3 className="mt-4 font-semibold text-neutral-900">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600">{f.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Comparison */}
       <section className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
         <h2 className="text-center text-[1.75rem] font-extrabold tracking-[-0.03em] text-neutral-900 sm:text-4xl">
@@ -414,35 +350,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Other direction */}
-      <section className="border-y border-line bg-white">
-        <div className="mx-auto max-w-4xl px-4 py-16">
-          <Link
-            href="/md-to-pdf"
-            className="group flex flex-col gap-6 rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10 sm:flex-row sm:items-center"
-          >
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-md">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-6 w-6" aria-hidden>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-              </svg>
-            </span>
-            <span className="flex-1">
-              <span className="block text-2xl font-bold text-neutral-900">
-                Need the other direction? Markdown <span className="text-indigo-600">→</span> PDF
-              </span>
-              <span className="mt-2 block leading-relaxed text-neutral-600">
-                Turn notes, READMEs, resumes, and docs into a polished A4 PDF with real selectable
-                text — no watermark, still 100% in your browser.
-              </span>
-            </span>
-            <span className="inline-flex items-center gap-1 font-semibold text-indigo-600">
-              Convert Markdown to PDF
-              <span className="transition-transform group-hover:translate-x-1">→</span>
-            </span>
-          </Link>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
         <Faq items={faqItems} />
@@ -453,31 +360,6 @@ export default function HomePage() {
         <BlogCluster posts={clusterPosts} heading="Guides: PDF to Markdown for every workflow" />
       </section>
 
-      {/* Final CTA */}
-      <section className="relative overflow-hidden bg-ink">
-        <div className="relative mx-auto max-w-4xl px-4 py-14 sm:py-20 text-center">
-          <h2 className="text-[1.75rem] font-extrabold tracking-[-0.03em] text-white sm:text-4xl">
-            Ready to convert your first PDF?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-neutral-300">
-            Free, instant, and private. Your document never leaves your device.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a
-              href="#converter"
-              className="rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-700"
-            >
-              Convert PDF → Markdown
-            </a>
-            <Link
-              href="/md-to-pdf"
-              className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/20"
-            >
-              Markdown → PDF
-            </Link>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
