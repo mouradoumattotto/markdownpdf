@@ -55,16 +55,11 @@ export default function PdfToJpgPage() {
       <ToolJsonLd slug="pdf-to-jpg" description={DESCRIPTION} />
 
       <div className="relative overflow-hidden">
-        <div className="bg-grid absolute inset-0" aria-hidden />
-        <div
-          className="absolute left-1/2 top-0 -z-10 h-96 w-[50rem] -translate-x-1/2 rounded-full bg-gradient-to-tr from-indigo-200/50 via-violet-200/30 to-transparent blur-3xl"
-          aria-hidden
-        />
         <div className="relative mx-auto max-w-5xl px-4 pb-14 pt-8">
           <Breadcrumbs crumbs={toolCrumbs(tool)} />
-          <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
+          <h1 className="mt-6 text-center text-3xl font-extrabold tracking-[-0.035em] text-neutral-900 sm:text-5xl">
             PDF to{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">JPG</span>
+            JPG
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
             Turn every page of a PDF — or just the ones you pick — into JPG or PNG images, at screen or print
@@ -77,7 +72,7 @@ export default function PdfToJpgPage() {
       </div>
 
       <section className="mx-auto max-w-3xl px-4 py-14">
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900">When a page works better as an image</h2>
+        <h2 className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">When a page works better as an image</h2>
         <div className="prose prose-neutral mt-4 max-w-none prose-a:text-indigo-600">
           <p>
             Slides and social posts accept images, not PDFs. A chat app shows an image inline while a PDF is an
@@ -106,7 +101,7 @@ export default function PdfToJpgPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 py-12">
-        <h2 className="text-xl font-bold text-neutral-900">Limitations</h2>
+        <h2 className="text-xl font-extrabold text-neutral-900">Limitations</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600">
           <li>Password-protected PDFs must be unlocked first.</li>
           <li>Very large pages (posters, plans) are rendered at a reduced resolution to stay within browser limits; the tool tells you when that happens.</li>

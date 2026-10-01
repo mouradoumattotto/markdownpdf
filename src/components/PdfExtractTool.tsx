@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ConversionProgress } from "@/lib/pdf-to-markdown";
 import { DEFAULT_OCR_LANGUAGE, OCR_LANGUAGES, type OcrLanguage } from "@/lib/ocr";
 import {
@@ -33,7 +33,16 @@ export type ExtractMode = "markdown" | "text";
 type Status =
   | { kind: "idle" }
   | { kind: "working"; progress: ConversionProgress | null; eta: number | null }
-  | { kind: "done"; fileName: string; pageCount: number; ocrPages: number; images: { name: string; blob: Blob }[]; imagesRequested: boolean }
+  | {
+      kind: "done";
+      fileName: string;
+      sourceName: string;
+      seconds: number;
+      pageCount: number;
+      ocrPages: number;
+      images: { name: string; blob: Blob }[];
+      imagesRequested: boolean;
+    }
   | { kind: "error"; message: string };
 
 const MODE = {
@@ -64,8 +73,10 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
   const [copyFailed, setCopyFailed] = useState(false);
   const [ocrLanguage, setOcrLanguage] = useState<OcrLanguage>(DEFAULT_OCR_LANGUAGE);
   const [extractImages, setExtractImages] = useState(false);
+  const [view, setView] = useState<"source" | "preview">("source");
   useStoredOcrLanguage(setOcrLanguage);
   const abortRef = useRef<AbortController | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
   const baseParams = useRef<ToolEventParams>({ tool_name: cfg.tool });
 
   // Warm the heavy modules the moment a file approaches the drop zone.
@@ -98,6 +109,7 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
       setStatus({ kind: "working", progress: null, eta: null });
       setOutput("");
       setCopyFailed(false);
+      setView("source");
       track("conversion_start", params);
 
       const started = performance.now();
@@ -153,6 +165,8 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
         setStatus({
           kind: "done",
           fileName: `${baseName(file.name)}.${cfg.ext}`,
+          sourceName: file.name,
+          seconds: (performance.now() - started) / 1000,
           pageCount: result.pageCount,
           ocrPages: result.ocrPages,
           images: result.images,
@@ -207,6 +221,16 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
     }
   };
 
+  // On a phone the result lands below the fold, under the drop zone: bring it up.
+  const done = status.kind === "done";
+  useEffect(() => {
+    const el = resultRef.current;
+    if (!done || !el) return;
+    if (el.getBoundingClientRect().top > window.innerHeight * 0.6) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [done]);
+
   const working = status.kind === "working";
   const words = output ? output.trim().split(/\s+/).length : 0;
   const progressValue =
@@ -226,7 +250,7 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
       >
         {working ? (
           <div className="w-full max-w-sm space-y-4" aria-live="polite">
-            <span className="mx-auto flex h-14 w-14 animate-pulse items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-500/30">
+            <span className="mx-auto flex h-14 w-14 animate-pulse items-center justify-center rounded-2xl bg-brand-600 text-white">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-7 w-7" aria-hidden>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
               </svg>
@@ -251,7 +275,7 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
                 checked={extractImages}
                 onChange={(e) => setExtractImages(e.target.checked)}
                 disabled={working}
-                className="accent-indigo-600"
+                className="h-4 w-4 accent-brand-600"
               />
               Extract images
             </label>
@@ -267,59 +291,116 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
       {status.kind === "error" && <ErrorAlert message={status.message} />}
 
       {status.kind === "done" && (
-        <div className="mt-6 animate-fade-up">
-          <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="flex items-center gap-2 font-semibold text-neutral-900">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5 text-emerald-500" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Conversion complete
+        <div ref={resultRef} className="mt-4 scroll-mt-20 animate-fade-up overflow-hidden rounded-xl border border-line sm:mt-6">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-line bg-white px-3 py-3 sm:px-4">
+            <div className="min-w-0 flex-1">
+              <h2 className="truncate text-sm font-semibold text-ink" title={status.sourceName}>
+                {status.sourceName}
               </h2>
               <p className="mt-0.5 text-xs text-neutral-500">
                 {status.pageCount.toLocaleString()} {status.pageCount === 1 ? "page" : "pages"}
-                {status.ocrPages > 0 && ` (${status.ocrPages} via OCR)`}
-                {status.images.length > 0 && ` · ${status.images.length} ${status.images.length === 1 ? "image" : "images"}`}
-                {status.imagesRequested && status.images.length === 0 && " · no images found"} ·{" "}
-                {words.toLocaleString()} words ·{" "}
-                {output.length.toLocaleString()} characters
+                {status.ocrPages > 0 && ` (${status.ocrPages} via OCR)`} · converted in{" "}
+                {status.seconds.toFixed(1)} s · {words.toLocaleString()} words
               </p>
             </div>
-            <div className="flex gap-2">
-              <button type="button" onClick={copy} className={secondaryButton}>
+            <div className="flex w-full gap-2 sm:w-auto">
+              <button type="button" onClick={copy} className={`${secondaryButton} flex-1 sm:flex-none`}>
                 {copied ? "✓ Copied" : "Copy"}
               </button>
               {status.images.length > 0 ? (
                 <>
-                  <button type="button" onClick={download} className={secondaryButton}>
+                  <button type="button" onClick={download} className={`${secondaryButton} flex-1 sm:flex-none`}>
                     {cfg.download}
                   </button>
-                  <button type="button" onClick={downloadZip} className={primaryButton}>
+                  <button type="button" onClick={downloadZip} className={`${primaryButton} flex-1 sm:flex-none`}>
                     Download .zip (with images)
                   </button>
                 </>
               ) : (
-                <button type="button" onClick={download} className={primaryButton}>
+                <button type="button" onClick={download} className={`${primaryButton} flex-1 sm:flex-none`}>
                   {cfg.download}
                 </button>
               )}
             </div>
           </div>
           {copyFailed && (
-            <p role="status" className="mb-2 text-sm text-amber-700">
+            <p role="status" className="border-b border-line bg-amber-50 px-4 py-2 text-sm text-amber-700">
               Your browser blocked clipboard access. Use Download, or select the text below and copy it.
             </p>
           )}
-          <textarea
-            value={output}
-            onChange={(e) => setOutput(e.target.value)}
-            spellCheck={false}
-            aria-label={`Converted ${cfg.label}`}
-            dir="auto"
-            className="h-80 w-full resize-y rounded-xl border border-neutral-200 bg-neutral-50 p-4 font-mono text-sm text-neutral-800 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
-          />
+          <div className="flex flex-wrap items-center gap-1 border-b border-line bg-white px-2.5 py-2 text-[13px] font-semibold">
+            {mode === "markdown" ? (
+              <div role="tablist" aria-label="Output view" className="flex gap-1">
+                {(["source", "preview"] as const).map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    role="tab"
+                    aria-selected={view === v}
+                    onClick={() => setView(v)}
+                    className={`rounded-md px-3 py-1.5 ${view === v ? "bg-ink text-white" : "text-neutral-600 hover:bg-neutral-100"}`}
+                  >
+                    {v === "source" ? "Markdown" : "Preview"}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <span className="rounded-md bg-ink px-3 py-1.5 text-white">Text</span>
+            )}
+            <span className="ml-auto px-2 py-1.5 text-xs font-medium text-emerald-700">
+              ✓ Conversion complete · {output.length.toLocaleString()} characters
+              {status.images.length > 0 &&
+                ` · ${status.images.length} ${status.images.length === 1 ? "image" : "images"}`}
+              {status.imagesRequested && status.images.length === 0 && " · no images found"}
+            </span>
+          </div>
+          {view === "preview" && mode === "markdown" ? (
+            <MarkdownPreview markdown={output} images={status.images} />
+          ) : (
+            <textarea
+              value={output}
+              onChange={(e) => setOutput(e.target.value)}
+              spellCheck={false}
+              aria-label={`Converted ${cfg.label}`}
+              dir="auto"
+              className="block h-80 w-full resize-y bg-white px-4 py-4 font-mono text-[13px] leading-[1.75] text-neutral-800 focus:outline-none sm:h-[28rem] sm:px-6"
+            />
+          )}
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * Rendered view of the result. Extracted images are referenced as images/<name>
+ * in the Markdown; they only exist as blobs here, so point those src at object
+ * URLs for the preview.
+ */
+function MarkdownPreview({ markdown, images }: { markdown: string; images: { name: string; blob: Blob }[] }) {
+  const [html, setHtml] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const urls = new Map(images.map((i) => [`images/${i.name}`, URL.createObjectURL(i.blob)]));
+    void import("@/lib/html-markdown").then(async ({ markdownToHtml }) => {
+      let body = await markdownToHtml(markdown);
+      for (const [path, url] of urls) body = body.split(`src="${path}"`).join(`src="${url}"`);
+      if (!cancelled) setHtml(body);
+    });
+    return () => {
+      cancelled = true;
+      for (const url of urls.values()) URL.revokeObjectURL(url);
+    };
+  }, [markdown, images]);
+
+  return html === null ? (
+    <p className="h-80 bg-white p-6 text-sm text-neutral-500 sm:h-[28rem]">Rendering preview…</p>
+  ) : (
+    // Already sanitised by DOMPurify in markdownToHtml.
+    <div
+      className="prose prose-neutral h-80 max-w-none overflow-auto bg-white px-4 py-4 prose-a:text-brand-600 prose-img:rounded-md sm:h-[28rem] sm:px-6"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }

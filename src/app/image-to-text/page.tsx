@@ -60,18 +60,11 @@ export default function ImageToTextPage() {
       <ToolJsonLd slug="image-to-text" description={DESCRIPTION} />
 
       <div className="relative overflow-hidden">
-        <div className="bg-grid absolute inset-0" aria-hidden />
-        <div
-          className="absolute left-1/2 top-0 -z-10 h-96 w-[50rem] -translate-x-1/2 rounded-full bg-gradient-to-tr from-indigo-200/50 via-violet-200/30 to-transparent blur-3xl"
-          aria-hidden
-        />
         <div className="relative mx-auto max-w-5xl px-4 pb-14 pt-8">
           <Breadcrumbs crumbs={toolCrumbs(tool)} />
-          <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
+          <h1 className="mt-6 text-center text-3xl font-extrabold tracking-[-0.035em] text-neutral-900 sm:text-5xl">
             Image to Text{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              (OCR)
-            </span>
+            (OCR)
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
             Get the text out of a photo, a screenshot or a scan. Seven languages including Arabic, free, and the
@@ -84,7 +77,7 @@ export default function ImageToTextPage() {
       </div>
 
       <section className="mx-auto max-w-3xl px-4 py-14">
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900">Why do this locally?</h2>
+        <h2 className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">Why do this locally?</h2>
         <div className="prose prose-neutral mt-4 max-w-none prose-a:text-indigo-600">
           <p>
             Think about what people actually run through an image-to-text tool: a screenshot of a conversation, a
@@ -118,7 +111,7 @@ export default function ImageToTextPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 py-12">
-        <h2 className="text-xl font-bold text-neutral-900">Limitations</h2>
+        <h2 className="text-xl font-extrabold text-neutral-900">Limitations</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600">
           <li>Printed text only — handwriting is not reliably recognised.</li>
           <li>One language at a time; a bilingual image will lose whichever language is not selected.</li>

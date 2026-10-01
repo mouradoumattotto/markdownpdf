@@ -8,7 +8,7 @@ export interface FaqItem {
 export default function Faq({ items, title = "Frequently asked questions" }: { items: FaqItem[]; title?: string }) {
   return (
     <section className="mx-auto max-w-3xl">
-      <h2 className="text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+      <h2 className="text-center text-[1.75rem] font-extrabold tracking-[-0.03em] text-neutral-900 sm:text-4xl">
         {title}
       </h2>
       <div className="mt-10 space-y-3">

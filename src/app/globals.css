@@ -1,13 +1,61 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/*
+ * "Hub rouge" palette. The components were written against Tailwind's indigo
+ * and violet scales; both now resolve to the one brand red (hue 27), so every
+ * indigo-600 / from-indigo-600 to-violet-600 in the codebase renders flat red
+ * without touching each file. Use `brand-*` in new code.
+ */
+@theme {
+  --color-brand-50: oklch(0.975 0.012 27);
+  --color-brand-100: oklch(0.94 0.03 27);
+  --color-brand-200: oklch(0.89 0.06 27);
+  --color-brand-300: oklch(0.81 0.11 27);
+  --color-brand-400: oklch(0.71 0.17 27);
+  --color-brand-500: oklch(0.64 0.2 27);
+  --color-brand-600: oklch(0.58 0.21 27);
+  --color-brand-700: oklch(0.51 0.19 27);
+  --color-brand-800: oklch(0.44 0.165 27);
+  --color-brand-900: oklch(0.39 0.14 27);
+  --color-brand-950: oklch(0.26 0.09 27);
+
+  --color-indigo-50: oklch(0.975 0.012 27);
+  --color-indigo-100: oklch(0.94 0.03 27);
+  --color-indigo-200: oklch(0.89 0.06 27);
+  --color-indigo-300: oklch(0.81 0.11 27);
+  --color-indigo-400: oklch(0.71 0.17 27);
+  --color-indigo-500: oklch(0.64 0.2 27);
+  --color-indigo-600: oklch(0.58 0.21 27);
+  --color-indigo-700: oklch(0.51 0.19 27);
+  --color-indigo-800: oklch(0.44 0.165 27);
+  --color-indigo-900: oklch(0.39 0.14 27);
+  --color-indigo-950: oklch(0.26 0.09 27);
+
+  --color-violet-50: oklch(0.975 0.012 27);
+  --color-violet-100: oklch(0.94 0.03 27);
+  --color-violet-200: oklch(0.89 0.06 27);
+  --color-violet-300: oklch(0.81 0.11 27);
+  --color-violet-400: oklch(0.71 0.17 27);
+  --color-violet-500: oklch(0.64 0.2 27);
+  --color-violet-600: oklch(0.58 0.21 27);
+  --color-violet-700: oklch(0.51 0.19 27);
+  --color-violet-800: oklch(0.44 0.165 27);
+  --color-violet-900: oklch(0.39 0.14 27);
+  --color-violet-950: oklch(0.26 0.09 27);
+
+  --color-paper: #f7f7f5;
+  --color-line: #e7e7e4;
+  --color-ink: #18181b;
+}
+
 body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 /* Subtle dotted grid used behind hero sections */
 .bg-grid {
-  background-image: radial-gradient(circle, rgb(99 102 241 / 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgb(24 24 27 / 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 

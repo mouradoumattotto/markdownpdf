@@ -97,7 +97,7 @@ export default async function BlogPostPage({
           ← All articles
         </Link>
       </nav>
-      <h1 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+      <h1 className="mt-4 text-3xl font-extrabold tracking-[-0.035em] text-neutral-900 sm:text-4xl">
         {post.title}
       </h1>
       <p className="mt-3 text-sm text-neutral-500">
@@ -148,7 +148,7 @@ export default async function BlogPostPage({
 
       {related.length > 0 && (
         <section className="mt-12 border-t border-neutral-200 pt-8">
-          <h2 className="text-xl font-bold tracking-tight text-neutral-900">
+          <h2 className="text-xl font-extrabold tracking-[-0.03em] text-neutral-900">
             Related articles
           </h2>
           <ul className="mt-5 space-y-4">

@@ -18,6 +18,24 @@ interface Props {
   compact?: boolean;
 }
 
+function UploadIcon({ className }: { className: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className={className} aria-hidden>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+    </svg>
+  );
+}
+
+/** "Select PDF file", "Select images"… — named after what the input accepts. */
+function buttonLabel(accept: string, multiple: boolean): string {
+  const a = accept.toLowerCase();
+  const plural = multiple ? "s" : "";
+  if (a === ".pdf,application/pdf") return `Select PDF file${plural}`;
+  if (a.includes("image/") && !a.includes("pdf")) return multiple ? "Select images" : "Select image";
+  if (a.includes(".docx") && !a.includes("pdf")) return `Select Word file${plural}`;
+  return `Select file${plural}`;
+}
+
 /**
  * Shared file picker used by every tool: drag and drop, click, or keyboard
  * (Enter / Space). The accessible name is computed from the visible text, so
@@ -74,12 +92,12 @@ export default function FileDropzone({
       }}
       onMouseEnter={onDragIntent}
       onFocus={onDragIntent}
-      className={`flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 text-center transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-200 ${
-        compact ? "py-8" : "py-14"
+      className={`group flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-4 text-center transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-200 sm:px-6 ${
+        compact ? "py-7" : "py-10 sm:py-14"
       } ${
         dragOver
-          ? "scale-[1.01] border-indigo-500 bg-indigo-50"
-          : "border-neutral-300 bg-neutral-50/80 hover:border-indigo-400 hover:bg-indigo-50/40"
+          ? "scale-[1.01] border-brand-500 bg-brand-50"
+          : "border-neutral-300 bg-paper/60 hover:border-brand-400 hover:bg-brand-50/40"
       } ${disabled ? "pointer-events-none opacity-70" : ""}`}
     >
       <input
@@ -94,20 +112,28 @@ export default function FileDropzone({
           e.target.value = "";
         }}
       />
-      {children ?? (
-        <>
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-500/30">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-7 w-7" aria-hidden>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-            </svg>
-          </span>
-          <p className="mt-5 text-lg font-semibold text-neutral-900">
-            {label}, or{" "}
-            <span className="text-indigo-600 underline decoration-indigo-300 underline-offset-4">browse</span>
-          </p>
-          {hint && <div className="mt-2 text-sm text-neutral-500">{hint}</div>}
-        </>
-      )}
+      {children ??
+        (compact ? (
+          <>
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 text-white">
+              <UploadIcon className="h-5 w-5" />
+            </span>
+            <p className="mt-3 font-semibold text-ink">
+              {label}, or{" "}
+              <span className="text-brand-600 underline decoration-brand-300 underline-offset-4">browse</span>
+            </p>
+            {hint && <div className="mt-1.5 text-sm text-neutral-500">{hint}</div>}
+          </>
+        ) : (
+          <>
+            <span className="inline-flex w-full max-w-xs items-center justify-center gap-2.5 rounded-xl bg-brand-600 px-8 py-4 text-lg font-bold text-white shadow-[0_12px_24px_-12px_var(--color-brand-600)] transition group-hover:bg-brand-700 sm:w-auto sm:max-w-none sm:px-16 sm:py-[22px] sm:text-xl">
+              <UploadIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+              {buttonLabel(accept, multiple)}
+            </span>
+            <p className="mt-3.5 text-[15px] text-neutral-600">{label}</p>
+            {hint && <div className="mt-2 text-sm text-neutral-500">{hint}</div>}
+          </>
+        ))}
     </div>
   );
 }
@@ -147,7 +173,7 @@ export function ProgressBar({ value, label }: { value: number; label: string }) 
       className="h-2 w-full overflow-hidden rounded-full bg-neutral-200"
     >
       <div
-        className="h-full rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 transition-all duration-300"
+        className="h-full rounded-full bg-brand-600 transition-all duration-300"
         style={{ width: `${pct}%` }}
       />
     </div>
@@ -155,10 +181,10 @@ export function ProgressBar({ value, label }: { value: number; label: string }) 
 }
 
 export const primaryButton =
-  "inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-indigo-500/30 transition-all hover:shadow-md hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:brightness-100";
+  "inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-600";
 
 export const secondaryButton =
-  "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-[#d4d4d0] bg-white px-3.5 py-2 text-sm font-semibold text-ink transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50";
 
 export const toolCard =
-  "rounded-3xl border border-neutral-200 bg-white p-4 text-left shadow-lg shadow-neutral-900/5 sm:p-6";
+  "rounded-2xl border border-line bg-white p-3 text-left shadow-[0_20px_50px_-30px_rgba(0,0,0,0.35)] sm:p-6";

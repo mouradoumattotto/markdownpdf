@@ -41,7 +41,7 @@ export default function HowItWorksPage() {
     <div className="mx-auto max-w-3xl px-4 py-12">
       <BreadcrumbJsonLd crumbs={crumbs} />
       <Breadcrumbs crumbs={crumbs} />
-      <h1 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+      <h1 className="mt-4 text-3xl font-extrabold tracking-[-0.035em] text-neutral-900 sm:text-4xl">
         How MarkdownPDF works
       </h1>
       <div className="prose prose-neutral mt-8 max-w-none prose-a:text-indigo-600">

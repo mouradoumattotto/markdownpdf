@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#4f46e5",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -54,7 +54,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-screen flex-col bg-white text-neutral-900">
+      <body className="flex min-h-screen flex-col bg-paper text-ink">
         <JsonLd
           data={{
             "@context": "https://schema.org",

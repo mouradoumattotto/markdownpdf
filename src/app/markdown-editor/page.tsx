@@ -55,12 +55,11 @@ export default function MarkdownEditorPage() {
       <ToolJsonLd slug="markdown-editor" description={DESCRIPTION} />
 
       <div className="relative overflow-hidden">
-        <div className="bg-grid absolute inset-0" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-8">
           <Breadcrumbs crumbs={toolCrumbs(tool)} />
-          <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
+          <h1 className="mt-6 text-center text-3xl font-extrabold tracking-[-0.035em] text-neutral-900 sm:text-5xl">
             Markdown{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Editor</span>
+            Editor
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
             Write in Markdown with a live preview. Your document autosaves in this browser — not on a server — and
@@ -73,7 +72,7 @@ export default function MarkdownEditorPage() {
       </div>
 
       <section className="mx-auto max-w-3xl px-4 py-14">
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900">An editor that keeps your drafts to itself</h2>
+        <h2 className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">An editor that keeps your drafts to itself</h2>
         <div className="prose prose-neutral mt-4 max-w-none prose-a:text-indigo-600">
           <p>
             Online editors usually store your documents on their servers, behind an account. This one stores them
@@ -99,7 +98,7 @@ export default function MarkdownEditorPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 py-12">
-        <h2 className="text-xl font-bold text-neutral-900">Limitations</h2>
+        <h2 className="text-xl font-extrabold text-neutral-900">Limitations</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600">
           <li>One document at a time, saved in this browser only — not synced between devices.</li>
           <li>Private windows and cleared site data lose the autosaved copy; download to keep it.</li>

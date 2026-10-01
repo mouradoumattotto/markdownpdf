@@ -21,7 +21,7 @@ export function renderOgCard({ title, subtitle }: { title: string; subtitle: str
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px",
-          background: "linear-gradient(135deg, #312e81 0%, #4f46e5 55%, #7c3aed 100%)",
+          background: "linear-gradient(135deg, #18181b 0%, #3f1512 55%, #c4281c 100%)",
           color: "white",
           fontFamily: "sans-serif",
         }}
@@ -48,7 +48,7 @@ export function renderOgCard({ title, subtitle }: { title: string; subtitle: str
         <div style={{ display: "flex", fontSize: 64, fontWeight: 800, lineHeight: 1.1, maxWidth: 1000 }}>
           {title}
         </div>
-        <div style={{ display: "flex", fontSize: 26, color: "#c7d2fe" }}>{subtitle}</div>
+        <div style={{ display: "flex", fontSize: 26, color: "#fecaca" }}>{subtitle}</div>
       </div>
     ),
     OG_SIZE,

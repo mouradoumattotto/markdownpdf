@@ -76,18 +76,11 @@ export default function SplitPdfForAiPage() {
       <ToolJsonLd slug="split-pdf-for-ai" description={DESCRIPTION} />
 
       <div className="relative overflow-hidden">
-        <div className="bg-grid absolute inset-0" aria-hidden />
-        <div
-          className="absolute left-1/2 top-0 -z-10 h-96 w-[50rem] -translate-x-1/2 rounded-full bg-gradient-to-tr from-indigo-200/50 via-violet-200/30 to-transparent blur-3xl"
-          aria-hidden
-        />
         <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-8">
           <Breadcrumbs crumbs={toolCrumbs(tool)} />
-          <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
+          <h1 className="mt-6 text-center text-3xl font-extrabold tracking-[-0.035em] text-neutral-900 sm:text-5xl">
             Split a PDF for{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              NotebookLM, ChatGPT and Claude
-            </span>
+            NotebookLM, ChatGPT and Claude
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
             A textbook, a thesis or a year of board minutes rarely fits in one upload. This tool counts the words,
@@ -101,7 +94,7 @@ export default function SplitPdfForAiPage() {
       </div>
 
       <section className="mx-auto max-w-4xl px-4 py-14">
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900">
+        <h2 className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">
           The upload limits, and where they come from
         </h2>
         <p className="mt-3 text-neutral-600">
@@ -144,7 +137,7 @@ export default function SplitPdfForAiPage() {
 
       <section className="border-t border-neutral-100 bg-neutral-50/60">
         <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-center text-3xl font-bold tracking-tight text-neutral-900">How it works</h2>
+          <h2 className="text-center text-3xl font-extrabold tracking-[-0.03em] text-neutral-900">How it works</h2>
           <ol className="mt-12 grid gap-8 sm:grid-cols-3">
             {steps.map((s, i) => (
               <li key={s.name} className="relative rounded-2xl bg-white p-7 shadow-sm ring-1 ring-neutral-100">
@@ -160,7 +153,7 @@ export default function SplitPdfForAiPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 py-14">
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900">Split by chapter, not by page count</h2>
+        <h2 className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">Split by chapter, not by page count</h2>
         <div className="prose prose-neutral mt-4 max-w-none prose-a:text-indigo-600">
           <p>
             Cutting a book every 80 pages puts the end of chapter 3 and the start of chapter 4 in the same file, and
@@ -194,7 +187,7 @@ export default function SplitPdfForAiPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 py-12">
-        <h2 className="text-xl font-bold text-neutral-900">Limitations</h2>
+        <h2 className="text-xl font-extrabold text-neutral-900">Limitations</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600">
           <li>
             Word counts come from the PDF&apos;s text layer. Scanned pages count as zero words — the summary says how

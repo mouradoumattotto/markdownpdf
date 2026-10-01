@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Wordmark } from "@/components/Header";
 import { hubLinks } from "@/components/ToolSeo";
 import { TOOLS } from "@/lib/tools";
 
@@ -32,36 +33,23 @@ const columns = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-neutral-200 bg-neutral-950 text-neutral-300">
-      <div className="mx-auto max-w-6xl px-4 py-14">
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
+    <footer className="mt-auto border-t border-line bg-white text-neutral-600">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-1">
-            <p className="flex items-center gap-2 font-semibold text-white">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 text-xs">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 4h7l5 5v11a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1z" />
-                </svg>
-              </span>
-              MarkdownPDF
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-neutral-400">
+            <Wordmark className="text-ink" />
+            <p className="mt-3 text-sm leading-relaxed">
               Free, private conversion between PDF and Markdown. Your files never leave your
               browser.
-            </p>
-            <p className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5" aria-hidden>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.6 6c-.27.797-.413 1.65-.413 2.54 0 5.59 3.82 10.29 9 11.62 5.18-1.33 9-6.03 9-11.62 0-.89-.143-1.743-.413-2.54a11.96 11.96 0 01-8.4-3.286z" />
-              </svg>
-              No file uploads, ever
             </p>
           </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <p className="text-sm font-semibold text-white">{col.title}</p>
-              <ul className="mt-4 space-y-2.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500">{col.title}</p>
+              <ul className="mt-4 space-y-1">
                 {col.links.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="text-sm text-neutral-400 transition-colors hover:text-white">
+                    <Link href={l.href} className="block py-1 text-sm text-neutral-700 transition-colors hover:text-ink">
                       {l.label}
                     </Link>
                   </li>
@@ -70,9 +58,16 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        <p className="mt-12 border-t border-neutral-800 pt-6 text-xs text-neutral-400">
-          © {new Date().getFullYear()} MarkdownPDF · markdownpdf.app — All rights reserved.
-        </p>
+      </div>
+      <div className="border-t border-line">
+        <div className="mx-auto flex max-w-7xl flex-wrap gap-x-7 gap-y-2 px-4 py-5 text-[13px] sm:px-6 lg:px-10">
+          <span>✓ No upload</span>
+          <span>✓ No account</span>
+          <span>✓ Works on scanned PDFs</span>
+          <span className="w-full sm:ml-auto sm:w-auto">
+            © {new Date().getFullYear()} MarkdownPDF · markdownpdf.app
+          </span>
+        </div>
       </div>
     </footer>
   );

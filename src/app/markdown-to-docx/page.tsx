@@ -66,18 +66,11 @@ export default function MarkdownToDocxPage() {
       <ToolJsonLd slug="markdown-to-docx" description={DESCRIPTION} />
 
       <div className="relative overflow-hidden">
-        <div className="bg-grid absolute inset-0" aria-hidden />
-        <div
-          className="absolute left-1/2 top-0 -z-10 h-96 w-[50rem] -translate-x-1/2 rounded-full bg-gradient-to-tr from-indigo-200/50 via-violet-200/30 to-transparent blur-3xl"
-          aria-hidden
-        />
         <div className="relative mx-auto max-w-4xl px-4 pb-14 pt-8">
           <Breadcrumbs crumbs={toolCrumbs(tool)} />
-          <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
+          <h1 className="mt-6 text-center text-3xl font-extrabold tracking-[-0.035em] text-neutral-900 sm:text-5xl">
             Markdown to{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-              Word Converter
-            </span>
+            Word Converter
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
             Paste Markdown or drop a .md file and download a Word document with real heading styles, numbered lists
@@ -90,7 +83,7 @@ export default function MarkdownToDocxPage() {
       </div>
 
       <section className="mx-auto max-w-3xl px-4 py-14">
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900">Write in Markdown, deliver in Word</h2>
+        <h2 className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">Write in Markdown, deliver in Word</h2>
         <div className="prose prose-neutral mt-4 max-w-none prose-a:text-indigo-600">
           <p>
             Markdown is faster to write and easier to keep in version control; many colleagues, clients and
@@ -157,7 +150,7 @@ export default function MarkdownToDocxPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 py-12">
-        <h2 className="text-xl font-bold text-neutral-900">Limitations</h2>
+        <h2 className="text-xl font-extrabold text-neutral-900">Limitations</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600">
           <li>Mermaid diagrams and LaTeX math stay as source text.</li>
           <li>Only images embedded as data URIs are included; linked images keep their description.</li>

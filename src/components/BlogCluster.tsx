@@ -16,7 +16,7 @@ export default function BlogCluster({
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-14">
-      <h2 className="text-2xl font-bold tracking-tight text-neutral-900">{heading}</h2>
+      <h2 className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">{heading}</h2>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
         {posts.map((post) => (
           <li key={post.slug}>

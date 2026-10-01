@@ -15,7 +15,7 @@ export default function NotFound() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-16">
       <p className="text-sm font-semibold text-indigo-600">404</p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+      <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.035em] text-neutral-900 sm:text-4xl">
         This page does not exist
       </h1>
       <p className="mt-4 max-w-2xl text-lg text-neutral-600">

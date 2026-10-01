@@ -1,46 +1,52 @@
 import Link from "next/link";
+import MobileMenu from "@/components/MobileMenu";
+import { hubLinks } from "@/components/ToolSeo";
 
-// "Tools" points at the full tool grid on the homepage rather than a separate
+// "All tools" points at the full tool grid on the homepage rather than a separate
 // "all tools" URL: one more thin listing page would compete with the hubs.
 const links = [
-  { href: "/", label: "PDF → Markdown" },
-  { href: "/md-to-pdf", label: "Markdown → PDF" },
   { href: "/#all-tools", label: "All tools" },
+  { href: "/md-to-pdf", label: "Markdown to PDF" },
   { href: "/blog", label: "Guides" },
+  { href: "/how-it-works", label: "How it works" },
 ];
 
-export default function Header() {
+/** "Markdown·PDF" wordmark — the brand name stays one word for search, the dot is decoration. */
+export function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-neutral-200/60 bg-white/75 backdrop-blur-lg">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="group flex items-center gap-2.5 font-semibold text-neutral-900">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25 transition-transform group-hover:scale-105">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5" aria-hidden>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M7 4h7l5 5v11a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 13l2.5 2.5L14.5 13M12 9.5v6" />
-            </svg>
-          </span>
-          <span className="text-lg tracking-tight">
-            Markdown<span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">PDF</span>
-          </span>
+    <span className={`text-xl font-extrabold tracking-[-0.02em] ${className}`}>
+      Markdown<span className="text-brand-600" aria-hidden>·</span>PDF
+    </span>
+  );
+}
+
+export default function Header() {
+  const menu = [
+    ...links,
+    ...hubLinks().map((h) => ({ href: h.href, label: h.label })),
+  ];
+  return (
+    <header className="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-lg">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-10">
+        <Link href="/" aria-label="MarkdownPDF home" className="shrink-0 text-ink hover:opacity-80">
+          <Wordmark />
         </Link>
-        <nav className="flex items-center gap-1" aria-label="Main navigation">
+        <nav className="hidden flex-1 items-center gap-6 text-sm font-medium md:flex" aria-label="Main navigation">
           {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="hidden rounded-lg px-3 py-2 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:block"
-            >
+            <Link key={l.href} href={l.href} className="text-neutral-700 transition-colors hover:text-ink">
               {l.label}
             </Link>
           ))}
+        </nav>
+        <div className="ml-auto flex items-center gap-2 md:ml-0">
           <Link
             href="/#converter"
-            className="ml-2 rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-indigo-500/30 transition-all hover:shadow-md hover:shadow-indigo-500/40 hover:brightness-110"
+            className="rounded-lg bg-ink px-3.5 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-85 sm:px-4"
           >
-            Convert now
+            Convert a PDF
           </Link>
-        </nav>
+          <MobileMenu links={menu} />
+        </div>
       </div>
     </header>
   );

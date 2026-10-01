@@ -97,24 +97,65 @@ export function ToolJsonLd({ slug, description }: { slug: string; description: s
   );
 }
 
+/** Short mono glyph on each card tile, as in the "Hub rouge" design. */
+const GLYPHS: Record<string, string> = {
+  "pdf-to-markdown": "MD",
+  "markdown-to-pdf": "PDF",
+  "split-pdf-for-ai": "AI",
+  "pdf-metadata": "META",
+  "pdf-to-text": "TXT",
+  "ocr-pdf": "OCR",
+  "image-to-text": "IMG",
+  "docx-to-markdown": "DOC",
+  "html-to-markdown": "HTML",
+  "markdown-to-html": "</>",
+  "split-pdf": "SPLT",
+  "merge-pdf": "+",
+  "pdf-to-jpg": "JPG",
+  "jpg-to-pdf": "PDF",
+  "organize-pdf": "ORG",
+  "markdown-to-docx": "DOCX",
+  "markdown-table-generator": "TBL",
+  "token-counter": "TOK",
+  "markdown-chunker": "RAG",
+  "text-diff": "DIFF",
+  "markdown-editor": "EDIT",
+};
+
+/** Tile colour per primary category: the brand red for PDF tools, then fixed hues. */
+const TILE: Record<CategoryId, string> = {
+  pdf: "oklch(0.58 0.21 27)",
+  ocr: "oklch(0.6 0.15 150)",
+  markdown: "oklch(0.55 0.17 262)",
+  ai: "oklch(0.6 0.13 200)",
+};
+
 function ToolCard({ tool }: { tool: Tool }) {
+  const glyph = GLYPHS[tool.slug] ?? tool.output[0].slice(0, 3).toUpperCase();
   return (
     <Link
       href={tool.path}
-      className="group block h-full rounded-xl border border-neutral-200 bg-white p-5 transition hover:border-indigo-300 hover:shadow-sm"
+      className="group flex h-full gap-4 rounded-[14px] border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-neutral-300 hover:shadow-[0_12px_30px_-18px_rgba(0,0,0,0.3)] sm:flex-col sm:gap-3.5 sm:p-[22px]"
     >
-      <span className="font-semibold text-neutral-900 group-hover:text-indigo-600">{tool.name}</span>
-      <span className="mt-1 block text-sm text-neutral-600">{tool.tagline}</span>
-      <span className="mt-3 block text-xs text-neutral-500">
-        {tool.input.join(", ")} → {tool.output.join(", ")}
+      <span
+        aria-hidden
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl font-mono text-xs font-semibold text-white sm:h-12 sm:w-12"
+        style={{ background: TILE[tool.categories[0]] }}
+      >
+        {glyph}
+      </span>
+      <span className="min-w-0">
+        <span className="block text-base font-bold tracking-[-0.01em] text-ink sm:text-lg">{tool.name}</span>
+        <span className="mt-1 block text-sm leading-normal text-neutral-600">{tool.tagline}</span>
       </span>
     </Link>
   );
 }
 
-export function ToolGrid({ tools, columns = 3 }: { tools: Tool[]; columns?: 2 | 3 }) {
+export function ToolGrid({ tools, columns = 4 }: { tools: Tool[]; columns?: 2 | 3 | 4 }) {
+  const cols = { 2: "", 3: "lg:grid-cols-3", 4: "lg:grid-cols-3 xl:grid-cols-4" }[columns];
   return (
-    <ul className={`grid gap-4 sm:grid-cols-2 ${columns === 3 ? "lg:grid-cols-3" : ""}`}>
+    <ul className={`grid gap-3 sm:grid-cols-2 sm:gap-4 ${cols}`}>
       {tools.map((t) => (
         <li key={t.slug}>
           <ToolCard tool={t} />
@@ -129,11 +170,11 @@ export function RelatedTools({ slug, heading = "Related tools" }: { slug: string
   if (tools.length === 0) return null;
   return (
     <section className="mx-auto max-w-5xl px-4 py-12" aria-labelledby="related-tools">
-      <h2 id="related-tools" className="text-2xl font-bold tracking-tight text-neutral-900">
+      <h2 id="related-tools" className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">
         {heading}
       </h2>
       <div className="mt-6">
-        <ToolGrid tools={tools} />
+        <ToolGrid tools={tools} columns={3} />
       </div>
     </section>
   );
@@ -145,7 +186,7 @@ export function ToolGuides({ slug, heading = "Guides" }: { slug: string; heading
   if (posts.length === 0) return null;
   return (
     <section className="mx-auto max-w-5xl px-4 pb-12" aria-labelledby="tool-guides">
-      <h2 id="tool-guides" className="text-2xl font-bold tracking-tight text-neutral-900">
+      <h2 id="tool-guides" className="text-2xl font-extrabold tracking-[-0.03em] text-neutral-900">
         {heading}
       </h2>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -153,7 +194,7 @@ export function ToolGuides({ slug, heading = "Guides" }: { slug: string; heading
           <li key={p.slug}>
             <Link
               href={`/blog/${p.slug}`}
-              className="group block h-full rounded-xl border border-neutral-200 p-5 transition hover:border-indigo-300 hover:shadow-sm"
+              className="group block h-full rounded-[14px] border border-line bg-white p-5 transition hover:border-neutral-300 hover:shadow-sm"
             >
               <span className="font-semibold text-neutral-900 group-hover:text-indigo-600">{p.title}</span>
               <span className="mt-1 block text-sm text-neutral-600">{p.description}</span>
