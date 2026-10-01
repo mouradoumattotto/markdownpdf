@@ -72,8 +72,11 @@ export default function RootLayout({
                 logo: {
                   "@type": "ImageObject",
                   "@id": `${SITE.url}/#logo`,
-                  url: `${SITE.url}/icon.svg`,
-                  contentUrl: `${SITE.url}/icon.svg`,
+                  // A raster logo: Google's logo guidelines want at least 112×112.
+                  url: `${SITE.url}/logo.png`,
+                  contentUrl: `${SITE.url}/logo.png`,
+                  width: 512,
+                  height: 512,
                 },
                 // No `sameAs`: it must only list profiles that actually exist.
                 // x.com/markdownpdf is unregistered — claiming it is a broken
