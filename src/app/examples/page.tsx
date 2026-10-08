@@ -6,9 +6,9 @@ import { BreadcrumbJsonLd, Breadcrumbs } from "@/components/ToolSeo";
 import { SAMPLES, sampleThumb, sampleUrl } from "@/lib/samples";
 
 export const metadata: Metadata = {
-  title: "Examples — Real PDFs Converted to Markdown, Rough Edges Included",
+  title: "PDF to Markdown Examples on Real Documents",
   description:
-    "Run the converter live on real documents: a two-column research paper, a 1933 scanned report, Census and energy data tables, an IRS form, a 32-page NIST standard.",
+    "Run the converter live on real documents: a two-column paper, a 1933 scanned report, Census and energy tables, an IRS form, a 32-page NIST standard.",
   alternates: { canonical: "/examples" },
 };
 

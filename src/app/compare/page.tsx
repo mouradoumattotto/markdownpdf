@@ -3,9 +3,9 @@ import Link from "next/link";
 import { BreadcrumbJsonLd, Breadcrumbs } from "@/components/ToolSeo";
 
 export const metadata: Metadata = {
-  title: "MarkdownPDF vs Other PDF to Markdown Converters — Honest Comparison",
+  title: "PDF to Markdown Converters Compared",
   description:
-    "How a browser-based PDF to Markdown converter compares with online converters, Marker, Docling, Mathpix and pandoc — including when another tool is the better choice.",
+    "How a browser-based PDF to Markdown converter compares with online converters, Marker, Docling, Mathpix and pandoc, and when another tool is the better pick.",
   alternates: { canonical: "/compare" },
 };
 

@@ -107,6 +107,10 @@ With this converter, yes: the file is read and converted locally in your browser
 
 For a long document you will query repeatedly, splitting by chapter usually beats one enormous source: each source gets its own citation surface, and you can see at a glance which chapter an answer came from. The trade-off is source slots, which are limited per notebook, so split by meaningful section rather than arbitrarily.
 
+### Can I share my notes as a PDF afterwards?
+
+Yes. If you write up what you learned in Markdown, in Obsidian, a code editor or any text editor, the [Markdown to PDF converter](/md-to-pdf) turns it into a formatted PDF for people who do not use NotebookLM. It runs in your browser too.
+
 ### My document is too big for one source — what then?
 
 Check the real ceiling first: 500,000 words or 200 MB per source, and 50 sources per notebook on the free plan, so splitting a book into 40 chapters costs you most of the notebook. [Split PDF for AI](/split-pdf-for-ai) counts the words, tells you when no split is needed, and cuts at chapter boundaries when the PDF has bookmarks. The full picture across tools is in [AI file upload limits](/blog/ai-file-upload-limits).

@@ -5,7 +5,7 @@ import HubPage from "@/components/HubPage";
 export const metadata: Metadata = {
   title: "Free PDF Tools — No Upload, No Account",
   description:
-    "Free PDF tools that run in your browser: convert PDFs to Markdown with OCR, split them for AI tools, build PDFs from Markdown. Your files never leave your device.",
+    "Free PDF tools that run in your browser: convert PDFs to Markdown with OCR, split them for AI tools, build PDFs from Markdown. Files never leave your device.",
   alternates: { canonical: "/pdf-tools" },
   openGraph: {
     title: "Free PDF tools that never upload your files",

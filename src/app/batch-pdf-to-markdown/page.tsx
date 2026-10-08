@@ -10,7 +10,7 @@ const DESCRIPTION =
   "Convert many PDFs to Markdown at once, free and in your browser. OCR for scanned pages, optional images, one ZIP with a .md file per PDF. Nothing uploaded.";
 
 export const metadata: Metadata = {
-  title: "Batch PDF to Markdown — Convert Many PDFs at Once",
+  title: "Batch PDF to Markdown — Convert Many PDFs",
   description: DESCRIPTION,
   alternates: { canonical: "/batch-pdf-to-markdown" },
   openGraph: {

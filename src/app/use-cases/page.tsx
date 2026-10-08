@@ -4,7 +4,7 @@ import { BreadcrumbJsonLd, Breadcrumbs } from "@/components/ToolSeo";
 import { USE_CASES } from "@/lib/use-cases";
 
 export const metadata: Metadata = {
-  title: "Use Cases — PDF to Markdown for Lawyers, Researchers, Finance, Students",
+  title: "PDF to Markdown Use Cases by Profession",
   description:
     "How lawyers, researchers, finance teams and students use browser-based PDF conversion: privileged files kept local, papers to notes, tables to spreadsheets.",
   alternates: { canonical: "/use-cases" },

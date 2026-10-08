@@ -63,7 +63,7 @@ None of these are visible in the answer. The only defence is knowing the limit b
 
 Limits are counted in words, tokens or bytes — and a PDF is an expensive way to carry text. A PDF stores positioned glyphs, embedded fonts and images; the same content as Markdown is plain text with a few symbols for structure.
 
-Converting first usually does three things at once: the size drops sharply, the headings survive as real headings (which is what lets a model locate an answer inside the document), and the layout noise disappears. Our [PDF to Markdown converter](/) does it in the browser, with OCR for scanned pages, and nothing is uploaded. If you want the evidence behind "Markdown reads better", see [why LLMs read Markdown better than PDF](/blog/why-llms-prefer-markdown).
+Converting first usually does three things at once: the size drops sharply, the headings survive as real headings (which is what lets a model locate an answer inside the document), and the layout noise disappears. Our [PDF to Markdown converter](/) does it in the browser, with OCR for scanned pages, and nothing is uploaded. If you want the evidence behind "Markdown reads better", see [why LLMs read Markdown better than PDF](/blog/why-llms-prefer-markdown). It also works the other way round: ChatGPT, Claude and Gemini answer in Markdown, and [Markdown to PDF](/md-to-pdf) turns a long answer into a PDF you can share.
 
 ### Split what is still too large
 

@@ -1,9 +1,9 @@
 ---
 title: Extract Text From a Scanned PDF - Step-by-Step Guide
-seoTitle: Extract Text From a Scanned PDF (OCR)
+seoTitle: "Scanned PDF to Text: Extract It Free (OCR)"
 description: Extract text from a scanned PDF free with browser-based OCR - identify scans, run recognition, understand how OCR works, and fix the predictable errors.
 date: 2026-06-13
-updated: 2026-09-17
+updated: 2026-10-08
 author: Mourad Oumita
 ---
 
@@ -41,15 +41,21 @@ Typical real-world cases: digitizing old paper records, extracting data from rec
 
 ## Step 2: Run the extraction
 
-You do not need to install desktop software or pay for a subscription for most scanned documents. Here is the workflow with our free [PDF to Markdown converter](/), which has OCR built in:
+You do not need to install desktop software or pay for a subscription for most scanned documents. Pick the free tool that matches what you want at the end — all three have the same OCR built in and run in your browser:
 
-1. **Open the converter** in any modern browser — it works on Windows, Mac, Linux, and even tablets.
-2. **Drop your PDF** onto the page. The file is processed locally in your browser using OCR that runs on your own machine — it is never uploaded to a server, which matters when the scan is a contract, a medical record, or anything else you would not email to a stranger.
-3. **Wait for recognition.** Digital text is read directly; scanned pages go through OCR. A few pages take seconds; a long scan takes a bit longer because every page is analyzed image by image.
-4. **Review the output** in the preview pane next to the original.
-5. **Copy or download** the result as Markdown — plain text you can paste anywhere, edit in any editor, or keep in your notes app.
+- **Just the text**, to paste or save as a `.txt` file: [PDF to Text](/pdf-to-text).
+- **The same PDF, but searchable**, so you can select, search and copy inside it: [OCR a PDF](/ocr-pdf). It adds an invisible text layer under each scanned page.
+- **Text with its structure**, with headings and lists kept, for notes or an AI tool: the [PDF to Markdown converter](/).
 
-Why Markdown instead of a `.txt` file? Because Markdown preserves *structure*: headings stay headings, lists stay lists. That structure is exactly what you lose with basic copy-paste, and it makes the extracted text far more useful. New to the format? See our [complete guide to Markdown](/blog/what-is-markdown-complete-guide).
+The steps are the same in each:
+
+1. **Open the tool** in any modern browser — it works on Windows, Mac, Linux, and even tablets.
+2. **Pick the language** of the scan under the drop zone. Recognition uses a language model, so the right choice matters, especially for accented text.
+3. **Drop your PDF** onto the page. The file is processed locally in your browser using OCR that runs on your own machine — it is never uploaded to a server, which matters when the scan is a contract, a medical record, or anything else you would not email to a stranger.
+4. **Wait for recognition.** Digital text is read directly; scanned pages go through OCR. A few pages take seconds; a long scan takes a bit longer because every page is analyzed image by image.
+5. **Check and save the result.** PDF to Text gives you an editable box to copy from or download as `.txt`. OCR a PDF gives you the searchable PDF back. PDF to Markdown gives you a `.md` file.
+
+Which one should you choose? Take plain text when you only need the words: a form, a script, a quote. Take the searchable PDF when the document must stay a document, like a contract or an archive you need to search later. Take Markdown when the structure matters: headings stay headings and lists stay lists, which is what you lose with basic copy-paste. New to the format? See our [complete guide to Markdown](/blog/what-is-markdown-complete-guide).
 
 ## How OCR works, and why that matters to you
 

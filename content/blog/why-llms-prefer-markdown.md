@@ -86,7 +86,7 @@ Ask a model "which region grew fastest?" against the first version and it has to
 
 The case for Markdown goes beyond any single chat session. Look around the AI tooling landscape:
 
-- Chat models *output* Markdown by default.
+- Chat models *output* Markdown by default, which is why an answer you want to hand to someone as a document converts cleanly with a [Markdown to PDF converter](/md-to-pdf).
 - System prompts and agent instructions are conventionally written in Markdown.
 - RAG and document-ingestion frameworks use Markdown as their standard intermediate format — if you are building retrieval systems, see [preparing PDFs for RAG pipelines](/blog/pdf-to-markdown-for-rag-pipelines).
 - Note tools like [Obsidian](/blog/pdf-to-markdown-for-obsidian), code editors with AI assistants, and dataset preparation pipelines all speak Markdown natively.

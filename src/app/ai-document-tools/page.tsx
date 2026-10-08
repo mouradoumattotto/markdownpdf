@@ -5,7 +5,7 @@ import HubPage from "@/components/HubPage";
 export const metadata: Metadata = {
   title: "AI Document Tools for ChatGPT & RAG",
   description:
-    "Free tools to get documents ready for ChatGPT, Claude, NotebookLM and RAG: convert PDFs to Markdown, split to upload limits, count tokens, chunk text. No upload.",
+    "Free tools to prep documents for ChatGPT, Claude, NotebookLM and RAG: convert PDFs to Markdown, split to upload limits, count tokens, chunk text. No upload.",
   alternates: { canonical: "/ai-document-tools" },
   openGraph: {
     title: "AI document tools that never upload your files",

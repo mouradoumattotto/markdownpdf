@@ -110,6 +110,10 @@ No. With the [browser-based converter](/), the file is processed locally on your
 
 Markdown, in nearly every case. Plain text loses the structural signals — headings, lists, table boundaries — that help Claude navigate a document. Markdown keeps them with almost no extra characters, and Claude reads and writes it natively.
 
+### Can I turn Claude's answer back into a PDF?
+
+Yes. Claude writes its answers in Markdown, so copy the response and paste it into the [Markdown to PDF converter](/md-to-pdf). Headings, tables and code blocks come out as a formatted PDF you can send, and like the other tools here it runs in your browser.
+
 Convert your first document with the free [PDF to Markdown converter](/) and compare Claude's answers before and after — the difference is usually obvious from the very first question.
 
 One more thing worth knowing before you upload: every tool caps what a single file may contain, in words, tokens or megabytes. The verified numbers are in [AI file upload limits](/blog/ai-file-upload-limits), and [Split PDF for AI](/split-pdf-for-ai) cuts a document down to parts Claude will accept.

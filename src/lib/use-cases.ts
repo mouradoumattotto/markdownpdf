@@ -26,9 +26,9 @@ export const USE_CASES: UseCase[] = [
     slug: "lawyers",
     name: "Lawyers & legal teams",
     glyph: "§",
-    title: "PDF to Markdown for Lawyers — Privileged Files Stay Local",
+    title: "PDF to Markdown for Lawyers — Files Stay Local",
     description:
-      "Convert contracts, briefs and discovery PDFs to text or Markdown without uploading them. Runs in the browser, so privileged documents never reach a third-party server.",
+      "Convert contracts, briefs and discovery PDFs to text or Markdown without uploading them. It runs in your browser, so privileged files never reach a third party.",
     h1: "PDF conversion for lawyers, without uploading a single file",
     lead:
       "Contracts, pleadings and productions arrive as PDFs. Getting their text out usually means sending them to someone else's server — a problem when the document is privileged. Here, the conversion runs on your own computer.",
@@ -93,9 +93,9 @@ export const USE_CASES: UseCase[] = [
     slug: "researchers",
     name: "Researchers & academics",
     glyph: "R",
-    title: "PDF to Markdown for Researchers — Papers, Notes and AI",
+    title: "PDF to Markdown for Researchers and Papers",
     description:
-      "Convert research papers to Markdown with two-column layouts read in order, tables rebuilt and figures extracted. For notes, literature reviews and AI tools. Free, no upload.",
+      "Convert research papers to Markdown: two-column layouts read in order, tables rebuilt, figures extracted. For notes, reviews and AI tools. Free, no upload.",
     h1: "Research papers to Markdown, columns and tables included",
     lead:
       "A paper is laid out for print: two columns, floating tables, figures, footnotes. Copying its text gives you sentences in the wrong order. Converted properly, it becomes notes you can search, quote and feed to the tools you use.",
@@ -159,7 +159,7 @@ export const USE_CASES: UseCase[] = [
     slug: "finance",
     name: "Finance & accounting",
     glyph: "$",
-    title: "PDF Tables to Excel/CSV for Finance — Statements, Reports, Filings",
+    title: "PDF Tables to Excel/CSV for Finance Teams",
     description:
       "Get the tables out of financial PDFs — statements, annual reports, filings — as CSV for Excel or Sheets. Detected in your browser, nothing uploaded.",
     h1: "Financial PDFs to spreadsheets, without retyping a number",
@@ -220,7 +220,7 @@ export const USE_CASES: UseCase[] = [
     slug: "students",
     name: "Students",
     glyph: "S",
-    title: "PDF to Markdown for Students — Notes, Flashcards and AI Study",
+    title: "PDF to Markdown for Students — Notes & AI",
     description:
       "Turn course PDFs, slides and readings into Markdown notes you can edit, search, turn into flashcards or study with an AI. Free, no account, works on your phone.",
     h1: "Course PDFs into notes you can actually study from",
