@@ -7,8 +7,6 @@ import { CancelledError, baseName, classifyPdfError, saveBlob, sniffMessage, sni
 import type { ImageFormat } from "@/lib/pdf-images";
 import FileDropzone, { ErrorAlert, PrivacyNote, ProgressBar, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 
-const TOOL = "pdf-to-jpg";
-
 const RESOLUTIONS = [
   { dpi: 72, label: "72 dpi — screen, smallest files" },
   { dpi: 150, label: "150 dpi — sharp on screen (recommended)" },
@@ -35,7 +33,14 @@ type Phase =
 
 const now = () => performance.now();
 
-export default function PdfToImagesTool({ defaultFormat = "jpeg" }: { defaultFormat?: ImageFormat }) {
+export default function PdfToImagesTool({
+  defaultFormat = "jpeg",
+  tool: TOOL = "pdf-to-jpg",
+}: {
+  defaultFormat?: ImageFormat;
+  /** Analytics name: the same tool serves /pdf-to-jpg and /pdf-to-png. */
+  tool?: string;
+}) {
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
   const [file, setFile] = useState<{ name: string; data: ArrayBuffer; pages: number } | null>(null);
   const [format, setFormat] = useState<ImageFormat>(defaultFormat);

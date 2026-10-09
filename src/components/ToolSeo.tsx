@@ -2,6 +2,7 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { getPost } from "@/lib/blog";
 import { SITE } from "@/lib/site";
+import { TILE, toolBadge } from "@/lib/tool-badge";
 import {
   CATEGORIES,
   TOOLS,
@@ -104,47 +105,6 @@ export function ToolJsonLd({ slug, description }: { slug: string; description: s
       <BreadcrumbJsonLd crumbs={toolCrumbs(tool)} />
     </>
   );
-}
-
-/** Short mono glyph on each card tile, as in the "Hub rouge" design. */
-const GLYPHS: Record<string, string> = {
-  "pdf-to-markdown": "MD",
-  "markdown-to-pdf": "PDF",
-  "split-pdf-for-ai": "AI",
-  "pdf-metadata": "META",
-  "pdf-to-text": "TXT",
-  "ocr-pdf": "OCR",
-  "image-to-text": "IMG",
-  "docx-to-markdown": "DOC",
-  "html-to-markdown": "HTML",
-  "markdown-to-html": "</>",
-  "split-pdf": "SPLT",
-  "merge-pdf": "+",
-  "pdf-to-jpg": "JPG",
-  "jpg-to-pdf": "PDF",
-  "organize-pdf": "ORG",
-  "markdown-to-docx": "DOCX",
-  "markdown-table-generator": "TBL",
-  "token-counter": "TOK",
-  "markdown-chunker": "RAG",
-  "text-diff": "DIFF",
-  "markdown-editor": "EDIT",
-  "pdf-tables-to-csv": "CSV",
-  "batch-pdf-to-markdown": "×N",
-  "pdf-to-obsidian": "OB",
-};
-
-/** Tile colour per primary category: the brand red for PDF tools, then fixed hues. */
-const TILE: Record<CategoryId, string> = {
-  pdf: "oklch(0.58 0.21 27)",
-  ocr: "oklch(0.6 0.15 150)",
-  markdown: "oklch(0.55 0.17 262)",
-  ai: "oklch(0.6 0.13 200)",
-};
-
-/** The coloured tile shown beside a tool everywhere: cards, menu, related links. */
-export function toolBadge(tool: Tool): { glyph: string; tile: string } {
-  return { glyph: GLYPHS[tool.slug] ?? tool.output[0].slice(0, 3).toUpperCase(), tile: TILE[tool.categories[0]] };
 }
 
 /** Tools grouped under their primary category, for the header menus. */

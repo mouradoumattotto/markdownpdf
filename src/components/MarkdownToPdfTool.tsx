@@ -7,6 +7,7 @@ import type { ImageAssets } from "@/lib/markdown-rich";
 import { saveBlob } from "@/lib/files";
 import { ErrorAlert, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 import { useMarkdownPreview } from "@/components/useMarkdownPreview";
+import { useHandoff } from "@/lib/handoff";
 
 const SAMPLE = `# Project Proposal
 
@@ -193,6 +194,8 @@ export default function MarkdownToPdfTool() {
     reader.onload = () => setMarkdown(String(reader.result ?? ""));
     reader.readAsText(file);
   };
+
+  useHandoff(".md,.markdown,.txt,text/markdown,text/plain", loadFile);
 
   const addImages = (files: FileList | null) => {
     if (!files?.length) return;

@@ -7,8 +7,8 @@ import { CancelledError, saveBlob } from "@/lib/files";
 import type { Orientation, PageSize } from "@/lib/pdf-images";
 import FileDropzone, { ErrorAlert, PrivacyNote, ProgressBar, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 import SortableList, { byName } from "@/components/SortableList";
+import ContinueWith from "@/components/ContinueWith";
 
-const TOOL = "jpg-to-pdf";
 const ACCEPT = "image/jpeg,image/png,image/webp,image/gif,image/bmp";
 const MAX_FILES = 100;
 
@@ -34,11 +34,18 @@ const MARGINS = [
 let nextId = 1;
 const now = () => performance.now();
 
-export default function ImagesToPdfTool() {
+export default function ImagesToPdfTool({
+  tool: TOOL = "jpg-to-pdf",
+  defaultPageSize = "a4",
+}: {
+  /** Analytics name: the same tool serves /jpg-to-pdf and /png-to-pdf. */
+  tool?: string;
+  defaultPageSize?: PageSize;
+}) {
   const [items, setItems] = useState<Item[]>([]);
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
   const [skipped, setSkipped] = useState<string[]>([]);
-  const [pageSize, setPageSize] = useState<PageSize>("a4");
+  const [pageSize, setPageSize] = useState<PageSize>(defaultPageSize);
   const [orientation, setOrientation] = useState<Orientation>("auto");
   const [margin, setMargin] = useState(18);
   const abortRef = useRef<AbortController | null>(null);
@@ -312,6 +319,14 @@ export default function ImagesToPdfTool() {
             Download images.pdf
           </button>
         </div>
+      )}
+      {phase.kind === "built" && (
+        <ContinueWith
+          className="mt-3"
+          from={TOOL}
+          targets={["ocr-pdf", "merge-pdf", "organize-pdf", "redact-pdf"]}
+          file={() => new File([phase.bytes as BlobPart], "images.pdf", { type: "application/pdf" })}
+        />
       )}
     </div>
   );

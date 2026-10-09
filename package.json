@@ -17,6 +17,7 @@
     "seo:dataforseo": "node scripts/dataforseo.mjs"
   },
   "dependencies": {
+    "@cantoo/pdf-lib": "^2.11.1",
     "@joplin/turndown-plugin-gfm": "^1.0.68",
     "@next/third-parties": "^16.3.6",
     "@tailwindcss/typography": "^0.5.20",
@@ -48,7 +49,6 @@
     "turndown": "^7.2.4"
   },
   "devDependencies": {
-    "@cantoo/pdf-lib": "^2.11.1",
     "@pdf-lib/fontkit": "^1.1.1",
     "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4",

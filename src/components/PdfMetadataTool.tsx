@@ -5,6 +5,7 @@ import { formatBytes } from "@/lib/ai-limits";
 import { pageBucket, sizeBucket, track } from "@/lib/analytics";
 import { baseName, classifyPdfError, saveBlob, sniffMessage, sniffPdf } from "@/lib/files";
 import { METADATA_FIELDS, type MetadataField, type MetadataReport, type MetadataValues } from "@/lib/pdf-metadata";
+import ContinueWith from "@/components/ContinueWith";
 import FileDropzone, { ErrorAlert, PrivacyNote, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 
 const TOOL = "pdf-metadata";
@@ -236,6 +237,12 @@ export default function PdfMetadataTool() {
               <button type="button" onClick={() => download(state.bytes, state.name)} className={`${primaryButton} mt-3`}>
                 Download {state.name}
               </button>
+              <ContinueWith
+                className="mt-3 bg-white"
+                from={TOOL}
+                targets={["redact-pdf", "merge-pdf", "organize-pdf", "pdf-to-markdown"]}
+                file={() => new File([state.bytes as BlobPart], state.name, { type: "application/pdf" })}
+              />
             </div>
           )}
         </div>

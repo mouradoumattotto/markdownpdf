@@ -5,6 +5,7 @@ import { formatBytes } from "@/lib/ai-limits";
 import { countBucket, durationBucket, pageBucket, sizeBucket, track } from "@/lib/analytics";
 import { CancelledError, classifyPdfError, saveBlob, sniffPdf } from "@/lib/files";
 import SortableList, { byName } from "@/components/SortableList";
+import ContinueWith from "@/components/ContinueWith";
 import FileDropzone, { ErrorAlert, PrivacyNote, ProgressBar, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 
 const TOOL = "merge-pdf";
@@ -207,6 +208,14 @@ export default function MergePdfTool() {
             Download merged.pdf
           </button>
         </div>
+      )}
+      {phase.kind === "merged" && (
+        <ContinueWith
+          className="mt-3"
+          from={TOOL}
+          targets={["organize-pdf", "pdf-to-markdown", "split-pdf-for-ai", "ocr-pdf", "pdf-metadata"]}
+          file={() => new File([phase.bytes as BlobPart], "merged.pdf", { type: "application/pdf" })}
+        />
       )}
     </div>
   );

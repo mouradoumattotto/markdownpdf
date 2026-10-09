@@ -10,7 +10,9 @@
 - **OCR**: [OCR PDF](https://markdownpdf.app/ocr-pdf), [image to text](https://markdownpdf.app/image-to-text), [PDF to text](https://markdownpdf.app/pdf-to-text).
 - **For AI workflows**: [token counter](https://markdownpdf.app/token-counter), [Markdown chunker](https://markdownpdf.app/markdown-chunker), [split PDF for AI](https://markdownpdf.app/split-pdf-for-ai).
 - **Markdown utilities**: [table generator](https://markdownpdf.app/markdown-table-generator), [editor](https://markdownpdf.app/markdown-editor), [text diff](https://markdownpdf.app/text-diff).
-- **PDF utilities**: [merge](https://markdownpdf.app/merge-pdf), [split](https://markdownpdf.app/split-pdf), [organize](https://markdownpdf.app/organize-pdf), [metadata](https://markdownpdf.app/pdf-metadata), [JPG to PDF](https://markdownpdf.app/jpg-to-pdf), [PDF to JPG](https://markdownpdf.app/pdf-to-jpg).
+- **PDF utilities**: [merge](https://markdownpdf.app/merge-pdf), [split](https://markdownpdf.app/split-pdf), [organize](https://markdownpdf.app/organize-pdf), [metadata](https://markdownpdf.app/pdf-metadata), [redact](https://markdownpdf.app/redact-pdf), [unlock](https://markdownpdf.app/unlock-pdf), [JPG to PDF](https://markdownpdf.app/jpg-to-pdf), [PNG to PDF](https://markdownpdf.app/png-to-pdf), [PDF to JPG](https://markdownpdf.app/pdf-to-jpg), [PDF to PNG](https://markdownpdf.app/pdf-to-png).
+- **Other formats**: [EPUB to PDF](https://markdownpdf.app/epub-to-pdf), [PDF to EPUB](https://markdownpdf.app/pdf-to-epub), [HTML to PDF](https://markdownpdf.app/html-to-pdf).
+- **Continue with**: every result can be sent straight into the next tool (PDF → Markdown → chunker, images → PDF → OCR…). The file is handed over through the browser's IndexedDB, never a server.
 
 ## Why client-side
 

@@ -10,7 +10,7 @@ const DESCRIPTION =
   "Convert PDF pages to JPG or PNG images at 72, 150 or 300 dpi — all pages or a selection. Free, no upload: the PDF is rendered in your browser.";
 
 export const metadata: Metadata = {
-  title: "PDF to JPG (or PNG) — Free, No Upload",
+  title: "PDF to JPG — Free, High Quality, No Upload",
   description: DESCRIPTION,
   alternates: { canonical: "/pdf-to-jpg" },
   openGraph: {
@@ -87,7 +87,8 @@ export default function PdfToJpgPage() {
           <p>
             To put images <em>into</em> a PDF — photos of receipts, scanned pages, screenshots — use{" "}
             <Link href="/jpg-to-pdf">JPG to PDF</Link>. To keep a scanned PDF as a PDF but make its text searchable,
-            use <Link href="/ocr-pdf">OCR a PDF</Link>.
+            use <Link href="/ocr-pdf">OCR a PDF</Link>. For diagrams and pages of text, where every edge should stay
+            sharp, <Link href="/pdf-to-png">PDF to PNG</Link> renders lossless images instead.
           </p>
         </div>
       </section>
@@ -103,7 +104,9 @@ export default function PdfToJpgPage() {
       <section className="mx-auto max-w-3xl px-4 py-12">
         <h2 className="text-xl font-extrabold text-neutral-900">Limitations</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600">
-          <li>Password-protected PDFs must be unlocked first.</li>
+          <li>
+            Password-protected PDFs must be unlocked first, with <Link href="/unlock-pdf" className="text-indigo-600 underline">Unlock PDF</Link>.
+          </li>
           <li>Very large pages (posters, plans) are rendered at a reduced resolution to stay within browser limits; the tool tells you when that happens.</li>
           <li>All images are kept in memory until you download them, so hundreds of pages at 300 dpi need a capable device.</li>
           <li>Transparency is not kept: pages are rendered on white.</li>

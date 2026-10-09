@@ -28,6 +28,7 @@ import FileDropzone, {
 } from "@/components/FileDropzone";
 import OcrLanguageSelect, { useStoredOcrLanguage } from "@/components/OcrLanguageSelect";
 import PdfPagesView, { type PdfPagesApi } from "@/components/PdfPagesView";
+import ContinueWith from "@/components/ContinueWith";
 import { SAMPLES, getSample, sampleUrl, type Sample } from "@/lib/samples";
 
 export type ExtractMode = "markdown" | "text";
@@ -712,6 +713,17 @@ export default function PdfExtractTool({ mode = "markdown" }: { mode?: ExtractMo
               </div>
             </section>
           </div>
+
+          <ContinueWith
+            className="mt-3"
+            from={cfg.tool}
+            targets={
+              mode === "markdown"
+                ? ["markdown-chunker", "token-counter", "markdown-to-docx", "markdown-editor", "markdown-to-pdf"]
+                : ["token-counter", "markdown-chunker", "text-diff"]
+            }
+            file={() => new File([output], status.fileName, { type: cfg.mime.split(";")[0] })}
+          />
 
           {/* Phones: the two actions stay under the thumb. */}
           <div className="sticky bottom-0 z-10 -mx-3 mt-3 flex gap-2 border-t border-line bg-white/95 px-3 py-3 backdrop-blur lg:hidden">

@@ -26,7 +26,8 @@ export type ToolEvent =
   | "ocr_start"
   | "ocr_complete"
   | "output_download"
-  | "output_copy";
+  | "output_copy"
+  | "continue_with";
 
 export type ErrorCode =
   | "not_supported_type"

@@ -48,7 +48,7 @@ export function classifyPdfError(err: unknown): ClassifiedError {
   if (name === "PasswordException" || /password|encrypt/i.test(msg)) {
     return {
       code: "encrypted",
-      message: "This PDF is password-protected or encrypted. Open it with its password and save an unprotected copy first.",
+      message: "This PDF is password-protected or encrypted. Remove the protection with Unlock PDF (markdownpdf.app/unlock-pdf), then try again.",
     };
   }
   if (name === "InvalidPDFException" || /invalid pdf|no pdf header|failed to parse/i.test(msg)) {

@@ -89,7 +89,8 @@ export default function JpgToPdfPage() {
             Photos of documents are just pictures, so the PDF cannot be searched yet. Run it through{" "}
             <Link href="/ocr-pdf">OCR a PDF</Link> to add an invisible text layer, or pull the text straight out with{" "}
             <Link href="/image-to-text">Image to Text</Link>. Already have PDFs to add to the result?{" "}
-            <Link href="/merge-pdf">Merge PDF</Link> combines them.
+            <Link href="/merge-pdf">Merge PDF</Link> combines them. Mostly screenshots?{" "}
+            <Link href="/png-to-pdf">PNG to PDF</Link> keeps them lossless, with each page sized to its image.
           </p>
         </div>
       </section>

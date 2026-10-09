@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useHandoff } from "@/lib/handoff";
 
 interface Props {
   /** Passed to <input accept>, e.g. ".pdf,application/pdf". */
@@ -20,6 +21,8 @@ interface Props {
   dropAnywhere?: boolean;
   /** Receives the zone's "open the file picker" function (header CTA, "New file"). */
   pickerRef?: React.RefObject<(() => void) | null>;
+  /** Receive a file sent here by another tool's "Continue with" (default true). */
+  handoff?: boolean;
 }
 
 function UploadIcon({ className }: { className: string }) {
@@ -57,8 +60,10 @@ export default function FileDropzone({
   compact = false,
   dropAnywhere = false,
   pickerRef,
+  handoff = true,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
+  useHandoff(accept, (file) => onFiles([file]), handoff && !disabled);
   const [dragOver, setDragOver] = useState(false);
   const [pageDrag, setPageDrag] = useState(false);
 

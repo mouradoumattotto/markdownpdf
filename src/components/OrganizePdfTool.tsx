@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { formatBytes } from "@/lib/ai-limits";
 import { durationBucket, pageBucket, sizeBucket, track } from "@/lib/analytics";
 import { CancelledError, baseName, classifyPdfError, saveBlob, sniffMessage, sniffPdf, throwIfAborted } from "@/lib/files";
+import ContinueWith from "@/components/ContinueWith";
 import FileDropzone, { ErrorAlert, PrivacyNote, ProgressBar, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 
 const TOOL = "organize-pdf";
@@ -305,6 +306,14 @@ export default function OrganizePdfTool() {
             Download {baseName(file.name)}-organized.pdf
           </button>
         </div>
+      )}
+      {phase.kind === "saved" && (
+        <ContinueWith
+          className="mt-3"
+          from={TOOL}
+          targets={["pdf-to-markdown", "merge-pdf", "redact-pdf", "pdf-metadata", "split-pdf"]}
+          file={() => new File([phase.bytes as BlobPart], `${baseName(file.name)}-organized.pdf`, { type: "application/pdf" })}
+        />
       )}
     </div>
   );

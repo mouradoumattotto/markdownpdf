@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { durationBucket, sizeBucket, track, type ErrorCode } from "@/lib/analytics";
 import { baseName, saveBlob } from "@/lib/files";
 import type { DocxImageMode, DocxResult } from "@/lib/html-markdown";
+import ContinueWith from "@/components/ContinueWith";
 import FileDropzone, { ErrorAlert, PrivacyNote, primaryButton, toolCard } from "@/components/FileDropzone";
 import TextOutput, { wordCount } from "@/components/TextOutput";
 
@@ -192,6 +193,12 @@ export default function DocxToMarkdownTool() {
                 </button>
               ) : undefined
             }
+          />
+          <ContinueWith
+            className="mt-3"
+            from={TOOL}
+            targets={["markdown-to-pdf", "markdown-chunker", "token-counter", "markdown-editor"]}
+            file={() => new File([markdown], mdName, { type: "text/markdown" })}
           />
           {done.result.warnings.length > 0 && (
             <details className="mt-3 text-sm text-neutral-600">

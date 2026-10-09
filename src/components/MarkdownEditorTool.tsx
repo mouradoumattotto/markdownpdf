@@ -9,6 +9,7 @@ import { detectFeatures } from "@/lib/markdown-render";
 import type { ImageAssets } from "@/lib/markdown-rich";
 import { ErrorAlert, secondaryButton, toolCard } from "@/components/FileDropzone";
 import { useMarkdownPreview } from "@/components/useMarkdownPreview";
+import { useHandoff } from "@/lib/handoff";
 
 const TOOL = "markdown-editor";
 const STORAGE_KEY = "mdpdf.editor.v1";
@@ -171,6 +172,13 @@ export default function MarkdownEditorTool() {
     setMarkdown(await file.text());
     setError(null);
   };
+
+  // A file sent here by another tool's "Continue with" replaces the document,
+  // after a confirmation if that would overwrite a draft of the visitor's own.
+  useHandoff(".md,.markdown,.txt,text/markdown,text/plain", (file) => {
+    if (markdown.trim() && markdown !== WELCOME && !window.confirm(`Open ${file.name}? Your current document will be replaced.`)) return;
+    void openFile(file);
+  });
 
   const newDocument = () => {
     if (markdown.trim() && markdown !== WELCOME && !window.confirm("Start a new document? The current one will be replaced (download it first to keep a copy).")) return;

@@ -55,8 +55,14 @@ export default function PdfToolsPage() {
           and deletes pages with a thumbnail of each.
         </li>
         <li>
-          <strong>You need images, or have images.</strong> <Link href="/pdf-to-jpg">PDF to JPG</Link> renders
-          pages as JPG or PNG; <Link href="/jpg-to-pdf">JPG to PDF</Link> turns photos and scans into one PDF.
+          <strong>You need images, or have images.</strong> <Link href="/pdf-to-jpg">PDF to JPG</Link> and{" "}
+          <Link href="/pdf-to-png">PDF to PNG</Link> render pages as images; <Link href="/jpg-to-pdf">JPG to PDF</Link>{" "}
+          and <Link href="/png-to-pdf">PNG to PDF</Link> turn photos, scans and screenshots into one PDF.
+        </li>
+        <li>
+          <strong>It is in another format.</strong> <Link href="/epub-to-pdf">EPUB to PDF</Link> makes a printable
+          PDF of an e-book, <Link href="/pdf-to-epub">PDF to EPUB</Link> a reflowable e-book of a PDF, and{" "}
+          <Link href="/html-to-pdf">HTML to PDF</Link> a clean document of a web page.
         </li>
         <li>
           <strong>You have two versions.</strong> <Link href="/text-diff">Compare text &amp; documents</Link> shows
@@ -64,7 +70,13 @@ export default function PdfToolsPage() {
         </li>
         <li>
           <strong>You are about to share it.</strong> The <Link href="/pdf-metadata">PDF metadata viewer</Link> shows
-          the author, software and dates hidden in the file, and removes them for good.
+          the author, software and dates hidden in the file, and removes them for good.{" "}
+          <Link href="/redact-pdf">Redact PDF</Link> blacks out names, numbers and signatures so they cannot be
+          copied back out.
+        </li>
+        <li>
+          <strong>It is locked.</strong> <Link href="/unlock-pdf">Unlock PDF</Link> removes the password from a PDF
+          you can open, so every other tool here can read it.
         </li>
         <li>
           <strong>You are going the other way.</strong> <Link href="/md-to-pdf">Markdown to PDF</Link> turns

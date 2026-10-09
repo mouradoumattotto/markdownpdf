@@ -5,38 +5,44 @@ import { formatBytes } from "@/lib/ai-limits";
 import { durationBucket, pageBucket, sizeBucket, track } from "@/lib/analytics";
 import { CancelledError, baseName, classifyPdfError, saveBlob, sniffMessage, sniffPdf } from "@/lib/files";
 import { DEFAULT_OCR_LANGUAGE, OCR_LANGUAGES, type OcrLanguage } from "@/lib/ocr";
-import type { OcrPdfProgress } from "@/lib/pdf-ocr";
-import ContinueWith from "@/components/ContinueWith";
+import type { ConversionProgress } from "@/lib/pdf-to-markdown";
 import FileDropzone, { ErrorAlert, PrivacyNote, ProgressBar, primaryButton, secondaryButton, toolCard } from "@/components/FileDropzone";
 import OcrLanguageSelect, { useStoredOcrLanguage } from "@/components/OcrLanguageSelect";
 
-const TOOL = "ocr-pdf";
+const TOOL = "pdf-to-epub";
+const BASE = { tool_name: TOOL, input_format: "pdf", output_format: "epub" };
+
+/** OCR language codes (ISO 639-2) to the BCP 47 tags an EPUB declares. */
+const BCP47: Record<OcrLanguage, string> = { eng: "en", fra: "fr", spa: "es", deu: "de", por: "pt", ita: "it", ara: "ar" };
 
 type State =
   | { kind: "idle" }
-  | { kind: "working"; progress: OcrPdfProgress | null }
-  | { kind: "done"; bytes: Uint8Array; name: string; pages: number; ocrPages: number; words: number; size: number }
+  | { kind: "working"; progress: ConversionProgress | null; building?: boolean }
+  | { kind: "done"; bytes: Uint8Array; name: string; title: string; pages: number; chapters: number; ocrPages: number }
   | { kind: "error"; message: string };
 
-function label(p: OcrPdfProgress | null, language: OcrLanguage): string {
+function label(state: Extract<State, { kind: "working" }>, language: OcrLanguage): string {
+  const p = state.progress;
+  if (state.building) return "Building the e-book…";
   if (!p) return "Reading the PDF…";
   if (p.stage === "loading_ocr") {
     const name = OCR_LANGUAGES.find((l) => l.code === language)?.label ?? "OCR";
     return `Loading the ${name} OCR engine…`;
   }
-  if (p.stage === "ocr") return `Recognising page ${p.page} of ${p.totalPages}…`;
-  if (p.stage === "assembling") return "Writing the searchable PDF…";
-  return `Checking page ${p.page} of ${p.totalPages}…`;
+  if (p.stage === "ocr") return `Recognising scanned page ${p.page} of ${p.totalPages}…`;
+  return `Reading page ${p.page} of ${p.totalPages}…`;
 }
 
-export default function OcrPdfTool() {
+const loadLibs = () => Promise.all([import("@/lib/pdf-to-markdown"), import("@/lib/epub")]);
+
+export default function PdfToEpubTool() {
   const [state, setState] = useState<State>({ kind: "idle" });
   const [language, setLanguage] = useState<OcrLanguage>(DEFAULT_OCR_LANGUAGE);
   useStoredOcrLanguage(setLanguage);
   const abortRef = useRef<AbortController | null>(null);
 
   const run = async (file: File) => {
-    const params = { tool_name: TOOL, input_format: "pdf", output_format: "pdf", file_size_bucket: sizeBucket(file.size) };
+    const params = { ...BASE, file_size_bucket: sizeBucket(file.size) };
     track("file_selected", params);
     const sniff = await sniffPdf(file);
     if (sniff !== "ok") {
@@ -49,12 +55,11 @@ export default function OcrPdfTool() {
     abortRef.current = controller;
     setState({ kind: "working", progress: null });
     track("conversion_start", params);
-    track("ocr_start", { ...params, ocr_language: language });
     const started = performance.now();
     try {
-      const { makeSearchablePdf } = await import("@/lib/pdf-ocr");
-      const result = await makeSearchablePdf(file, {
-        language,
+      const [{ convertPdfToMarkdown }, { markdownToEpub }] = await loadLibs();
+      const result = await convertPdfToMarkdown(file, {
+        ocrLanguage: language,
         signal: controller.signal,
         onProgress: (progress) => setState({ kind: "working", progress }),
       });
@@ -62,28 +67,25 @@ export default function OcrPdfTool() {
         ...params,
         page_count_bucket: pageBucket(result.pageCount),
         ocr_used: result.ocrPages > 0,
-        ocr_language: language,
+        ocr_language: result.ocrPages > 0 ? language : undefined,
         duration_bucket: durationBucket(performance.now() - started),
       };
-      track("ocr_complete", done);
-      if (result.ocrPages === 0) {
+      if (!result.output.trim()) {
         track("conversion_error", { ...done, error_code: "no_text_found" });
-        setState({
-          kind: "error",
-          message:
-            "Every page of this PDF already contains real text — it is searchable as it is. Use PDF to Text or PDF to Markdown if you want the text out of it.",
-        });
+        setState({ kind: "error", message: "No text could be found in this PDF, so there is nothing to put in an e-book." });
         return;
       }
+      setState({ kind: "working", progress: null, building: true });
+      const epub = await markdownToEpub(result.output, { fallbackTitle: baseName(file.name), language: BCP47[language] });
       track("conversion_success", done);
       setState({
         kind: "done",
-        bytes: result.bytes,
-        name: `${baseName(file.name)}-searchable.pdf`,
+        bytes: epub.bytes,
+        name: `${baseName(file.name)}.epub`,
+        title: epub.title,
         pages: result.pageCount,
+        chapters: epub.chapters,
         ocrPages: result.ocrPages,
-        words: result.wordsAdded,
-        size: result.bytes.byteLength,
       });
     } catch (err) {
       if (err instanceof CancelledError || controller.signal.aborted) {
@@ -102,7 +104,7 @@ export default function OcrPdfTool() {
 
   const working = state.kind === "working";
   const progressValue =
-    working && state.progress ? state.progress.page / Math.max(1, state.progress.totalPages) : 0;
+    state.kind === "working" && state.progress ? state.progress.page / Math.max(1, state.progress.totalPages) : 0;
 
   return (
     <div className={toolCard}>
@@ -110,15 +112,14 @@ export default function OcrPdfTool() {
         accept=".pdf,application/pdf"
         disabled={working}
         onFiles={([f]) => f && run(f)}
-        onDragIntent={() => void import("@/lib/pdf-ocr")}
-        label="Drop a scanned PDF"
+        onDragIntent={() => void loadLibs()}
+        label="Drop a PDF to turn into an e-book"
         hint={<PrivacyNote />}
       >
-        {working ? (
+        {state.kind === "working" ? (
           <div className="w-full max-w-sm space-y-4" aria-live="polite">
-            <p className="font-semibold text-neutral-900">{label(state.progress, language)}</p>
-            {state.progress && <ProgressBar value={progressValue} label="OCR progress" />}
-            <p className="text-xs text-neutral-500">Pages that already contain text are kept exactly as they are.</p>
+            <p className="font-semibold text-neutral-900">{label(state, language)}</p>
+            {state.progress && <ProgressBar value={progressValue} label="Conversion progress" />}
           </div>
         ) : undefined}
       </FileDropzone>
@@ -135,32 +136,24 @@ export default function OcrPdfTool() {
       {state.kind === "error" && <ErrorAlert message={state.message} />}
 
       {state.kind === "done" && (
-        <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4" data-testid="ocr-done">
-          <p className="font-semibold text-emerald-900">Your searchable PDF is ready</p>
+        <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4" data-testid="pdf-epub-done">
+          <p className="font-semibold text-emerald-900">“{state.title}” is ready as an EPUB</p>
           <p className="mt-1 text-sm text-emerald-800">
-            {state.ocrPages} of {state.pages} {state.pages === 1 ? "page" : "pages"} recognised ·{" "}
-            {state.words.toLocaleString()} words added · {formatBytes(state.size)}. The pages look exactly the same;
-            the text sits invisibly on top.
+            {state.pages} {state.pages === 1 ? "page" : "pages"} → {state.chapters}{" "}
+            {state.chapters === 1 ? "chapter" : "chapters"} · {formatBytes(state.bytes.byteLength)}
+            {state.ocrPages > 0 && ` · ${state.ocrPages} scanned ${state.ocrPages === 1 ? "page" : "pages"} read with OCR`}
           </p>
           <button
             type="button"
             onClick={() => {
-              saveBlob(new Blob([state.bytes as BlobPart], { type: "application/pdf" }), state.name);
-              track("output_download", { tool_name: TOOL, input_format: "pdf", output_format: "pdf" });
+              saveBlob(new Blob([state.bytes as BlobPart], { type: "application/epub+zip" }), state.name);
+              track("output_download", BASE);
             }}
             className={`${primaryButton} mt-3`}
           >
             Download {state.name}
           </button>
         </div>
-      )}
-      {state.kind === "done" && (
-        <ContinueWith
-          className="mt-3"
-          from={TOOL}
-          targets={["pdf-to-markdown", "pdf-to-text", "redact-pdf", "split-pdf-for-ai", "pdf-to-epub"]}
-          file={() => new File([state.bytes as BlobPart], state.name, { type: "application/pdf" })}
-        />
       )}
     </div>
   );
