@@ -1,9 +1,9 @@
 ---
 title: PDF vs Word vs Markdown - Which Format to Use When
-seoTitle: PDF vs Word vs Markdown
-description: PDF vs Word vs Markdown compared on fidelity, editability, longevity and collaboration - with head-to-head tables and clear recommendations by scenario.
+seoTitle: PDF vs Markdown vs Word: Which to Use
+description: PDF for fixed layout, Word for editing with others, Markdown for notes, docs and AI. Compared on fidelity, editing and longevity, with tables.
 date: 2026-06-14
-updated: 2026-09-17
+updated: 2026-11-02
 author: Mourad Oumita
 ---
 
@@ -115,6 +115,7 @@ No format decision is permanent, but conversion quality varies by direction:
 - **Word → Markdown** is usually clean for normal documents; elaborate formatting (text boxes, multi-column layouts) has no Markdown equivalent and gets flattened. The [Word to Markdown converter](/docx-to-markdown) does it in your browser, and the [Word to Markdown guide](/blog/convert-word-to-markdown) explains how to prepare a document so headings and tables survive.
 - **PDF → anything** is the hard direction, because a PDF stores positioned characters rather than document structure. Good converters reconstruct headings, paragraphs, and lists from the layout — our [PDF to Markdown converter](/) does this locally in your browser, including OCR for scanned files. The practical details are in our [PDF to Markdown guide](/blog/how-to-convert-pdf-to-markdown).
 - **Word ↔ PDF** is built into every word processor (export) — but the reverse, editing a PDF in Word, gives mixed results for the same structural reasons.
+- **PDF → e-reader** is where all three fall short: a PDF keeps its page size on a 6-inch screen. [PDF to EPUB](/pdf-to-epub) rebuilds the text as a reflowable e-book, and [EPUB to PDF](/epub-to-pdf) goes the other way when you need pages to print or annotate.
 
 The general rule: **author in an editable format, export to PDF last.** Going "downstream" to PDF is easy; clawing content back "upstream" is the painful direction.
 

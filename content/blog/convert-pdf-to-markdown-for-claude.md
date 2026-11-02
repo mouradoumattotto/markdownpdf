@@ -4,6 +4,7 @@ seoTitle: Convert PDF to Markdown for Claude AI
 description: Convert a PDF to Markdown before feeding it to Claude for cleaner answers, better Projects knowledge, and reliable long-document analysis. Free browser guide.
 author: Mourad Oumita
 date: 2026-07-07
+updated: 2026-11-02
 ---
 
 Claude is very good at reading documents — but it can only work with the text it actually receives. When you hand Claude a raw PDF, or paste text copied straight out of one, you are often giving it damaged input: sentences split across line breaks, page headers repeated every few paragraphs, tables flattened into word soup, and columns read in the wrong order. Claude compensates, but garbled input still leads to weaker, less reliable answers.
@@ -43,6 +44,8 @@ You do not need to install anything. Here is the workflow with a free browser-ba
 3. **Run OCR if the PDF is scanned.** A scanned or photographed page has no text layer to extract. Built-in OCR recognizes the characters from the page images instead. For background, see the [guide to OCR for scanned PDFs](/blog/extract-text-from-scanned-pdf).
 4. **Review the output.** Skim for anything mangled — complex tables and multi-column layouts are the usual suspects. Promote any heading that came through as plain bold text to a real `##` heading.
 5. **Copy or download the Markdown.** Paste it into a Claude chat, or save the `.md` file to attach or reuse later.
+
+If the PDF asks for a password when you open it, no converter can read its text until the protection is removed: [Unlock PDF](/unlock-pdf) does that in the browser with the password you already have. And if the document contains names or account numbers you would rather not hand to an AI, [Redact PDF](/redact-pdf) blacks them out for good before you convert.
 
 If you want conversion options beyond the browser, the full [how to convert PDF to Markdown guide](/blog/how-to-convert-pdf-to-markdown) covers command-line tools and edge cases.
 

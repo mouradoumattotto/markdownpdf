@@ -1,9 +1,9 @@
 ---
 title: AI File Upload Limits in 2026 — NotebookLM, ChatGPT, Claude, Gemini
-seoTitle: AI File Upload Limits (2026)
-description: What NotebookLM, ChatGPT, Claude and Gemini actually accept per file, what happens when you go over, and the two fixes that work - with sources and dates.
+seoTitle: Claude, ChatGPT & NotebookLM Upload Limits
+description: Max file size, pages and sources for Claude, ChatGPT, NotebookLM and Gemini in 2026, what happens when you go over, and the two fixes that work.
 date: 2026-09-22
-updated: 2026-09-22
+updated: 2026-11-02
 author: Mourad Oumita
 ---
 

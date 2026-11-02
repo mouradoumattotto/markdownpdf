@@ -1,9 +1,9 @@
 ---
 title: PDF to Markdown for NotebookLM — Free, No Upload, With OCR
-seoTitle: PDF to Markdown for NotebookLM (+ OCR)
-description: Stop feeding NotebookLM messy PDFs. Convert them to clean Markdown in your browser in seconds — headings preserved, OCR for scans, nothing ever uploaded.
+seoTitle: NotebookLM OCR: Scanned PDFs to Markdown
+description: Can NotebookLM read scanned PDFs or .md files? Why its PDF extraction is hit-or-miss, and how to convert to clean Markdown with OCR first, free.
 date: 2026-06-11
-updated: 2026-09-22
+updated: 2026-11-02
 author: Mourad Oumita
 ---
 
