@@ -38,6 +38,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  // AdSense site verification: the ad script itself loads lazily on the
+  // client, so the crawler may not see it in the server-rendered HTML.
+  ...(process.env.NEXT_PUBLIC_ADSENSE_CLIENT && {
+    other: { "google-adsense-account": process.env.NEXT_PUBLIC_ADSENSE_CLIENT },
+  }),
 };
 
 export const viewport: Viewport = {
