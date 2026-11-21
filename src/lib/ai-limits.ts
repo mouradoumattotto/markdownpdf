@@ -7,7 +7,7 @@
  * tokens, the word equivalent is an estimate and is labelled as such.
  */
 
-export const CHECKED_ON = "2026-09-18";
+export const CHECKED_ON = "2026-11-21";
 
 const MB = 1024 * 1024;
 
@@ -38,7 +38,7 @@ export const AI_TARGETS: AiTarget[] = [
     maxWords: 500_000,
     maxBytes: 200 * MB,
     summary: "500,000 words or 200 MB per source",
-    note: "Up to 50 sources per notebook on the free plan; paid plans allow more.",
+    note: "Up to 50 sources per notebook on the free plan.",
     source: {
       label: "NotebookLM Help: Add or discover new sources",
       url: "https://support.google.com/notebooklm/answer/16215270",
@@ -76,7 +76,7 @@ export const AI_TARGETS: AiTarget[] = [
     name: "Gemini",
     maxBytes: 100 * MB,
     summary: "100 MB per file, up to 10 files per prompt",
-    note: "Gemini's default context holds roughly 1,500 pages of text in total.",
+    note: "The context window depends on the plan: 32k tokens without a plan, 128k on AI Plus, 1 million (roughly 1,500 pages) on AI Pro and Ultra.",
     source: { label: "Gemini Apps Help: Upload & analyze files", url: "https://support.google.com/gemini/answer/14903178" },
   },
 ];
